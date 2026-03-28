@@ -1,7 +1,8 @@
 import streamlit as st
 import os
 from PIL import Image
-
+from io import BytesIO
+from docx import Document
 
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -33,7 +34,7 @@ with col1:
         st.title("🛡️")
 
 with col2:
-    st.markdown("<h1 style='margin-top: 0;'>SDS - Generador de Anexos</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='margin-top: 0;'>Generador de Anexos de seguros</h1>", unsafe_allow_html=True)
     
 
 # --- BIBLIOTECA DE CLÁUSULAS (TEXTOS COMPLETOS) ---
@@ -115,7 +116,7 @@ def generar_anexo_completo(seguros_activos, nivel):
     doc.add_heading('1. OBLIGACIONES GENERALES', level=1)
     doc.add_paragraph(TEXTOS_LEGALES["GENERAL"]["encabezado"])
 
-    doc.add_heading('2. SEGUROS ESPECÍFICOS REQUERIDOS', level=1)
+    doc.add_heading('2. SEGUROS', level=1)
     if not seguros_activos:
         doc.add_paragraph("No se han determinado seguros específicos adicionales bajo el nivel de Riesgo Nulo.")
     else:
