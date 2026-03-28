@@ -21,35 +21,12 @@ with col1:
     p5 = st.checkbox("¿El trabajo se realizará en estaciones, andenes, vías, talleres ferroviarios o sectores con circulación de trenes o pasajeros?", value=False)
 
 with col2:
-    p6 = st.checkbox("¿La actividad corresponde a un trabajo menor de mantenimiento simple en la empresa? 
-        Debe cumplir todas estas condiciones:
-                  • duración corta (menor a 1 mes de trabajo)
-                  • uso herramientas manuales simples
-                  • sin trabajo en altura, ni andamios
-                  • sin maquinaria
-                  • sin intervención en infraestructura
-                  • sin afectar circulación ferroviaria o de pasajeros
-       Ejemplos: (pintura interior de oficina, reparación menor de mobiliario, cerrajería, etc)", value=False)
-    p7 = st.checkbox("¿La actividad requiere uso de equipos, maquinaria o de herramientas complejas en la empresa?
-Ejemplos: herramientas de corte y/o herramienta de calor y/o herramienta a explosión, equipos técnicos, maquinarias", value=False)
-    p8 = st.checkbox("¿La actividad incluye alguna de las siguientes tareas?
-         • trabajos en altura
-         • soldadura u oxicorte
-         • izaje de cargas
-         • intervención eléctrica
-         • uso de maquinaria pesada
-         • uso de armas de fuego
-         • suministro de alimentos", value=False)
-    p9 = st.checkbox("¿La actividad implica construir, instalar o montar una obra, sistema o equipos nuevo? 
-         Incluye:
-                       • obras civiles, 
-                       • refacciones estructurales, 
-                       • instalación de equipos (montaje o desmontaje) 
-                       • montaje de sistema electrico o mecánico
-        No incluye:
-                       • mantenimiento simple
-                       • refacciones menores
-                       • tareas de servicio", value=False)
+    p6 = st.checkbox("¿La actividad corresponde a un trabajo menor de mantenimiento simple en la empresa?  Debe cumplir todas estas condiciones: duración corta (menor a 1 mes de trabajo) - uso herramientas manuales simples - sin trabajo en altura, ni andamios
+ - sin maquinaria - sin intervención en infraestructura - sin afectar circulación ferroviaria o de pasajeros Ejemplos: (pintura interior de oficina, reparación menor de mobiliario, cerrajería, etc)", value=False)
+    p7 = st.checkbox("¿La actividad requiere uso de equipos, maquinaria o de herramientas complejas en la empresa? Ejemplos: herramientas de corte y/o herramienta de calor y/o herramienta a explosión, equipos técnicos, maquinarias", value=False)
+    p8 = st.checkbox("¿La actividad incluye alguna de las siguientes tareas? trabajos en altura - soldadura u oxicorte - izaje de cargas - intervención eléctrica - uso de maquinaria pesada - uso de armas de fuego - suministro de alimentos", value=False)
+    p9 = st.checkbox("¿La actividad implica construir, instalar o montar una obra, sistema o equipos nuevo? Incluye: obras civiles, refacciones estructurales, instalación de equipos (montaje o desmontaje), montaje de sistema electrico o mecánico - No incluye:
+mantenimiento simple, refacciones menores, tareas de servicio", value=False)
 
 # --- 2. MOTOR DE VALIDACIÓN (Sección 15.3) ---
 errores = []
