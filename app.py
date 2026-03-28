@@ -2,32 +2,46 @@ import streamlit as st
 import os
 from PIL import Image
 
+
+
 current_dir = os.path.dirname(os.path.abspath(__file__))
 logo_path = os.path.join(current_dir, "logotrenes.png")
 
-icon_result = "🛡️" # Valor por defecto
-logo_final = None
+logo_exists = os.path.exists(logo_path)
+logo_image = None
 
-if os.path.exists(logo_path):
+if logo_exists:
     try:
-        logo_final = Image.open(logo_path)
-        icon_result = logo_final  # Intentamos usar la imagen como icono
+        logo_image = Image.open(logo_path)
     except Exception as e:
-        st.error(f"Error al abrir la imagen: {e}")
-else:
-    st.warning(f"No se encontró el archivo en: {logo_path}")
+        # Si la imagen está corrupta o hay error, no hacemos nada aquí
+        pass
 
+# --- 3. CONFIGURACIÓN DE PÁGINA ---
 st.set_page_config(
-    page_title="SDS - Generador de Anexos", 
-    page_icon=icon_result,
+    page_title="SDS - Generador de Anexos",
+    # Mantenemos el escudo como icono de pestaña para un look profesional
+    # Si quisieras tu logo aquí también, cambiarías "🛡️" por logo_image,
+    # pero a veces se ve mal si el logo no es cuadrado.
+    page_icon="🛡️", 
     layout="centered"
 )
 
-if logo_final:
-    st.sidebar.image(logo_final, width=150)
-    st.sidebar.markdown("---")
-else:
-    st.sidebar.title("🛡️ SDS")
+col1, col2 = st.columns([1, 4])
+
+with col1:
+    if logo_exists and logo_image:
+        # Mostramos la imagen en la columna 1, ajustando el ancho
+        st.image(logo_image, width=100) # Ajusta width si el logo es muy grande/pequeño
+    else:
+        # Si no hay logo, ponemos un placeholder visual para que no quede vacío
+        st.title("🛡️")
+
+with col2:
+    # Mostramos el título en la columna 2, alineado con el logo
+    # Usamos markdown para un ajuste de estilo más fino si fuera necesario
+    st.markdown("<h1 style='margin-top: 0;'>SDS - Generador de Anexos</h1>", unsafe_allow_html=True)
+    # O simplemente st.title("SDS - Generador de Anexos")
     
 
 # --- BIBLIOTECA DE CLÁUSULAS (TEXTOS COMPLETOS) ---
