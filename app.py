@@ -36,8 +36,6 @@ st.set_page_config(
 if os.path.exists(PATH_IMAGEN):
      st.sidebar.image(PATH_IMAGEN, width=150)
 
-st.title("Generador de Anexos SDS")
-
 # --- BIBLIOTECA DE CLÁUSULAS (TEXTOS COMPLETOS) ---
 TEXTOS_LEGALES = {
     "GENERAL": {
