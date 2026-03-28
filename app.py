@@ -2,39 +2,29 @@ import streamlit as st
 from docx import Document
 from io import BytesIO
 from datetime import datetime
-import os # Necesario para verificar el path
-from PIL import Image # Necesario para abrir la imagen correctamente
+from PIL import Image
+import os
 
-# --- CONFIGURACIÓN DE IMAGEN (LOGOTRENES) ---
-# Definimos el path absoluto exacto que me indicaste
-PATH_IMAGEN = r"C:\Users\Usuario\Desktop\App seguros\logotrenes.jpeg"
+logo_path = "logotrenes.jpeg" 
 
-# Intentamos cargar la imagen. Si falla, usamos el emoji original como respaldo (fallback)
-icon_result = "🛡️" # Predeterminado
-
-if os.path.exists(PATH_IMAGEN):
-    try:
-        # Streamlit maneja mejor los objetos de imagen de PIL para el icono
-        img_logo = Image.open(PATH_IMAGEN)
-        icon_result = img_logo
-    except Exception as e:
-        st.error(f"Error al abrir la imagen: {e}")
+if os.path.exists(logo_path):
+    logo_final = Image.open(logo_path)
+    icon_result = logo_final
 else:
-    # Mostramos una advertencia en la app si la ruta no es válida en esta PC
-    st.warning(f"No se encontró el logo en: {PATH_IMAGEN}. Se usará el icono predeterminado.")
+    # Fallback por si el archivo no se encuentra
+    icon_result = "🛡️"
 
-
-# --- CONFIGURACIÓN DE PÁGINA ---
-# Ahora usamos 'icon_result', que será la imagen si se encontró, o el emoji si no.
+# --- CONFIGURACIÓN DE PÁGINA  ---
 st.set_page_config(
     page_title="SDS - Generador de Anexos", 
     page_icon=icon_result,
-    layout="centered" # O "wide", según prefieras
+    layout="centered"
 )
 
-# --- (Opcional) Mostrar el logo también en la barra lateral ---
-if os.path.exists(PATH_IMAGEN):
-     st.sidebar.image(PATH_IMAGEN, width=150)
+# --- IDENTIDAD VISUAL EN LA BARRA LATERAL ---
+if os.path.exists(logo_path):
+    st.sidebar.image(logo_path, width=150)
+    st.sidebar.markdown("---")
 
 # --- BIBLIOTECA DE CLÁUSULAS (TEXTOS COMPLETOS) ---
 TEXTOS_LEGALES = {
@@ -136,7 +126,8 @@ def generar_anexo_completo(seguros_activos, nivel):
 
 # --- INTERFAZ STREAMLIT ---
 st.title("🛡️ Generador de Anexos de Seguros")
-st.write("Responda el siguiente cuestionario para determinar los seguros aplicables. Al final se podrá descargar un archivo Word con el Anexo de seguros que corresponda contratar")
+st.write("""Responda el siguiente cuestionario para determinar los seguros aplicables. Al final se podrá descargar un archivo Word con el Anexo de seguros que corresponda contratar
+Versión 1.0 – 2026. Autores: Diego Martín Morris, Ignacio Khoury, Colaboradores: Claudia Grahl, Facundo Gonzalez, Gonzalo Dince, Analia Zalazar, Silvina Coronel. Fecha: 2026""")
 
 # Cuestionario Sí/No
 opciones = ["No", "Sí"]
