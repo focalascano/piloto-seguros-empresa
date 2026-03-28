@@ -5,7 +5,7 @@ from datetime import datetime
 from PIL import Image
 import os
 
-logo_path = "logotrenes.jpeg" 
+logo_path = "logotrenes.png" 
 
 if os.path.exists(logo_path):
     logo_final = Image.open(logo_path)
