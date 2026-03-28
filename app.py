@@ -125,10 +125,30 @@ def generar_anexo_completo(seguros_activos, nivel):
     return bio.getvalue()
 
 # --- INTERFAZ STREAMLIT ---
-st.title("🛡️ Generador de Anexos de Seguros")
-st.write("""Responda el siguiente cuestionario para determinar los seguros aplicables. Al final se podrá descargar un archivo Word con el Anexo de seguros que corresponda contratar
-Versión 1.0 – 2026. Autores: Diego Martín Morris, Ignacio Khoury, Colaboradores: Claudia Grahl, Facundo Gonzalez, Gonzalo Dince, Analia Zalazar, Silvina Coronel. Fecha: 2026""")
+col1, col2 = st.columns([1, 4]) # Ajusta los números para cambiar la proporción
 
+with col1:
+    if os.path.exists(logo_path):
+        st.image(logo_path, width=100)
+    else:
+        st.write("🛡️") # Fallback si no hay imagen
+
+with col2:
+    st.title("Generador de Anexos de Seguros")
+
+# --- INFORMACIÓN DE LA VERSIÓN Y AUTORES ---
+st.write("""
+Responda el siguiente cuestionario para determinar los seguros aplicables. 
+Al final se podrá descargar un archivo Word con el Anexo de seguros que corresponda contratar.
+""")
+
+st.caption("""
+**Versión 1.0 – 2026** **Autores:** Diego Martín Morris, Ignacio Khoury.  
+**Colaboradores:** Claudia Grahl, Facundo Gonzalez, Gonzalo Dince, Analia Zalazar, Silvina Coronel.  
+**Fecha:** 2026
+""")
+
+st.markdown("---")
 # Cuestionario Sí/No
 opciones = ["No", "Sí"]
 
