@@ -6,7 +6,7 @@ from datetime import datetime
 # --- CONFIGURACIÓN DE PÁGINA ---
 st.set_page_config(page_title="SDS - Generador de Anexos", page_icon="🛡️")
 
-# --- BIBLIOTECA DE CLÁUSULAS (TEXTOS COMPLETOS ACTUALIZADOS) ---
+# --- BIBLIOTECA DE CLÁUSULAS (TEXTOS COMPLETOS) ---
 TEXTOS_LEGALES = {
     "GENERAL": {
         "encabezado": "La Contratista deberá acreditar ante la empresa, con una antelación mínima de CINCO (5) días corridos al inicio de los trabajos y/o servicios, la contratación y vigencia de los seguros que resulten aplicables en función de la naturaleza y riesgos de la prestación, debiendo exigir el cumplimiento de esta obligación a los Subcontratistas que eventualmente participen en la ejecución de sus obligaciones contractuales, cuando la contratación así lo permita:",
@@ -82,11 +82,9 @@ def generar_anexo_completo(seguros_activos, nivel):
     doc = Document()
     doc.add_heading('ANEXO DE SEGUROS Y RESPONSABILIDADES', 0)
     
-    # 1. ENCABEZADO (Siempre primero)
     doc.add_heading('1. OBLIGACIONES GENERALES', level=1)
     doc.add_paragraph(TEXTOS_LEGALES["GENERAL"]["encabezado"])
 
-    # 2. CUERPO DE SEGUROS
     doc.add_heading('2. SEGUROS ESPECÍFICOS REQUERIDOS', level=1)
     if not seguros_activos:
         doc.add_paragraph("No se han determinado seguros específicos adicionales bajo el nivel de Riesgo Nulo.")
@@ -97,7 +95,6 @@ def generar_anexo_completo(seguros_activos, nivel):
             doc.add_paragraph(f"SUMA ASEGURADA MÍNIMA REQUERIDA: {s['suma']}")
             doc.add_paragraph("_" * 30)
 
-    # 3. REQUISITOS, VIGENCIA Y RESPONSABILIDAD (Siempre después de los seguros)
     doc.add_heading('3. CONDICIONES COMPLEMENTARIAS', level=1)
     doc.add_paragraph(TEXTOS_LEGALES["GENERAL"]["requisitos"])
     doc.add_paragraph(TEXTOS_LEGALES["GENERAL"]["vigencia"])
@@ -109,55 +106,46 @@ def generar_anexo_completo(seguros_activos, nivel):
 
 # --- INTERFAZ STREAMLIT ---
 st.title("🛡️ Generador de Anexos de Seguros")
+st.write("Responda el siguiente cuestionario para determinar los seguros aplicables.")
 
-# Preguntas completas según imagen (Reemplazado SOFSA por la empresa)
-p1 = st.checkbox("¿Para realizar la actividad personal del proveedor ingresará a predios o instalaciones de la empresa?", value=False)
-p2 = st.checkbox("¿La actividad consiste exclusivamente en tareas administrativas o profesionales de oficina, sin intervención técnica ni operativa?", value=False)
-p3 = st.checkbox("¿La actividad requiere uso o ingreso de vehículos del proveedor a predios o instalaciones de la empresa?", value=False)
-p4 = st.checkbox("¿El proveedor transportará o tendrá en sus instalaciones mercadería, bienes o equipos de la empresa?", value=False)
-p5 = st.checkbox("¿El trabajo se realizará en estaciones, andenes, vías, talleres ferroviarios o sectores con circulación de trenes o pasajeros?", value=False)
-p6 = st.checkbox("""¿La actividad corresponde a un trabajo menor de mantenimiento simple en la empresa?   Debe cumplir todas estas condiciones:
-                  • duración corta (menor a 1 mes de trabajo)
-                  • uso herramientas manuales simples
-                  • sin trabajo en altura, ni andamios
-                  • sin maquinaria
-                  • sin intervención en infraestructura
-                  • sin afectar circulación ferroviaria o de pasajeros
-       Ejemplos: (pintura interior de oficina, reparación menor de mobiliario, cerrajería, etc)""", value=False)
-p7 = st.checkbox("¿La actividad requiere uso de equipos, maquinaria o de herramientas complejas en la empresa?", value=False)
-p8 = st.checkbox("""¿La actividad incluye alguna de las siguientes tareas: 
-         • trabajos en altura
-         • soldadura u oxicorte
-         • izaje de cargas
-         • intervención eléctrica
-         • uso de maquinaria pesada
-         • uso de armas de fuego
-         • suministro de alimentos ?""", value=False)
-p9 = st.checkbox("""La actividad implica construir, instalar o montar una obra, sistema o equipos nuevo? 
-         Incluye:
-                       • obras civiles, 
-                       • refacciones estructurales, 
-                       • instalación de equipos (montaje o desmontaje) 
-                       • montaje de sistema electrico o mecánico
-        No incluye:
-                       • mantenimiento simple
-                       • refacciones menores
-                       • tareas de servicio?""", value=False)
+# Cuestionario Sí/No
+opciones = ["No", "Sí"]
 
-# Validaciones lógicas
+r1 = st.radio("¿Para realizar la actividad personal del proveedor ingresará a predios o instalaciones de la empresa?", opciones, index=0)
+r2 = st.radio("¿La actividad consiste exclusivamente en tareas administrativas o profesionales de oficina, sin intervención técnica ni operativa?", opciones, index=0)
+r3 = st.radio("¿La actividad requiere uso o ingreso de vehículos del proveedor a predios o instalaciones de la empresa?", opciones, index=0)
+r4 = st.radio("¿El proveedor transportará o tendrá en sus instalaciones mercadería, bienes o equipos de la empresa?", opciones, index=0)
+r5 = st.radio("¿El trabajo se realizará en estaciones, andenes, vías, talleres ferroviarios o sectores con circulación de trenes o pasajeros?", opciones, index=0)
+r6 = st.radio("¿La actividad corresponde a un trabajo menor de mantenimiento simple en la empresa?", opciones, index=0)
+r7 = st.radio("¿La actividad requiere uso de equipos, maquinaria o de herramientas complejas en la empresa?", opciones, index=0)
+r8 = st.radio("¿La actividad incluye alguna de las tareas riesgosas (Altura, soldadura, izaje, intervención eléctrica, maquinaria pesada, armas, alimentos)?", opciones, index=0)
+r9 = st.radio("¿La actividad implica construir, instalar o montar una obra, sistema o equipos nuevo?", opciones, index=0)
+
+# Mapeo a booleanos para lógica interna
+p1 = (r1 == "Sí")
+p2 = (r2 == "Sí")
+p3 = (r3 == "Sí")
+p4 = (r4 == "Sí")
+p5 = (r5 == "Sí")
+p6 = (r6 == "Sí")
+p7 = (r7 == "Sí")
+p8 = (r8 == "Sí")
+p9 = (r9 == "Sí")
+
+# Validaciones
 errores = []
 if not p1 and (p3 or p4 or p5 or p6 or p7 or p8 or p9):
     errores.append("⚠️ Bloqueo: Toda condición operativa requiere el ingreso de personal (P1 = SÍ).")
 if p2 and (p4 or p5 or p6 or p7 or p8 or p9):
-    errores.append("⚠️ Bloqueo: Las tareas administrativas (P2) no son compatibles con riesgos operativos.")
+    errores.append("⚠️ Bloqueo: Tareas administrativas incompatibles con riesgos operativos.")
 if p6 and (p4 or p5 or p7 or p8 or p9):
-    errores.append("⚠️ Bloqueo: El trabajo menor (P6) no puede coexistir con tareas de riesgo alto o maquinaria compleja.")
+    errores.append("⚠️ Bloqueo: Trabajo menor incompatible con riesgos altos o maquinaria compleja.")
 
 if st.button("Generar Documento Final"):
     if errores:
         for err in errores: st.error(err)
     else:
-        # Determinación de Riesgo
+        # Nivel de Riesgo
         if not p1: nivel = "Nulo"
         elif p9 or p8 or p5 or p4: nivel = "Alto"
         elif p1 and p7: nivel = "Medio"
@@ -170,7 +158,7 @@ if st.button("Generar Documento Final"):
                 'clausula': f"{TEXTOS_LEGALES['ART']}\n\n{TEXTOS_LEGALES['VO']}\n\n{TEXTOS_LEGALES['AP']}", 
                 'suma': "Suma mínima legal vigente."
             })
-        if p1 and (p5 or p7 or p8 or p9):
+        if p1 and (p5 or p7 or r8 == "Sí" or p9):
             suma_rc = "USD 100.000 (o eq. local)" if nivel == "Alto" else "USD 50.000 (o eq. local)"
             seguros_para_word.append({'nombre': "RESPONSABILIDAD CIVIL COMPRENSIVA", 'clausula': TEXTOS_LEGALES["RC"], 'suma': suma_rc})
         if p4:
@@ -182,4 +170,4 @@ if st.button("Generar Documento Final"):
 
         docx_data = generar_anexo_completo(seguros_para_word, nivel)
         st.success(f"Nivel de Riesgo Determinado: {nivel}")
-        st.download_button("📥 Descargar Anexo Corregido (la empresa)", docx_data, f"Anexo_Seguros_{nivel}.docx")
+        st.download_button("📥 Descargar Anexo Word", docx_data, f"Anexo_Seguros_{nivel}.docx")
