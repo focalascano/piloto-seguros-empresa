@@ -1,32 +1,34 @@
 import streamlit as st
-from docx import Document
-from io import BytesIO
-from datetime import datetime
-from PIL import Image
 import os
+from PIL import Image
 
-current_dir = os.path.dirname(__file__)
+current_dir = os.path.dirname(os.path.abspath(__file__))
 logo_path = os.path.join(current_dir, "logotrenes.png")
-logo_path = "main/logotrenes.png" 
+
+icon_result = "🛡️" # Valor por defecto
+logo_final = None
 
 if os.path.exists(logo_path):
-    logo_final = Image.open(logo_path)
-    icon_result = logo_final
+    try:
+        logo_final = Image.open(logo_path)
+        icon_result = logo_final  # Intentamos usar la imagen como icono
+    except Exception as e:
+        st.error(f"Error al abrir la imagen: {e}")
 else:
-    # Fallback por si el archivo no se encuentra
-    icon_result = "🛡️"
+    st.warning(f"No se encontró el archivo en: {logo_path}")
 
-# --- CONFIGURACIÓN DE PÁGINA  ---
 st.set_page_config(
     page_title="SDS - Generador de Anexos", 
     page_icon=icon_result,
     layout="centered"
 )
 
-# --- IDENTIDAD VISUAL EN LA BARRA LATERAL ---
-if os.path.exists(logo_path):
-    st.sidebar.image(logo_path, width=150)
+if logo_final:
+    st.sidebar.image(logo_final, width=150)
     st.sidebar.markdown("---")
+else:
+    st.sidebar.title("🛡️ SDS")
+    
 
 # --- BIBLIOTECA DE CLÁUSULAS (TEXTOS COMPLETOS) ---
 TEXTOS_LEGALES = {
