@@ -15,18 +15,26 @@ col1, col2 = st.columns(2)
 
 with col1:
     p1 = st.checkbox("¿Para realizar la actividad personal del proveedor ingresará a predios o instalaciones de la empresa?", value=False)
-    p2 = st.checkbox("¿La actividad consiste exclusivamente en tareas administrativas o profesionales de oficina, sin intervención técnica ni operativa? Ejemplos: consultoría, auditoría, capacitaciones teóricas, asesoramiento profesional", value=False)
+    p2 = st.checkbox("""¿La actividad consiste exclusivamente en tareas administrativas o profesionales de oficina, sin intervención técnica ni operativa? 
+                     Ejemplos: consultoría, auditoría, capacitaciones teóricas, asesoramiento profesional""", value=False)
     p3 = st.checkbox("¿La actividad requiere uso o ingreso de vehículos del proveedor a predios o instalaciones de la empresa?", value=False)
     p4 = st.checkbox("¿El proveedor transportará o tendrá en sus instalaciones mercadería, bienes o equipos de la empresa?", value=False)
     p5 = st.checkbox("¿El trabajo se realizará en estaciones, andenes, vías, talleres ferroviarios o sectores con circulación de trenes o pasajeros?", value=False)
 
 with col2:
-    p6 = st.checkbox("¿La actividad corresponde a un trabajo menor de mantenimiento simple en la empresa? Debe cumplir todas estas condiciones: duracion corta (menor a 1 mes de trabajo), uso herramientas manuales simples, sin trabajo en altura, ni andamios
-, sin maquinaria, sin intervención en infraestructura, sin afectar circulación ferroviaria o de pasajeros. Ejemplos: (pintura interior de oficina, reparación menor de mobiliario, cerrajería, etc)", value=False)
-    p7 = st.checkbox("¿La actividad requiere uso de equipos, maquinaria o de herramientas complejas en la empresa? Ejemplos: herramientas de corte y/o herramienta de calor y/o herramienta a explosión, equipos técnicos, maquinarias", value=False)
-    p8 = st.checkbox("¿La actividad incluye alguna de las siguientes tareas? trabajos en altura - soldadura u oxicorte - izaje de cargas - intervención eléctrica - uso de maquinaria pesada - uso de armas de fuego - suministro de alimentos", value=False)
-    p9 = st.checkbox("¿La actividad implica construir, instalar o montar una obra, sistema o equipos nuevo? Incluye: obras civiles, refacciones estructurales, instalación de equipos (montaje o desmontaje), montaje de sistema electrico o mecánico - No incluye:
-mantenimiento simple, refacciones menores, tareas de servicio", value=False)
+    # Usamos comillas triples para permitir saltos de línea en el texto
+    p6 = st.checkbox("""¿La actividad corresponde a un trabajo menor de mantenimiento simple en la empresa? 
+                     Debe cumplir todas estas condiciones: duracion corta (menor a 1 mes de trabajo), 
+                     uso herramientas manuales simples, sin trabajo en altura, ni andamios, sin maquinaria, 
+                     sin intervención en infraestructura, sin afectar circulación ferroviaria o de pasajeros. 
+                     Ejemplos: (pintura interior de oficina, reparación menor de mobiliario, cerrajería, etc)""", value=False)
+    p7 = st.checkbox("""¿La actividad requiere uso de equipos, maquinaria o de herramientas complejas en la empresa? 
+                     Ejemplos: herramientas de corte y/o herramienta de calor y/o herramienta a explosión, equipos técnicos, maquinarias""", value=False)
+    p8 = st.checkbox("""¿La actividad incluye alguna de las siguientes tareas? trabajos en altura - soldadura u oxicorte - izaje de cargas - 
+                     intervención eléctrica - uso de maquinaria pesada - uso de armas de fuego - suministro de alimentos""", value=False)
+    p9 = st.checkbox("""¿La actividad implica construir, instalar o montar una obra, sistema o equipos nuevo? 
+                     Incluye: obras civiles, refacciones estructurales, instalación de equipos (montaje o desmontaje), 
+                     montaje de sistema electrico o mecánico - No incluye: mantenimiento simple, refacciones menores, tareas de servicio""", value=False)
 
 # --- 2. MOTOR DE VALIDACIÓN (Sección 15.3) ---
 errores = []
@@ -44,7 +52,6 @@ if st.button("Calcular Riesgo y Seguros"):
             st.error(err)
     else:
         # Jerarquía de Riesgo (Sección 13.1)
-        # Se evalúa en orden: Alto -> Medio -> Bajo -> Nulo
         nivel = "Nulo"
         if p9 or p8 or p5 or p4:
             nivel = "Alto"
