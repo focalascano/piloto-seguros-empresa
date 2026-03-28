@@ -4,101 +4,182 @@ from io import BytesIO
 from datetime import datetime
 
 # --- CONFIGURACIÓN DE PÁGINA ---
-st.set_page_config(page_title="SDS - Cuestionario de Riesgo", page_icon="🛡️")
+st.set_page_config(page_title="SDS - Generador de Anexos", page_icon="🛡️")
 
-st.title("🛡️ Determinación de Seguros a Proveedores")
-st.markdown("---")
+# --- BIBLIOTECA DE CLÁUSULAS (TEXTOS COMPLETOS ACTUALIZADOS) ---
+TEXTOS_LEGALES = {
+    "GENERAL": {
+        "encabezado": "La Contratista deberá acreditar ante la empresa, con una antelación mínima de CINCO (5) días corridos al inicio de los trabajos y/o servicios, la contratación y vigencia de los seguros que resulten aplicables en función de la naturaleza y riesgos de la prestación, debiendo exigir el cumplimiento de esta obligación a los Subcontratistas que eventualmente participen en la ejecución de sus obligaciones contractuales, cuando la contratación así lo permita:",
+        "requisitos": """Otros Seguros: la empresa se reserva el derecho de exigir otros seguros que, en virtud de la contratación pudiesen ser requeridos.
+Requisitos de los Seguros
+Las aseguradoras contratadas deberán cumplir con las siguientes condiciones:
+• Ser una aseguradora habilitada por la Superintendencia de Seguros de la Nación.
+• Estar calificada por alguna de las Calificadoras de Riesgo autorizadas por la Comisión Nacional de Valores (CNV).
+Se tomará como válida la calificación del año en que se adjudique la contratación y/o la calificación del año inmediato anterior a la adjudicación.
+La Contratista deberá presentar a la Licitante la calificación de riesgos de la Aseguradora.
+La Contratista deberá mantener y pagar el premio correspondiente a las pólizas. Los comprobantes de pago de las mismas deberán ser presentados a la Licitante de manera mensual y consecutiva.""",
+        "vigencia": """Vigencia de los Seguros
+Los seguros deberán mantenerse vigentes desde el inicio de cualquier actividad vinculada a la contratación, incluyendo tareas previas, y hasta la extinción total de las obligaciones contractuales de la Contratista, comprendiendo la recepción provisoria, el período de garantía y toda intervención posterior vinculada al contrato.""",
+        "responsabilidad": """Incumplimientos en la Presentación de los Seguros
+Si la Contratista no presentase los seguros que correspondan de acuerdo con la naturaleza de la actividad, los trabajos y/o los servicios a ejecutar, o no cumpliera con alguno de los requisitos establecidos en el presente Anexo, no podrá iniciar ni continuar las tareas hasta tanto regularice dicha situación, siendo de su exclusiva responsabilidad las consecuencias que ello genere, sin que ello otorgue derecho a reclamo alguno contra la empresa.
+Criterio de interpretación y aplicación: Ante cualquier duda razonable respecto de la aplicabilidad, alcance o suficiencia de los seguros exigidos en el presente Anexo, la empresa tendrá la facultad de definir el seguro que resulte exigible, en función de la naturaleza de la prestación y de los riesgos involucrados.
+Responsabilidad
+La contratación de seguros por parte de la Contratista no limita ni reduce en modo alguno su responsabilidad contractual ni legal, siendo ésta responsable directa por todos los daños y obligaciones derivados de la ejecución del contrato.
+En consecuencia, la Contratista asumirá a su exclusivo cargo las franquicias, descubiertos, diferencias de suma asegurada y todo daño o reclamo que no resulte cubierto por las pólizas contratadas.
+La Contratista mantendrá indemne a la empresa, ADIFSA, FASE - en proceso de transformación a Sociedad Anónima Unipersonal (SAU)-, Secretaria de Transporte de la Nación, y/o al Estado Nacional, así como a sus accionistas, directores, empleados y funcionarios, frente a cualquier reclamo, suma, daño o gasto que deban afrontar con motivo de la ejecución contractual y/o del incumplimiento del régimen de seguros."""
+    },
+    "RC": """Seguro de Responsabilidad Civil Comprensiva:
+La Contratista deberá contratar y mantener vigente, por su exclusiva cuenta y cargo, un seguro de Responsabilidad Civil Comprensiva con una suma asegurada mínima de USD 100.000 (o USD 50.000 según riesgo), o su equivalente en moneda local, calculada al tipo de cambio vendedor del Banco de la Nación Argentina vigente al momento de la contratación o renovación. El seguro deberá cubrir los daños a personas y/o bienes de terceros derivados directa o indirectamente de la ejecución de los trabajos y/o servicios contratados. En caso de insuficiencia o falta de cobertura, los daños deberán ser asumidos íntegramente por la Contratista. Ante el pago de un siniestro, la suma asegurada deberá ser repuesta dentro de los DIEZ (10) días de producido el mismo.
+Coberturas adicionales (condicionales):
+La póliza deberá incluir, cuando el riesgo asociado a la actividad lo requiera, los adicionales correspondientes a uso de grúas, izaje, andamios, trabajos de soldadura u oxicorte, carga y descarga, maquinaria, transporte de bienes, contaminación súbita y accidental, suministro de alimentos, uso de armas de fuego, uso de vehículos propios o no propios en exceso de su póliza específica y personas físicas bajo contrato.
+Previo al inicio de las tareas, la Contratista deberá presentar certificado de cobertura y libre deuda emitido por la aseguradora.
+Clausulas obligatorias:
+Asegurado Adicional: Serán considerados asegurados y/o asegurados adicionales el titular de la póliza y/o la empresa CUIT 30-71068177-1 y/o ADMINISTRACION DE INFRAESTRUCTURAS FERROVIARIAS SOCIEDAD ANONIMA (ADIFSA) CUIT 30- 71069599-3, y/o FERROCARRILES ARGENTINOS SOCIEDAD DEL ESTADO (FASE) - en proceso de transformación a Sociedad Anónima Unipersonal (SAU) - CUIT 30-71525570-3, y/o a SECRETARIA DE TRANSPORTE DE LA NACIÓN CUIT 30-71512720-9, y/o MINISTERIO DE ECONOMÍA CUIT 30-54667611-7, y/o al ESTADO NACIONAL, quienes serán coasegurados y/o asegurados adicionales a los efectos de la cobertura de la póliza, así como sus accionistas, directores, empleados y funcionarios.
+Responsabilidad Civil Cruzada: Todos los sujetos mencionados precedentemente serán considerados terceros entre sí.
+Cláusula de No Repetición: La Aseguradora renunciará expresamente a todo derecho de subrogación o repetición contra los sujetos mencionados precedentemente, manteniendo indemne a la empresa frente a reclamos de terceros cubiertos por la póliza.
+Notificación previa: La póliza no será anulada sin previo aviso por escrito a la empresa, con domicilio en la Avda. Ramos Mejía Nº 1302, piso 4to. de la Ciudad Autónoma de Buenos Aires, con un plazo mínimo de 15 días corridos de anticipación.""",
+    "ART": """Seguro de Riesgos del Trabajo:
+La Contratista deberá contratar y mantener vigente, por su exclusiva cuenta y cargo, un seguro que cubra los riesgos del trabajo de acuerdo con la Ley Nº 24.557 de Riesgos del Trabajo, sus reformas y decretos reglamentarios.
+Previo al inicio de las tareas, la Contratista deberá presentar certificado de cobertura emitido por la ART, incluyendo la nómina del personal afectado.
+La póliza deberá incluir la siguiente cláusula:
+Cláusula de No Repetición: La Aseguradora de Riesgos del Trabajo debe renunciar en forma expresa a sus derechos de subrogación y/o a reclamar o iniciar toda acción de repetición o de regreso contra la empresa, y/o FASE - en proceso de transformación a Sociedad Anónima Unipersonal (SAU) - y/o ADIFSA y/o SECRETARIA DE TRANSPORTE DE LA NACIÓN, y/o MINISTERIO DE ECONOMÍA, y/o ESTADO NACIONAL así como sus accionistas, directores, empleados y funcionarios, con motivo de las prestaciones a las que se vea obligada a otorgar o abonar al personal dependiente o ex dependiente de la Contratista, amparados por la cobertura del contrato de afiliación, por accidente de trabajo o enfermedades profesionales ocurridos o contraídos por el hecho o en ocasión del trabajo o en el trayecto entre el domicilio del trabajador y el lugar de trabajo.""",
+    "VO": """Seguro Colectivo de Vida Obligatorio:
+La Contratista deberá contratar y mantener vigente, por su exclusiva cuenta y cargo, un seguro colectivo de vida obligatorio para cubrir la totalidad del personal afectado al trabajo y/o servicio contratado, según lo previsto en el Decreto Nº 1567/74.
+Previo al inicio de las tareas, deberá presentarse certificado de cobertura emitido por la aseguradora, con indicación de la nómina del personal cubierto.""",
+    "AP": """Seguro de Accidentes Personales: 
+La contratista deberá contratar y mantener vigente, por su exclusiva cuenta y cargo, un seguro que cubra los accidentes que pudiera sufrir el personal de la Contratista, afectado a los trabajos y/o servicios y que no se encuentre en relación de dependencia con ésta, cuando la modalidad contractual así lo permita. 
+La cobertura mínima por persona deberá contemplar:
+Muerte e incapacidad permanente (total o parcial): USD 20.000 o su equivalente en moneda local.
+Gastos médicos asistenciales: USD 2.000 o su equivalente en moneda local.
+La póliza deberá designar a la empresa como beneficiaria en primer término, exclusivamente a los efectos de garantizar su indemnidad frente a eventuales obligaciones legales derivadas del siniestro.
+Previo al inicio de las tareas, la Contratista deberá presentar certificado de cobertura y libre deuda emitido por la aseguradora.
+La póliza deberá incluir las siguientes cláusulas:
+Notificación previa: La póliza no será anulada sin previo aviso por escrito a la empresa, con un plazo mínimo de 15 días corridos de anticipación.""",
+    "CAUCION": """Caución de Tenencia de Bienes: 
+La Contratista deberá contratar una Póliza de Caución de Tenencia de Bienes, destinada a garantizar el retiro, transporte, traslado, tenencia, guarda, custodia, correcta conservación y posterior devolución de los Bienes y/o Equipos propiedad de la empresa y/o bajo su responsabilidad.
+La cobertura deberá mantenerse vigente desde el momento del retiro de los bienes de las instalaciones de la empresa o del lugar que ésta determine, durante todo el período de traslado, permanencia, manipulación, intervención técnica y custodia en instalaciones de la Contratista o de terceros, hasta su efectiva devolución y recepción conforme por parte de la empresa.
+La suma asegurada deberá ser equivalente a la suma establecida en el Pliego de Especificaciones Técnicas.
+La póliza deberá incluir la siguiente cláusula:
+Los actos, declaraciones, acciones u omisiones de la Contratista (Tomador), incluida la falta de pago del premio, no afectarán de modo alguno los derechos de la empresa (Asegurada) frente al Asegurador, quien mantendrá íntegramente su obligación de responder en los términos de la póliza.""",
+    "TRCYM": """Seguros Todo riesgo Construcción y/o Montaje: 
+Cuando la contratación implique la ejecución de obras y/o trabajos de montaje, la Contratista deberá contratar y mantener vigente, por su exclusiva cuenta y cargo, un Seguro Todo Riesgo Construcción y/o Montaje que ampare la totalidad de la obra y/o montaje, incluyendo trabajos temporarios, materiales, equipos, instalaciones, obradores, maquinarias y bienes existentes y/o adyacentes afectados a la prestación.
+La cobertura deberá mantenerse vigente durante todo el período de ejecución, incluyendo los períodos de almacenaje, construcción y/o montaje, pruebas y mantenimiento, y hasta la recepción definitiva de la obra, debiendo actualizarse progresivamente la suma asegurada de modo tal que refleje en todo momento el valor total certificado.
+La póliza deberá ser contratada a nombre conjunto de la Contratista y de la empresa.
+Clausulas obligatorias:
+Asegurado Adicional: Serán considerados asegurados y/o asegurados adicionales el titular de la póliza y/o la empresa CUIT 30-71068177-1 y/o ADMINISTRACION DE INFRAESTRUCTURAS FERROVIARIAS SOCIEDAD ANONIMA (ADIFSA) CUIT 30- 71069599-3, y/o FERROCARRILES ARGENTINOS SOCIEDAD DEL ESTADO (FASE) - en proceso de transformación a Sociedad Anónima Unipersonal (SAU) - CUIT 30-71525570-3, y/o a SECRETARIA DE TRANSPORTE DE LA NACIÓN CUIT 30-71512720-9, y/o MINISTERIO DE ECONOMÍA CUIT 30-54667611-7, y/o al ESTADO NACIONAL, quienes serán coasegurados y/o asegurados adicionales a los efectos de la cobertura de la póliza, así como sus accionistas, directores, empleados y funcionarios.
+Responsabilidad Civil Cruzada: Todos los sujetos mencionados precedentemente serán considerados terceros entre sí.
+Cláusula de No Repetición: La Aseguradora renunciará expresamente a todo derecho de subrogación o repetición contra los sujetos mencionados precedentemente, manteniendo indemne a la empresa frente a reclamos de terceros cubiertos por la póliza.
+Notificación previa: La póliza no será anulada sin previo aviso por escrito a la empresa, con un plazo mínimo de 15 días corridos de anticipación.""",
+    "AUTO": """Seguro Automotor Obligatorio: 
+La Contratista deberá contratar y mantener vigente, por su exclusiva cuenta y cargo, un seguro Automotor para los vehículos a ser utilizados en virtud de la presente contratación, los cuales deberán contar, como mínimo, con la cobertura de Responsabilidad Civil - Seguro Voluntario, por la suma establecida por la Superintendencia de Seguros de la Nación.
+La Contratista deberá presentar a la empresa un certificado de cobertura y libre deuda emitido por la Aseguradora.
+La póliza deberá incluir las siguientes cláusulas:
+Cláusula de No Repetición: La Aseguradora renunciará expresamente a todo derecho de subrogación o repetición contra la empresa, y/o FASE - en proceso de transformación a Sociedad Anónima Unipersonal (SAU) - y/o ADIFSA y/o SECRETARIA DE TRANSPORTE DE LA NACIÓN, y/o MINISTERIO DE ECONOMÍA, y/o ESTADO NACIONAL, así como sus accionistas, directores, empleados y funcionarios, con motivo de las sumas que se vea obligada a abonar por los riesgos amparados en la cobertura de la póliza.
+Notificación previa: La póliza no será anulada sin previo aviso por escrito a la empresa, con domicilio en la Avda. Ramos Mejía Nº 1302, piso 4to. de la Ciudad Autónoma de Buenos Aires, con un plazo mínimo de 15 días corridos de anticipación."""
+}
 
-# --- 1. CUESTIONARIO (Sección 12.2) ---
-st.subheader("Cuestionario de Caracterización de riesgo: Marque las casillas que correspondan en caso de que la respuesta a la pregunta sea afirmativa")
-col1, col2 = st.columns(2)
+def generar_anexo_completo(seguros_activos, nivel):
+    doc = Document()
+    doc.add_heading('ANEXO DE SEGUROS Y RESPONSABILIDADES', 0)
+    
+    # 1. ENCABEZADO (Siempre primero)
+    doc.add_heading('1. OBLIGACIONES GENERALES', level=1)
+    doc.add_paragraph(TEXTOS_LEGALES["GENERAL"]["encabezado"])
 
-with col1:
-    p1 = st.checkbox("¿Para realizar la actividad personal del proveedor ingresará a predios o instalaciones de la empresa?", value=False)
-    p2 = st.checkbox("""¿La actividad consiste exclusivamente en tareas administrativas o profesionales de oficina, sin intervención técnica ni operativa? 
-                     Ejemplos: consultoría, auditoría, capacitaciones teóricas, asesoramiento profesional""", value=False)
-    p3 = st.checkbox("¿La actividad requiere uso o ingreso de vehículos del proveedor a predios o instalaciones de la empresa?", value=False)
-    p4 = st.checkbox("¿El proveedor transportará o tendrá en sus instalaciones mercadería, bienes o equipos de la empresa?", value=False)
-    p5 = st.checkbox("¿El trabajo se realizará en estaciones, andenes, vías, talleres ferroviarios o sectores con circulación de trenes o pasajeros?", value=False)
+    # 2. CUERPO DE SEGUROS
+    doc.add_heading('2. SEGUROS ESPECÍFICOS REQUERIDOS', level=1)
+    if not seguros_activos:
+        doc.add_paragraph("No se han determinado seguros específicos adicionales bajo el nivel de Riesgo Nulo.")
+    else:
+        for s in seguros_activos:
+            doc.add_heading(s['nombre'], level=2)
+            doc.add_paragraph(s['clausula'])
+            doc.add_paragraph(f"SUMA ASEGURADA MÍNIMA REQUERIDA: {s['suma']}")
+            doc.add_paragraph("_" * 30)
 
-with col2:
-    # Usamos comillas triples para permitir saltos de línea en el texto
-    p6 = st.checkbox("""¿La actividad corresponde a un trabajo menor de mantenimiento simple en la empresa? 
-                     Debe cumplir todas estas condiciones: duracion corta (menor a 1 mes de trabajo), 
-                     uso herramientas manuales simples, sin trabajo en altura, ni andamios, sin maquinaria, 
-                     sin intervención en infraestructura, sin afectar circulación ferroviaria o de pasajeros. 
-                     Ejemplos: (pintura interior de oficina, reparación menor de mobiliario, cerrajería, etc)""", value=False)
-    p7 = st.checkbox("""¿La actividad requiere uso de equipos, maquinaria o de herramientas complejas en la empresa? 
-                     Ejemplos: herramientas de corte y/o herramienta de calor y/o herramienta a explosión, equipos técnicos, maquinarias""", value=False)
-    p8 = st.checkbox("""¿La actividad incluye alguna de las siguientes tareas? trabajos en altura - soldadura u oxicorte - izaje de cargas - 
-                     intervención eléctrica - uso de maquinaria pesada - uso de armas de fuego - suministro de alimentos""", value=False)
-    p9 = st.checkbox("""¿La actividad implica construir, instalar o montar una obra, sistema o equipos nuevo? 
-                     Incluye: obras civiles, refacciones estructurales, instalación de equipos (montaje o desmontaje), 
-                     montaje de sistema electrico o mecánico - No incluye: mantenimiento simple, refacciones menores, tareas de servicio""", value=False)
+    # 3. REQUISITOS, VIGENCIA Y RESPONSABILIDAD (Siempre después de los seguros)
+    doc.add_heading('3. CONDICIONES COMPLEMENTARIAS', level=1)
+    doc.add_paragraph(TEXTOS_LEGALES["GENERAL"]["requisitos"])
+    doc.add_paragraph(TEXTOS_LEGALES["GENERAL"]["vigencia"])
+    doc.add_paragraph(TEXTOS_LEGALES["GENERAL"]["responsabilidad"])
 
-# --- 2. MOTOR DE VALIDACIÓN (Sección 15.3) ---
+    bio = BytesIO()
+    doc.save(bio)
+    return bio.getvalue()
+
+# --- INTERFAZ STREAMLIT ---
+st.title("🛡️ Generador de Anexos de Seguros")
+
+# Preguntas completas según imagen (Reemplazado SOFSA por la empresa)
+p1 = st.checkbox("¿Para realizar la actividad personal del proveedor ingresará a predios o instalaciones de la empresa?", value=False)
+p2 = st.checkbox("¿La actividad consiste exclusivamente en tareas administrativas o profesionales de oficina, sin intervención técnica ni operativa?", value=False)
+p3 = st.checkbox("¿La actividad requiere uso o ingreso de vehículos del proveedor a predios o instalaciones de la empresa?", value=False)
+p4 = st.checkbox("¿El proveedor transportará o tendrá en sus instalaciones mercadería, bienes o equipos de la empresa?", value=False)
+p5 = st.checkbox("¿El trabajo se realizará en estaciones, andenes, vías, talleres ferroviarios o sectores con circulación de trenes o pasajeros?", value=False)
+p6 = st.checkbox("""¿La actividad corresponde a un trabajo menor de mantenimiento simple en la empresa?   Debe cumplir todas estas condiciones:
+                  • duración corta (menor a 1 mes de trabajo)
+                  • uso herramientas manuales simples
+                  • sin trabajo en altura, ni andamios
+                  • sin maquinaria
+                  • sin intervención en infraestructura
+                  • sin afectar circulación ferroviaria o de pasajeros
+       Ejemplos: (pintura interior de oficina, reparación menor de mobiliario, cerrajería, etc)""", value=False)
+p7 = st.checkbox("¿La actividad requiere uso de equipos, maquinaria o de herramientas complejas en la empresa?", value=False)
+p8 = st.checkbox("""¿La actividad incluye alguna de las siguientes tareas: 
+         • trabajos en altura
+         • soldadura u oxicorte
+         • izaje de cargas
+         • intervención eléctrica
+         • uso de maquinaria pesada
+         • uso de armas de fuego
+         • suministro de alimentos ?""", value=False)
+p9 = st.checkbox("""La actividad implica construir, instalar o montar una obra, sistema o equipos nuevo? 
+         Incluye:
+                       • obras civiles, 
+                       • refacciones estructurales, 
+                       • instalación de equipos (montaje o desmontaje) 
+                       • montaje de sistema electrico o mecánico
+        No incluye:
+                       • mantenimiento simple
+                       • refacciones menores
+                       • tareas de servicio?""", value=False)
+
+# Validaciones lógicas
 errores = []
 if not p1 and (p3 or p4 or p5 or p6 or p7 or p8 or p9):
-    errores.append("⚠️ Bloqueo: Toda condición operativa implica presencia de personal (P1 debe ser SÍ).")
+    errores.append("⚠️ Bloqueo: Toda condición operativa requiere el ingreso de personal (P1 = SÍ).")
 if p2 and (p4 or p5 or p6 or p7 or p8 or p9):
-    errores.append("⚠️ Bloqueo: Actividad administrativa (P2) no es compatible con tareas operativas/riesgosas.")
+    errores.append("⚠️ Bloqueo: Las tareas administrativas (P2) no son compatibles con riesgos operativos.")
 if p6 and (p4 or p5 or p7 or p8 or p9):
-    errores.append("⚠️ Bloqueo: El trabajo menor (P6) es incompatible con riesgos altos o maquinaria compleja.")
+    errores.append("⚠️ Bloqueo: El trabajo menor (P6) no puede coexistir con tareas de riesgo alto o maquinaria compleja.")
 
-# --- 3. PROCESAMIENTO ---
-if st.button("Calcular Riesgo y Seguros"):
+if st.button("Generar Documento Final"):
     if errores:
-        for err in errores:
-            st.error(err)
+        for err in errores: st.error(err)
     else:
-        # Jerarquía de Riesgo (Sección 13.1)
-        nivel = "Nulo"
-        if p9 or p8 or p5 or p4:
-            nivel = "Alto"
-        elif p1 and p7:
-            nivel = "Medio"
-        elif p1:
-            nivel = "Bajo"
-        
-        # Mapeo de Seguros (Sección 16)
-        seguros = []
+        # Determinación de Riesgo
+        if not p1: nivel = "Nulo"
+        elif p9 or p8 or p5 or p4: nivel = "Alto"
+        elif p1 and p7: nivel = "Medio"
+        else: nivel = "Bajo"
+
+        seguros_para_word = []
         if p1:
-            seguros.append("Seguro de Personas (ART y Vida Obligatorio o AP)")
+            seguros_para_word.append({
+                'nombre': "SEGUROS DE PERSONAS (ART, VIDA OBLIGATORIO Y ACCIDENTES PERSONALES)", 
+                'clausula': f"{TEXTOS_LEGALES['ART']}\n\n{TEXTOS_LEGALES['VO']}\n\n{TEXTOS_LEGALES['AP']}", 
+                'suma': "Suma mínima legal vigente."
+            })
         if p1 and (p5 or p7 or p8 or p9):
-            suma = "USD 100.000" if nivel == "Alto" else "USD 50.000"
-            seguros.append(f"Responsabilidad Civil General (Suma Asegurada: {suma})")
-        if p8:
-            seguros.append("Adicionales de RC (Altura, Soldadura, Izaje, etc. según corresponda)")
+            suma_rc = "USD 100.000 (o eq. local)" if nivel == "Alto" else "USD 50.000 (o eq. local)"
+            seguros_para_word.append({'nombre': "RESPONSABILIDAD CIVIL COMPRENSIVA", 'clausula': TEXTOS_LEGALES["RC"], 'suma': suma_rc})
         if p4:
-            seguros.append("Caución de Tenencia de Bienes")
+            seguros_para_word.append({'nombre': "CAUCIÓN DE TENENCIA DE BIENES", 'clausula': TEXTOS_LEGALES["CAUCION"], 'suma': "Valor total de los bienes involucrados."})
         if p9:
-            seguros.append("Todo Riesgo Construcción y Montaje (TRCyM)")
+            seguros_para_word.append({'nombre': "TODO RIESGO CONSTRUCCIÓN Y MONTAJE", 'clausula': TEXTOS_LEGALES["TRCYM"], 'suma': "Valor total del contrato."})
         if p3:
-            seguros.append("Responsabilidad Civil Automotor")
+            seguros_para_word.append({'nombre': "RESPONSABILIDAD CIVIL AUTOMOTOR", 'clausula': TEXTOS_LEGALES["AUTO"], 'suma': "Límite legal vigente."})
 
-        # --- MOSTRAR RESULTADOS ---
-        st.markdown("---")
-        color = "red" if nivel == "Alto" else "orange" if nivel == "Medio" else "green"
-        st.markdown(f"### NIVEL DE RIESGO: :{color}[{nivel.upper()}]")
-        
-        st.write("**Seguros Requeridos:**")
-        for s in seguros:
-            st.write(f"- {s}")
-
-        # Generación de Word para descarga
-        doc = Document()
-        doc.add_heading('ANEXO DE SEGUROS', 0)
-        doc.add_paragraph(f"Nivel de Riesgo: {nivel}")
-        doc.add_paragraph(f"Fecha: {datetime.now().strftime('%d/%m/%Y')}")
-        for s in seguros:
-            doc.add_paragraph(s, style='List Bullet')
-        
-        bio = BytesIO()
-        doc.save(bio)
-        
-        st.download_button(
-            label="📄 Descargar Anexo en Word",
-            data=bio.getvalue(),
-            file_name=f"Anexo_Seguros_{nivel}.docx",
-            mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-        )
+        docx_data = generar_anexo_completo(seguros_para_word, nivel)
+        st.success(f"Nivel de Riesgo Determinado: {nivel}")
+        st.download_button("📥 Descargar Anexo Corregido (la empresa)", docx_data, f"Anexo_Seguros_{nivel}.docx")
