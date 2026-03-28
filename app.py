@@ -15,8 +15,7 @@ col1, col2 = st.columns(2)
 
 with col1:
     p1 = st.checkbox("¿Para realizar la actividad personal del proveedor ingresará a predios o instalaciones de la empresa?", value=False)
-    p2 = st.checkbox("¿La actividad consiste exclusivamente en tareas administrativas o profesionales de oficina, sin intervención técnica ni operativa?
-Ejemplos: consultoría, auditoría, capacitaciones teóricas, asesoramiento profesional", value=False)
+    p2 = st.checkbox("¿La actividad consiste exclusivamente en tareas administrativas o profesionales de oficina, sin intervención técnica ni operativa? Ejemplos: consultoría, auditoría, capacitaciones teóricas, asesoramiento profesional", value=False)
     p3 = st.checkbox("¿La actividad requiere uso o ingreso de vehículos del proveedor a predios o instalaciones de la empresa?", value=False)
     p4 = st.checkbox("¿El proveedor transportará o tendrá en sus instalaciones mercadería, bienes o equipos de la empresa?", value=False)
     p5 = st.checkbox("¿El trabajo se realizará en estaciones, andenes, vías, talleres ferroviarios o sectores con circulación de trenes o pasajeros?", value=False)
