@@ -5,6 +5,8 @@ from datetime import datetime
 from PIL import Image
 import os
 
+current_dir = os.path.dirname(__file__)
+logo_path = os.path.join(current_dir, "logotrenes.png")
 logo_path = "main/logotrenes.png" 
 
 if os.path.exists(logo_path):
