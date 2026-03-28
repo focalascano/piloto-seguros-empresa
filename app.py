@@ -135,7 +135,7 @@ def generar_anexo_completo(seguros_activos, nivel):
 
     # Sección de Condiciones Complementarias
     p_condiciones = doc.add_paragraph()
-    p_condiciones.add_run('3. CONDICIONES COMPLEMENTARIAS').bold = True
+    p_condiciones.add_run('').bold = True
     
     # 1. Requisitos
     p_req_tit = doc.add_paragraph()
