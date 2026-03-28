@@ -19,7 +19,7 @@ if logo_exists:
 
 # --- 3. CONFIGURACIÓN DE PÁGINA ---
 st.set_page_config(
-    page_title="SDS - Generador de Anexos",
+    page_title="Generador de Anexos de Seguros",
     # Mantenemos el escudo como icono de pestaña para un look profesional
     # Si quisieras tu logo aquí también, cambiarías "🛡️" por logo_image,
     # pero a veces se ve mal si el logo no es cuadrado.
@@ -142,17 +142,6 @@ def generar_anexo_completo(seguros_activos, nivel):
     doc.save(bio)
     return bio.getvalue()
 
-# --- INTERFAZ STREAMLIT ---
-col1, col2 = st.columns([1, 4]) # Ajusta los números para cambiar la proporción
-
-with col1:
-    if os.path.exists(logo_path):
-        st.image(logo_path, width=100)
-    else:
-        st.write("🛡️") # Fallback si no hay imagen
-
-with col2:
-    st.title("Generador de Anexos de Seguros")
 
 # --- INFORMACIÓN DE LA VERSIÓN Y AUTORES ---
 st.write("""
