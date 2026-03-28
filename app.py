@@ -111,24 +111,45 @@ Notificación previa: La póliza no será anulada sin previo aviso por escrito a
 
 def generar_anexo_completo(seguros_activos, nivel):
     doc = Document()
-    doc.add_heading('ANEXO DE SEGUROS Y RESPONSABILIDADES', 0)
     
-    doc.add_heading('1. OBLIGACIONES GENERALES', level=1)
+    # Título principal
+    p_main = doc.add_paragraph()
+    p_main.add_run('ANEXO DE SEGUROS Y RESPONSABILIDADES').bold = True
+    
     doc.add_paragraph(TEXTOS_LEGALES["GENERAL"]["encabezado"])
 
-    doc.add_heading('2. SEGUROS', level=1)
+    # Sección de Seguros
+    p_seguros = doc.add_paragraph()
+    p_seguros.add_run('2. SEGUROS').bold = True
+    
     if not seguros_activos:
         doc.add_paragraph("No se han determinado seguros específicos adicionales bajo el nivel de Riesgo Nulo.")
     else:
         for s in seguros_activos:
-            doc.add_heading(s['nombre'], level=2)
+            p_s_nombre = doc.add_paragraph()
+            p_s_nombre.add_run(s['nombre']).bold = True
+            
             doc.add_paragraph(s['clausula'])
             doc.add_paragraph(f"SUMA ASEGURADA MÍNIMA REQUERIDA: {s['suma']}")
             doc.add_paragraph("_" * 30)
 
-    doc.add_heading('3. CONDICIONES COMPLEMENTARIAS', level=1)
+    # Sección de Condiciones Complementarias
+    p_condiciones = doc.add_paragraph()
+    p_condiciones.add_run('3. CONDICIONES COMPLEMENTARIAS').bold = True
+    
+    # 1. Requisitos
+    p_req_tit = doc.add_paragraph()
+    p_req_tit.add_run('REQUISITOS').bold = True
     doc.add_paragraph(TEXTOS_LEGALES["GENERAL"]["requisitos"])
+    
+    # 2. Vigencia
+    p_vig_tit = doc.add_paragraph()
+    p_vig_tit.add_run('VIGENCIA').bold = True
     doc.add_paragraph(TEXTOS_LEGALES["GENERAL"]["vigencia"])
+    
+    # 3. Responsabilidad
+    p_resp_tit = doc.add_paragraph()
+    p_resp_tit.add_run('RESPONSABILIDAD').bold = True
     doc.add_paragraph(TEXTOS_LEGALES["GENERAL"]["responsabilidad"])
 
     bio = BytesIO()
