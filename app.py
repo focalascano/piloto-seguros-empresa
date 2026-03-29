@@ -21,8 +21,7 @@ if logo_exists:
 
 # --- 3. CONFIGURACIÓN DE PÁGINA ---
 st.set_page_config(
-    page_title="""Determinador de seguros a proveedores 
-    Generador automático de anexo contractual""",
+    page_title="""Determinador de seguros a proveedores: Generador automático de anexo contractual""",
     page_icon="🛡️", 
     layout="centered"
 )
@@ -36,7 +35,7 @@ with col1:
         st.title("🛡️")
 
 with col2:
-    st.markdown("<h1 style='margin-top: 0;'>Determinador de seguros a proveedores: generador automatico de anexo contraactual</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='margin-top: 0;'>Determinador de seguros a proveedores: generador automático de anexo contraactual</h1>", unsafe_allow_html=True)
     
 
 # --- BIBLIOTECA DE CLÁUSULAS (TEXTOS COMPLETOS) ---
