@@ -3,6 +3,8 @@ import os
 from PIL import Image
 from io import BytesIO
 from docx import Document
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.shared import Pt
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 logo_path = os.path.join(current_dir, "logotrenes.png")
@@ -115,33 +117,52 @@ Notificación previa: La póliza no será anulada sin previo aviso por escrito a
 def generar_anexo_completo(seguros_activos, nivel):
     doc = Document()
     
+    # --- CONFIGURACIÓN DE ESTILO GLOBAL (Calibri) ---
+    style = doc.styles['Normal']
+    font = style.font
+    font.name = 'Calibri'
+    font.size = Pt(11)
+
+    def agregar_parrafo_formateado(texto, negrita=False, es_titulo=False):
+        p = doc.add_paragraph()
+        # Alineación justificada
+        p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+        
+        run = p.add_run(texto)
+        run.bold = negrita
+        if es_titulo:
+            run.font.size = Pt(14)
+        return p
+
     # Título principal
-    p_main = doc.add_paragraph()
-    p_main.add_run('ANEXO DE SEGUROS').bold = True
+    agregar_parrafo_formateado('ANEXO DE SEGUROS', negrita=True, es_titulo=True)
     
-    doc.add_paragraph(TEXTOS_LEGALES["GENERAL"]["encabezado"])
+    # Encabezado General
+    agregar_parrafo_formateado(TEXTOS_LEGALES["GENERAL"]["encabezado"])
 
     # Sección de Seguros
     if not seguros_activos:
-        doc.add_paragraph("No se han determinado seguros específicos adicionales bajo el nivel de Riesgo Nulo.")
+        agregar_parrafo_formateado("No se han determinado seguros específicos adicionales bajo el nivel de Riesgo Nulo.")
     else:
         for s in seguros_activos:
-            # Cláusula
-            doc.add_paragraph(s['clausula'])
-            # Suma Asegurada si existe
+            # Cláusula (Justificada)
+            agregar_parrafo_formateado(s['clausula'])
+            
+            # Suma Asegurada
             if 'suma' in s:
-                p_suma = doc.add_paragraph()
-                p_suma.add_run(f"SUMA ASEGURADA MÍNIMA REQUERIDA: {s['suma']}").bold = False
-            doc.add_paragraph("_" * 30)
+                p_suma = agregar_parrafo_formateado(f"SUMA ASEGURADA MÍNIMA REQUERIDA: {s['suma']}", negrita=True)
+            
+            agregar_parrafo_formateado("_" * 30)
 
-    # Requisitos
-    doc.add_paragraph(TEXTOS_LEGALES["GENERAL"]["requisitos"])
-    
-    # Vigencia
-    doc.add_paragraph(TEXTOS_LEGALES["GENERAL"]["vigencia"])
-    
-    # Responsabilidad
-    doc.add_paragraph(TEXTOS_LEGALES["GENERAL"]["responsabilidad"])
+    # Requisitos, Vigencia y Responsabilidad
+    agregar_parrafo_formateado(TEXTOS_LEGALES["GENERAL"]["requisitos"])
+    agregar_parrafo_formateado(TEXTOS_LEGALES["GENERAL"]["vigencia"])
+    agregar_parrafo_formateado(TEXTOS_LEGALES["GENERAL"]["responsabilidad"])
+
+    # --- CORRECCIÓN PARA FORZAR CALIBRI EN TODO EL DOC ---
+    for paragraph in doc.paragraphs:
+        for run in paragraph.runs:
+            run.font.name = 'Calibri'
 
     bio = BytesIO()
     doc.save(bio)
