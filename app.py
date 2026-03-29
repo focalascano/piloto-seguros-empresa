@@ -232,20 +232,28 @@ if st.button("Generar Documento Final"):
         elif p1 and p7: nivel = "Medio"
         else: nivel = "Bajo"
 
-        seguros_para_word = []
-        if p1:
-            seguros_para_word.append({
-                'clausula': f"{TEXTOS_LEGALES['ART']}\n\n{TEXTOS_LEGALES['VO']}\n\n{TEXTOS_LEGALES['AP']}", 
-            })
-        if p1 and (p5 or p7 or r8 == "Sí" or p9):
-            suma_rc = "USD 100.000 (o eq. local)" if nivel == "Alto" else "USD 50.000 (o eq. local)"
-            seguros_para_word.append({'clausula': TEXTOS_LEGALES["RC"], 'suma': suma_rc})
-        if p4:
-            seguros_para_word.append({'clausula': TEXTOS_LEGALES["CAUCION"]"})
-        if p9:
-            seguros_para_word.append({'clausula': TEXTOS_LEGALES["TRCYM"]"})
-        if p3:
-            seguros_para_word.append({'clausula': TEXTOS_LEGALES["AUTO"]"})
+       seguros_para_word = []
+
+if p1:
+    # Bloque base para p1
+    seguros_para_word.append({
+        'clausula': f"{TEXTOS_LEGALES['ART']}\n\n{TEXTOS_LEGALES['VO']}\n\n{TEXTOS_LEGALES['AP']}", 
+    })
+    
+    # Condicionales dependientes de p1
+    if p5 or p7 or r8 == "Sí" or p9:
+        suma_rc = "USD 100.000 (o eq. local)" if nivel == "Alto" else "USD 50.000 (o eq. local)"
+        seguros_para_word.append({'clausula': TEXTOS_LEGALES["RC"], 'suma': suma_rc})
+
+# Bloques independientes
+if p4:
+    seguros_para_word.append({'clausula': TEXTOS_LEGALES["CAUCION"]})
+
+if p9:
+    seguros_para_word.append({'clausula': TEXTOS_LEGALES["TRCYM"]})
+
+if p3:
+    seguros_para_word.append({'clausula': TEXTOS_LEGALES["AUTO"]})
 
         docx_data = generar_anexo_completo(seguros_para_word, nivel)
         st.success(f"Nivel de Riesgo Determinado: {nivel}")
