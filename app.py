@@ -182,7 +182,8 @@ Para ser considerado trabajo menor, debe cumplir todas estas condiciones:
 •  sin intervención en infraestructura  
 •  sin afectar circulación ferroviaria o de pasajeros  
 Ejemplos: (pintura interior de oficina, reparación menor de mobiliario, cerrajería, etc)""", opciones, index=0)
-r7 = st.radio("¿La actividad requiere uso de equipos, maquinaria o de herramientas complejas en la empresa? Ejemplos: herramientas de corte y/o herramienta de calor y/o herramienta a explosión, equipos técnicos, maquinarias", opciones, index=0)
+r7 = st.radio("¿La actividad requiere uso de equipos, maquinaria o de herramientas complejas en la empresa? 
+Ejemplos: herramientas de corte y/o herramienta de calor y/o herramienta a explosión, equipos técnicos, maquinarias", opciones, index=0)
 r8 = st.radio("""¿La actividad incluye alguna de las siguientes tareas  
 •  trabajos en altura  
 •  soldadura u oxicorte  
@@ -191,7 +192,7 @@ r8 = st.radio("""¿La actividad incluye alguna de las siguientes tareas
 •  uso de maquinaria pesada  
 •  uso de armas de fuego  
 •  suministro de alimentos?""", opciones, index=0)
-r9 = st.radio("""¿La actividad implica construir, instalar o montar una obra, sistema o equipos nuevo?
+r9 = st.radio("""¿La actividad implica construir, instalar o montar una obra, sistema o equipos nuevo?  
 Incluye:  
 •  obras civiles  
 •  refacciones estructurales  
