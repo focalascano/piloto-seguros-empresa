@@ -248,13 +248,14 @@ Para ser considerado trabajo menor, debe cumplir todas estas condiciones:
   •  sin afectar circulación ferroviaria o de pasajeros
   Ejemplos: (pintura interior de oficina, reparación menor de mobiliario, cerrajería, etc)
   """, opciones, index=0)
-r7 = st.radio("""¿La actividad requiere uso de equipos, maquinaria o de herramientas complejas en la empresa? 
-Ejemplos: 
-•  herramientas de corte
-•  herramienta de calor
-•  herramienta a explosión
-•  equipos técnicos
-•  maquinarias
+r7 = st.radio("""
+¿La actividad requiere uso de equipos, maquinaria o de herramientas complejas en la empresa?  
+Ejemplos:  
+•  herramientas de corte 
+•  herramienta de calor  
+•  herramienta a explosión  
+•  equipos técnicos  
+•  maquinarias  
 """, opciones, index=0)
 r8 = st.radio("""¿La actividad incluye alguna de las siguientes tareas  
   •  trabajos en altura  
@@ -266,15 +267,15 @@ r8 = st.radio("""¿La actividad incluye alguna de las siguientes tareas
   •  suministro de alimentos?
   """, opciones, index=0)
 r9 = st.radio("""¿La actividad implica construir, instalar o montar una obra, sistema o equipos nuevo?  
-Incluye: 
-  •  obras civiles,  
-  •  refacciones estructurales  
-  •  instalación de equipos (montaje o desmontaje)  
-  •  montaje de sistema electrico o mecánico  
-  No incluye:  
-  •  mantenimiento simple  
-  •  refacciones menores  
-  •  tareas de servicio
+Incluye:
+•  obras civiles,  
+•  refacciones estructurales  
+•  instalación de equipos (montaje o desmontaje)  
+•  montaje de sistema electrico o mecánico  
+No incluye:  
+•  mantenimiento simple  
+•  refacciones menores  
+•  tareas de servicio
   """, opciones, index=0)
 
 # Mapeo a booleanos para lógica interna
