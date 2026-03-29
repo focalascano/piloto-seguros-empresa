@@ -171,13 +171,13 @@ Fernanda Lascano
 **Fecha:** 2026""")
 
 opciones = ["No", "Sí"]
+
 r1 = st.radio("¿Para realizar la actividad personal del proveedor ingresará a predios o instalaciones de la empresa?", opciones, index=0)
 r2 = st.radio("¿La actividad consiste exclusivamente en tareas administrativas o profesionales de oficina, sin intervención técnica ni operativa?", opciones, index=0)
 r3 = st.radio("¿La actividad requiere uso o ingreso de vehículos del proveedor a predios o instalaciones de la empresa?", opciones, index=0)
 r4 = st.radio("¿El proveedor transportará o tendrá en sus instalaciones mercadería, bienes o equipos de la empresa?", opciones, index=0)
 r5 = st.radio("¿El trabajo se realizará en estaciones, andenes, vías, talleres ferroviarios o sectores con circulación de trenes o pasajeros?", opciones, index=0)
-r6 = st.radio("""
-¿La actividad corresponde a un trabajo menor de mantenimiento simple en la empresa? Para ser considerado trabajo menor, debe cumplir todas estas condiciones:
+r6 = st.radio("""¿La actividad corresponde a un trabajo menor de mantenimiento simple en la empresa? Para ser considerado trabajo menor, debe cumplir todas estas condiciones: 
  • duración corta (menor a 1 mes de trabajo) 
  • uso herramientas manuales simples 
  • sin trabajo en altura, ni andamios 
