@@ -36,7 +36,7 @@ with col1:
         st.title("🛡️")
 
 with col2:
-    st.markdown("<h1 style='margin-top: 0;'>Generador de Anexos de seguros</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='margin-top: 0;'>Determinador de seguros a proveedores: generador automatico de anexo contraactual</h1>", unsafe_allow_html=True)
     
 
 # --- BIBLIOTECA DE CLÁUSULAS (TEXTOS COMPLETOS) ---
@@ -142,7 +142,7 @@ def generar_anexo_completo(seguros_activos, nivel):
     style = doc.styles['Normal']
     font = style.font
     font.name = 'Calibri'
-    font.size = Pt(11)
+    font.size = Pt(12)
 
     def agregar_parrafo_formateado(texto, negrita=False, es_titulo=False):
         p = doc.add_paragraph()
