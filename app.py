@@ -65,12 +65,10 @@ TEXTOS_LEGALES = {
         "encabezado": "La Contratista deberá acreditar ante La SOFSA, con una antelación mínima de CINCO (5) días corridos al inicio de los trabajos y/o servicios, la contratación y vigencia de los seguros que resulten aplicables en función de la naturaleza y riesgos de la prestación, debiendo exigir el cumplimiento de esta obligación a los Subcontratistas que eventualmente participen en la ejecución de sus obligaciones contractuales, cuando la contratación así lo permita:",
         "requisitos": """
         Otros Seguros: SOFSA se reserva el derecho de exigir otros seguros que, en virtud de la contratación pudiesen ser requeridos.
-        **Requisitos de los Seguros** Las aseguradoras contratadas deberán cumplir con las siguientes condiciones: 
-        • Ser una aseguradora habilitada por la Superintendencia de Seguros de la Nación. 
-        • Estar calificada por alguna de las Calificadoras de Riesgo autorizadas por la Comisión Nacional de Valores (CNV). Se tomará como válida la calificación del año en que se adjudique la contratación y/o la calificación del año inmediato anterior a la adjudicación.   La Contratista deberá presentar a la Licitante la calificación de riesgos de la Aseguradora. La Contratista deberá mantener y pagar el premio correspondiente a las pólizas. Los comprobantes de pago de las mismas deberán ser presentados a la Licitante de manera mensual y consecutiva.
+        **Requisitos de los Seguros** Las aseguradoras contratadas deberán cumplir con las siguientes condiciones: • Ser una aseguradora habilitada por la Superintendencia de Seguros de la Nación. • Estar calificada por alguna de las Calificadoras de Riesgo autorizadas por la Comisión Nacional de Valores (CNV). Se tomará como válida la calificación del año en que se adjudique la contratación y/o la calificación del año inmediato anterior a la adjudicación.   La Contratista deberá presentar a la Licitante la calificación de riesgos de la Aseguradora. La Contratista deberá mantener y pagar el premio correspondiente a las pólizas. Los comprobantes de pago de las mismas deberán ser presentados a la Licitante de manera mensual y consecutiva.
 """,
         "vigencia": """
-        **Vigencia de los Seguros**  
+        **Vigencia de los Seguros** 
         Los seguros deberán mantenerse vigentes desde el inicio de cualquier actividad vinculada a la contratación, incluyendo tareas previas, y hasta la extinción total de las obligaciones contractuales de la Contratista, comprendiendo la recepción provisoria, el período de garantía y toda intervención posterior vinculada al contrato. 
 """,
         "responsabilidad": """
@@ -182,8 +180,8 @@ Para ser considerado trabajo menor, debe cumplir todas estas condiciones:
 •  sin intervención en infraestructura  
 •  sin afectar circulación ferroviaria o de pasajeros  
 Ejemplos: (pintura interior de oficina, reparación menor de mobiliario, cerrajería, etc)""", opciones, index=0)
-r7 = st.radio("¿La actividad requiere uso de equipos, maquinaria o de herramientas complejas en la empresa? 
-Ejemplos: herramientas de corte y/o herramienta de calor y/o herramienta a explosión, equipos técnicos, maquinarias", opciones, index=0)
+r7 = st.radio("""¿La actividad requiere uso de equipos, maquinaria o de herramientas complejas en la empresa? 
+Ejemplos: herramientas de corte y/o herramienta de calor y/o herramienta a explosión, equipos técnicos, maquinarias""", opciones, index=0)
 r8 = st.radio("""¿La actividad incluye alguna de las siguientes tareas  
 •  trabajos en altura  
 •  soldadura u oxicorte  
