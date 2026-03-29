@@ -168,42 +168,42 @@ Fernanda Lascano
 
 opciones = ["No", "Sí"]
 
-r1 = st.radio("¿Para realizar la actividad personal del proveedor ingresará a predios o instalaciones de la empresa?", opciones, index=0)
-r2 = st.radio("¿La actividad consiste exclusivamente en tareas administrativas o profesionales de oficina, sin intervención técnica ni operativa?", opciones, index=0)
-r3 = st.radio("¿La actividad requiere uso o ingreso de vehículos del proveedor a predios o instalaciones de la empresa?", opciones, index=0)
-r4 = st.radio("¿El proveedor transportará o tendrá en sus instalaciones mercadería, bienes o equipos de la empresa?", opciones, index=0)
-r5 = st.radio("¿El trabajo se realizará en estaciones, andenes, vías, talleres ferroviarios o sectores con circulación de trenes o pasajeros?", opciones, index=0)
-r6 = st.radio("""¿La actividad corresponde a un trabajo menor de mantenimiento simple en la empresa? Para ser considerado trabajo menor, debe cumplir todas estas condiciones: 
- • duración corta (menor a 1 mes de trabajo) 
- • uso herramientas manuales simples 
- • sin trabajo en altura, ni andamios 
- • sin maquinaria 
- • sin intervención en infraestructura 
- • sin afectar circulación ferroviaria o de pasajeros 
-Ejemplos: (pintura interior de oficina, reparación menor de mobiliario, cerrajería, etc)
+    r1 = st.radio("¿Para realizar la actividad personal del proveedor ingresará a predios o instalaciones de la empresa?", opciones, index=0)
+    r2 = st.radio("¿La actividad consiste exclusivamente en tareas administrativas o profesionales de oficina, sin intervención técnica ni operativa?", opciones, index=0)
+    r3 = st.radio("¿La actividad requiere uso o ingreso de vehículos del proveedor a predios o instalaciones de la empresa?", opciones, index=0)
+    r4 = st.radio("¿El proveedor transportará o tendrá en sus instalaciones mercadería, bienes o equipos de la empresa?", opciones, index=0)
+    r5 = st.radio("¿El trabajo se realizará en estaciones, andenes, vías, talleres ferroviarios o sectores con circulación de trenes o pasajeros?", opciones, index=0)
+    r6 = st.radio("""¿La actividad corresponde a un trabajo menor de mantenimiento simple en la empresa? Para ser considerado trabajo menor, debe cumplir todas estas condiciones: 
+    • duración corta (menor a 1 mes de trabajo) 
+    • uso herramientas manuales simples 
+    • sin trabajo en altura, ni andamios 
+    • sin maquinaria 
+    • sin intervención en infraestructura 
+    • sin afectar circulación ferroviaria o de pasajeros 
+    Ejemplos: (pintura interior de oficina, reparación menor de mobiliario, cerrajería, etc)
 """, opciones, index=0)
-r7 = st.radio("¿La actividad requiere uso de equipos, maquinaria o de herramientas complejas en la empresa? Ejemplos: herramientas de corte y/o herramienta de calor y/o herramienta a explosión, equipos técnicos, maquinarias", opciones, index=0)
-r8 = st.radio("""
-¿La actividad incluye alguna de las siguientes tareas 
- • trabajos en altura 
- • soldadura u oxicorte 
- • izaje de cargas 
- • intervención eléctrica 
- • uso de maquinaria pesada 
- • uso de armas de fuego 
- • suministro de alimentos? 
+    r7 = st.radio("¿La actividad requiere uso de equipos, maquinaria o de herramientas complejas en la empresa? Ejemplos: herramientas de corte y/o herramienta de calor y/o herramienta a explosión, equipos técnicos, maquinarias", opciones, index=0)
+    r8 = st.radio("""
+    ¿La actividad incluye alguna de las siguientes tareas 
+    • trabajos en altura 
+    • soldadura u oxicorte 
+    • izaje de cargas 
+    • intervención eléctrica 
+    • uso de maquinaria pesada 
+    • uso de armas de fuego 
+    • suministro de alimentos? 
 """, opciones, index=0)
-r9 = st.radio("""
-¿La actividad implica construir, instalar o montar una obra, sistema o equipos nuevo? 
-Incluye: 
- • obras civiles 
- • refacciones estructurales 
- • instalación de equipos (montaje o desmontaje) 
- • montaje de sistema electrico o mecánico 
- No incluye: 
- • mantenimiento simple 
- • refacciones menores 
- • tareas de servicio 
+    r9 = st.radio("""
+    ¿La actividad implica construir, instalar o montar una obra, sistema o equipos nuevo? 
+    Incluye: 
+    • obras civiles 
+    • refacciones estructurales 
+    • instalación de equipos (montaje o desmontaje) 
+    • montaje de sistema electrico o mecánico 
+    No incluye: 
+    • mantenimiento simple 
+    • refacciones menores 
+    • tareas de servicio 
 """, opciones, index=0)
 
 p1, p2, p3, p4, p5, p6, p7, p8, p9 = [r == "Sí" for r in [r1, r2, r3, r4, r5, r6, r7, r8, r9]]
