@@ -260,9 +260,9 @@ if st.button("Generar Documento Final"):
         mensaje_nivel = f"Nivel de Riesgo Determinado: {nivel}"
         
         if nivel == "Nulo":
-            st.success(mensaje_nivel)  # Verde
+            st.info(mensaje_nivel)  # Azul gris
         elif nivel == "Bajo":
-            st.info(mensaje_nivel)     # Azul/Gris
+            st.success(mensaje_nivel)     # Verde
         elif nivel == "Medio":
             st.warning(mensaje_nivel)  # Naranja/Amarillo
         elif nivel == "Alto":
