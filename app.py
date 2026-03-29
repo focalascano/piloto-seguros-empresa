@@ -114,13 +114,12 @@ def generar_anexo_completo(seguros_activos, nivel):
     
     # Título principal
     p_main = doc.add_paragraph()
-    p_main.add_run('ANEXO DE SEGUROS Y RESPONSABILIDADES').bold = True
+    p_main.add_run('ANEXO DE SEGUROS').bold = True
     
     doc.add_paragraph(TEXTOS_LEGALES["GENERAL"]["encabezado"])
 
     # Sección de Seguros
     p_seguros = doc.add_paragraph()
-    p_seguros.add_run('2. SEGUROS').bold = True
     
     if not seguros_activos:
         doc.add_paragraph("No se han determinado seguros específicos adicionales bajo el nivel de Riesgo Nulo.")
@@ -165,7 +164,8 @@ Al final se podrá descargar un archivo Word con el Anexo de seguros que corresp
 
 st.caption("""
 **Versión 1.0 – 2026** **Autores:** Diego Martín Morris, Ignacio Khoury.  
-**Colaboradores:** Claudia Grahl, Facundo Gonzalez, Gonzalo Dince, Analia Zalazar, Silvina Coronel.  
+**Colaboradores:** Claudia Grahl, Facundo Gonzalez, Gonzalo Dince, Analia Zalazar, Silvina Coronel.
+**Implementación informatica del moodelo: Fernanda Lascano
 **Fecha:** 2026
 """)
 
@@ -179,22 +179,22 @@ r3 = st.radio("¿La actividad requiere uso o ingreso de vehículos del proveedor
 r4 = st.radio("¿El proveedor transportará o tendrá en sus instalaciones mercadería, bienes o equipos de la empresa?", opciones, index=0)
 r5 = st.radio("¿El trabajo se realizará en estaciones, andenes, vías, talleres ferroviarios o sectores con circulación de trenes o pasajeros?", opciones, index=0)
 r6 = st.radio("""¿La actividad corresponde a un trabajo menor de mantenimiento simple en la empresa? Para ser considerado trabajo menor, debe cumplir todas estas condiciones:
-• duración corta (menor a 1 mes de trabajo)
-• uso herramientas manuales simples
-• sin trabajo en altura, ni andamios
-• sin maquinaria
-• sin intervención en infraestructura
-• sin afectar circulación ferroviaria o de pasajeros
-       Ejemplos: (pintura interior de oficina, reparación menor de mobiliario, cerrajería, etc)""", opciones, index=0)
+**• duración corta (menor a 1 mes de trabajo)**
+**• uso herramientas manuales simples**
+**• sin trabajo en altura, ni andamios**
+**• sin maquinaria**
+**• sin intervención en infraestructura**
+**• sin afectar circulación ferroviaria o de pasajeros**
+       **Ejemplos: (pintura interior de oficina, reparación menor de mobiliario, cerrajería, etc)""", opciones, index=0)
 r7 = st.radio("¿La actividad requiere uso de equipos, maquinaria o de herramientas complejas en la empresa? Ejemplos: herramientas de corte y/o herramienta de calor y/o herramienta a explosión, equipos técnicos, maquinarias", opciones, index=0)
 r8 = st.radio("""¿La actividad incluye alguna de las siguientes tareas  
-• trabajos en altura
-• soldadura u oxicorte
-• izaje de cargas
-• intervención eléctrica
-• uso de maquinaria pesada
-• uso de armas de fuego
-• suministro de alimentos?""", opciones, index=0)
+**• trabajos en altura
+**• soldadura u oxicorte
+**• izaje de cargas
+**• intervención eléctrica
+**• uso de maquinaria pesada
+**• uso de armas de fuego
+**• suministro de alimentos?""", opciones, index=0)
 r9 = st.radio("""¿La actividad implica construir, instalar o montar una obra, sistema o equipos nuevo? 
 Incluye:
 • obras civiles,
