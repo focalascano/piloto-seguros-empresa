@@ -256,6 +256,17 @@ if st.button("Generar Documento Final"):
         if p3:
             seguros_para_word.append({'clausula': TEXTOS_LEGALES["AUTO"]})
 
+        # --- Lógica de Colores para el Cartel ---
+        mensaje_nivel = f"Nivel de Riesgo Determinado: {nivel}"
+        
+        if nivel == "Nulo":
+            st.success(mensaje_nivel)  # Verde
+        elif nivel == "Bajo":
+            st.info(mensaje_nivel)     # Azul/Gris
+        elif nivel == "Medio":
+            st.warning(mensaje_nivel)  # Naranja/Amarillo
+        elif nivel == "Alto":
+            st.error(mensaje_nivel)    # Rojo
+
         docx_data = generar_anexo_completo(seguros_para_word, nivel)
-        st.success(f"Nivel de Riesgo Determinado: {nivel}")
         st.download_button("📥 Descargar Anexo Word", docx_data, f"Anexo_Seguros_{nivel}.docx")
