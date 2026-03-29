@@ -193,7 +193,7 @@ r8 = st.radio("""¿La actividad incluye alguna de las siguientes tareas
 •  suministro de alimentos?""", opciones, index=0)
 r9 = st.radio("""¿La actividad implica construir, instalar o montar una obra, sistema o equipos nuevo?
 Incluye:  
-•  obras civiles,  
+•  obras civiles  
 •  refacciones estructurales  
 •  instalación de equipos (montaje o desmontaje)  
 •  montaje de sistema electrico o mecánico  
