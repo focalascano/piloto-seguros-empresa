@@ -27,11 +27,28 @@ st.set_page_config(
     layout="centered"
 )
 
+# --- ESTILOS CSS PARA FUENTE CALIBRI, TAMAÑO GENERAL Y RADIOS ---
+st.markdown("""
+    <style>
+        /* Fuente general de la página */
+        html, body, [data-testid="stWidgetLabel"] p, .stMarkdown p {
+            font-family: 'Calibri', 'Candara', 'Seguoe UI', sans-serif !important;
+            font-size: 18px !important;
+        }
+        /* Tamaño específico para las etiquetas de los radio buttons (preguntas) */
+        [data-testid="stWidgetLabel"] {
+            font-size: 20px !important;
+            font-weight: bold !important;
+        }
+    </style>
+    """, unsafe_allow_html=True)
+
 col1, col2 = st.columns([1, 4])
 
 with col1:
     if logo_exists and logo_image:
-        st.image(logo_image, width=140)
+        # Agrandar el logo aumentando el ancho
+        st.image(logo_image, width=250)
     else:
         st.title("🛡️")
 
@@ -39,10 +56,10 @@ with col2:
     # Título y Subtítulo en Mayúsculas (Versales) con estilo CSS
     st.markdown("""
         <div style='margin-top: 0;'>
-            <h1 style='margin-bottom: 0; font-variant: small-caps; text-transform: uppercase; font-size: 28px;'>
+            <h1 style='margin-bottom: 0; font-variant: small-caps; text-transform: uppercase; font-size: 32px; font-family: Calibri;'>
                 Determinador de seguros a proveedores
             </h1>
-            <h3 style='margin-top: 0; font-variant: small-caps; text-transform: uppercase; font-size: 18px; color: #555;'>
+            <h3 style='margin-top: 0; font-variant: small-caps; text-transform: uppercase; font-size: 22px; color: #555; font-family: Calibri;'>
                 Generador automático de anexo contractual
             </h3>
         </div>
@@ -55,8 +72,7 @@ TEXTOS_LEGALES = {
     "GENERAL": {
         "encabezado": "La Contratista deberá acreditar ante La SOFSA, con una antelación mínima de CINCO (5) días corridos al inicio de los trabajos y/o servicios, la contratación y vigencia de los seguros que resulten aplicables en función de la naturaleza y riesgos de la prestación, debiendo exigir el cumplimiento de esta obligación a los Subcontratistas que eventualmente participen en la ejecución de sus obligaciones contractuales, cuando la contratación así lo permita:",
         "requisitos": """Otros Seguros: SOFSA se reserva el derecho de exigir otros seguros que, en virtud de la contratación pudiesen ser requeridos.
-**Requisitos de los Seguros**  
-Las aseguradoras contratadas deberán cumplir con las siguientes condiciones:  
+**Requisitos de los Seguros** Las aseguradoras contratadas deberán cumplir con las siguientes condiciones:  
 • Ser una aseguradora habilitada por la Superintendencia de Seguros de la Nación.
 • Estar calificada por alguna de las Calificadoras de Riesgo autorizadas por la Comisión Nacional de Valores (CNV).  
 Se tomará como válida la calificación del año en que se adjudique la contratación y/o la calificación del año inmediato anterior a la adjudicación.  
@@ -156,13 +172,16 @@ def generar_anexo_completo(seguros_activos, nivel):
     font.size = Pt(11)
 
     def agregar_parrafo_formateado(texto, negrita=False, es_titulo=False):
+        # Corrección: Generar salto de línea luego de cada oración (.) para mejorar justificado
+        texto_procesado = texto.replace(". ", ".\n")
+        
         p = doc.add_paragraph()
         p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
         
         # Configuración del salto de línea (espacio después del párrafo)
         p.paragraph_format.space_after = Pt(12) 
         
-        run = p.add_run(texto)
+        run = p.add_run(texto_procesado)
         run.bold = negrita
         if es_titulo:
             run.font.size = Pt(14)
@@ -205,7 +224,7 @@ Al final se podrá descargar un archivo Word con el Anexo de seguros que corresp
 
 st.caption("""
 **Versión 1.0 – 2026** **Autores:** Diego Martín Morris, Ignacio Khoury.  
-**Colaboradores:** Claudia Grahl, Facundo Gonzalez, Gonzalo Dince, Analia Zalazar, Silvina Coronel.   
+**Colaboradores:** Claudia Grahl, Facundo Gonzalez, Gonzalo Dince, Analia Zalazar, Silvina Coronel.    
 **Implementación informatica del moodelo:** Fernanda Lascano  
 **Fecha:** 2026
 """)
@@ -220,32 +239,42 @@ r3 = st.radio("¿La actividad requiere uso o ingreso de vehículos del proveedor
 r4 = st.radio("¿El proveedor transportará o tendrá en sus instalaciones mercadería, bienes o equipos de la empresa?", opciones, index=0)
 r5 = st.radio("¿El trabajo se realizará en estaciones, andenes, vías, talleres ferroviarios o sectores con circulación de trenes o pasajeros?", opciones, index=0)
 r6 = st.radio("""¿La actividad corresponde a un trabajo menor de mantenimiento simple en la empresa? Para ser considerado trabajo menor, debe cumplir todas estas condiciones:
-• duración corta (menor a 1 mes de trabajo)  
-• uso herramientas manuales simples  
-• sin trabajo en altura, ni andamios  
-• sin maquinaria  
-• sin intervención en infraestructura  
-• sin afectar circulación ferroviaria o de pasajeros  
-       **Ejemplos: (pintura interior de oficina, reparación menor de mobiliario, cerrajería, etc)""", opciones, index=0)
-r7 = st.radio("¿La actividad requiere uso de equipos, maquinaria o de herramientas complejas en la empresa? Ejemplos: herramientas de corte y/o herramienta de calor y/o herramienta a explosión, equipos técnicos, maquinarias", opciones, index=0)
+  •  duración corta (menor a 1 mes de trabajo)  
+  •  uso herramientas manuales simples  
+  •  sin trabajo en altura, ni andamios  
+  •  sin maquinaria  
+  •  sin intervención en infraestructura  
+  •  sin afectar circulación ferroviaria o de pasajeros
+  Ejemplos: (pintura interior de oficina, reparación menor de mobiliario, cerrajería, etc)
+  """, opciones, index=0)
+r7 = st.radio("""¿La actividad requiere uso de equipos, maquinaria o de herramientas complejas en la empresa? 
+Ejemplos: 
+  •  herramientas de corte
+  •  herramienta de calor
+  •  herramienta a explosión
+  •  equipos técnicos
+  •  maquinarias
+""", opciones, index=0)
 r8 = st.radio("""¿La actividad incluye alguna de las siguientes tareas  
-• trabajos en altura  
-• soldadura u oxicorte  
-• izaje de cargas  
-• intervención eléctrica  
-• uso de maquinaria pesada  
-• uso de armas de fuego  
-• suministro de alimentos?""", opciones, index=0)
+  •  trabajos en altura  
+  •  soldadura u oxicorte  
+  •  izaje de cargas  
+  •  intervención eléctrica  
+  •  uso de maquinaria pesada  
+  •  uso de armas de fuego  
+  •  suministro de alimentos?
+  """, opciones, index=0)
 r9 = st.radio("""¿La actividad implica construir, instalar o montar una obra, sistema o equipos nuevo? 
 Incluye:  
-• obras civiles,  
-• refacciones estructurales  
-• instalación de equipos (montaje o desmontaje)  
-• montaje de sistema electrico o mecánico  
-No incluye:  
-• mantenimiento simple  
-• refacciones menores  
-• tareas de servicio""", opciones, index=0)
+  •  obras civiles,  
+  •  refacciones estructurales  
+  •  instalación de equipos (montaje o desmontaje)  
+  •  montaje de sistema electrico o mecánico  
+  No incluye:  
+  •  mantenimiento simple  
+  •  refacciones menores  
+  •  tareas de servicio
+  """, opciones, index=0)
 
 # Mapeo a booleanos para lógica interna
 p1 = (r1 == "Sí")
