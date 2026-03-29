@@ -5,6 +5,7 @@ from io import BytesIO
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Pt
+from docx.shared import Pt, RGBColor
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 logo_path = os.path.join(current_dir, "logotrenes.png")
@@ -21,7 +22,7 @@ if logo_exists:
 
 # --- 3. CONFIGURACIÓN DE PÁGINA ---
 st.set_page_config(
-    page_title="""Determinador de seguros a proveedores: Generador automático de anexo contractual""",
+    page_title="Determinador de seguros a proveedores: Generador automático de anexo contractual",
     page_icon="🛡️", 
     layout="centered"
 )
@@ -35,8 +36,19 @@ with col1:
         st.title("🛡️")
 
 with col2:
-    st.markdown("<h1 style='margin-top: 0;'>Determinador de seguros a proveedores: generador automático de anexo contraactual</h1>", unsafe_allow_html=True)
-    
+    # Título y Subtítulo en Mayúsculas (Versales) con estilo CSS
+    st.markdown("""
+        <div style='margin-top: 0;'>
+            <h1 style='margin-bottom: 0; font-variant: small-caps; text-transform: uppercase; font-size: 28px;'>
+                Determinador de seguros a proveedores
+            </h1>
+            <h3 style='margin-top: 0; font-variant: small-caps; text-transform: uppercase; font-size: 18px; color: #555;'>
+                Generador automático de anexo contractual
+            </h3>
+        </div>
+    """, unsafe_allow_html=True)
+
+
 
 # --- BIBLIOTECA DE CLÁUSULAS (TEXTOS COMPLETOS) ---
 TEXTOS_LEGALES = {
@@ -137,16 +149,18 @@ La Contratista mantendrá indemne a SOFSA, ADIFSA, FASE - en proceso de transfor
 def generar_anexo_completo(seguros_activos, nivel):
     doc = Document()
     
-    # --- CONFIGURACIÓN DE ESTILO GLOBAL (Calibri) ---
+    # Configuración de estilo global
     style = doc.styles['Normal']
     font = style.font
     font.name = 'Calibri'
-    font.size = Pt(12)
+    font.size = Pt(11)
 
     def agregar_parrafo_formateado(texto, negrita=False, es_titulo=False):
         p = doc.add_paragraph()
-        # Alineación justificada
         p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+        
+        # Configuración del salto de línea (espacio después del párrafo)
+        p.paragraph_format.space_after = Pt(12) 
         
         run = p.add_run(texto)
         run.bold = negrita
@@ -157,29 +171,23 @@ def generar_anexo_completo(seguros_activos, nivel):
     # Título principal
     agregar_parrafo_formateado('ANEXO DE SEGUROS', negrita=True, es_titulo=True)
     
-    # Encabezado General
+    # Contenido (usando la función que ya justifica y salta línea)
     agregar_parrafo_formateado(TEXTOS_LEGALES["GENERAL"]["encabezado"])
 
-    # Sección de Seguros
     if not seguros_activos:
         agregar_parrafo_formateado("No se han determinado seguros específicos adicionales bajo el nivel de Riesgo Nulo.")
     else:
         for s in seguros_activos:
-            # Cláusula (Justificada)
             agregar_parrafo_formateado(s['clausula'])
-            
-            # Suma Asegurada
             if 'suma' in s:
-                p_suma = agregar_parrafo_formateado(f"SUMA ASEGURADA MÍNIMA REQUERIDA: {s['suma']}", negrita=False)
-            
+                agregar_parrafo_formateado(f"SUMA ASEGURADA MÍNIMA REQUERIDA: {s['suma']}")
             agregar_parrafo_formateado("_" * 30)
 
-    # Requisitos, Vigencia y Responsabilidad
     agregar_parrafo_formateado(TEXTOS_LEGALES["GENERAL"]["requisitos"])
     agregar_parrafo_formateado(TEXTOS_LEGALES["GENERAL"]["vigencia"])
     agregar_parrafo_formateado(TEXTOS_LEGALES["GENERAL"]["responsabilidad"])
 
-    # --- CORRECCIÓN PARA FORZAR CALIBRI EN TODO EL DOC ---
+    # Asegurar fuente Calibri en todo el documento
     for paragraph in doc.paragraphs:
         for run in paragraph.runs:
             run.font.name = 'Calibri'
