@@ -256,9 +256,9 @@ Para ser considerado trabajo menor, debe cumplir todas estas condiciones:
 r7 = st.radio("""
 ¿La actividad requiere uso de equipos, maquinaria o de herramientas complejas en la empresa?  
 Ejemplos:  
-•  herramientas de corte 
-•  herramientas de calor  
-•  herramientas a explosión  
+•  herramientas de corte  
+•  herramientas de calor   
+•  herramientas a explosión   
 •  equipos técnicos  
 •  maquinarias  
 """, opciones, index=0)
