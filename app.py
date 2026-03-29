@@ -132,46 +132,63 @@ Notificación previa: La póliza no será anulada sin previo aviso por escrito a
 
 def generar_anexo_completo(seguros_activos, nivel):
     doc = Document()
+    
+    # Configuración global de estilo
     style = doc.styles['Normal']
     font = style.font
     font.name = 'Calibri'
     font.size = Pt(11)
 
-    def agregar_parrafo_formateado(texto, negrita=False, es_titulo=False):
-        texto_procesado = texto.replace(". ", ".\n")
+    def agregar_parrafo_formateado(texto, negrita=False, es_titulo=False, con_salto=True):
         p = doc.add_paragraph()
         p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-        p.paragraph_format.space_after = Pt(12) 
-
-        partes = texto_procesado.split("**")
+        
+        # Procesar negritas con el separador **
+        partes = texto.split("**")
         for i, fragmento in enumerate(partes):
             run = p.add_run(fragmento)
             if i % 2 != 0:
                 run.bold = True
             else:
-                run.bold = negrita 
-                
+                run.bold = negrita
+            
             if es_titulo:
                 run.font.size = Pt(14)
                 run.bold = True
+        
+        # EL CAMBIO CLAVE:
+        if con_salto:
+            doc.add_page_break()
+            
         return p
 
-    agregar_parrafo_formateado('ANEXO DE SEGUROS', negrita=True, es_titulo=True)
-    agregar_parrafo_formateado(TEXTOS_LEGALES["GENERAL"]["encabezado"])
+    # --- Generación de Secciones ---
 
+    # 1. Título y Encabezado (Podés decidir si querés salto entre ellos)
+    agregar_parrafo_formateado('ANEXO DE SEGUROS', negrita=True, es_titulo=True, con_salto=False)
+    agregar_parrafo_formateado(TEXTOS_LEGALES["GENERAL"]["encabezado"], con_salto=True)
+
+    # 2. Seguros Específicos
     if not seguros_activos:
-        agregar_parrafo_formateado("No se han determinado seguros específicos adicionales bajo el nivel de Riesgo Nulo.")
+        agregar_parrafo_formateado("No se han determinado seguros específicos adicionales bajo el nivel de Riesgo Nulo.", con_salto=True)
     else:
-        for s in seguros_activos:
-            agregar_parrafo_formateado(s['clausula'])
+        for i, s in enumerate(seguros_activos):
+            # Si hay suma, la concatenamos al texto para que todo sea un solo bloque antes del salto
+            texto_clausula = s['clausula']
             if 'suma' in s:
-                agregar_parrafo_formateado(f"SUMA ASEGURADA MÍNIMA REQUERIDA: {s['suma']}")
-            agregar_parrafo_formateado("_" * 30)
+                texto_clausula += f"\n\nSUMA ASEGURADA MÍNIMA REQUERIDA: {s['suma']}"
+            
+            # Agregamos salto después de cada cláusula de seguro
+            agregar_parrafo_formateado(texto_clausula, con_salto=True)
 
-    agregar_parrafo_formateado(TEXTOS_LEGALES["GENERAL"]["requisitos"])
-    agregar_parrafo_formateado(TEXTOS_LEGALES["GENERAL"]["vigencia"])
-    agregar_parrafo_formateado(TEXTOS_LEGALES["GENERAL"]["responsabilidad"])
+    # 3. Secciones Finales (Cada una en su propia página)
+    agregar_parrafo_formateado(TEXTOS_LEGALES["GENERAL"]["requisitos"], con_salto=True)
+    agregar_parrafo_formateado(TEXTOS_LEGALES["GENERAL"]["vigencia"], con_salto=True)
+    
+    # El último párrafo lleva con_salto=False para no dejar una hoja vacía al final
+    agregar_parrafo_formateado(TEXTOS_LEGALES["GENERAL"]["responsabilidad"], con_salto=False)
 
+    # Asegurar fuente en todo el documento antes de cerrar
     for paragraph in doc.paragraphs:
         for run in paragraph.runs:
             run.font.name = 'Calibri'
@@ -179,7 +196,6 @@ def generar_anexo_completo(seguros_activos, nivel):
     bio = BytesIO()
     doc.save(bio)
     return bio.getvalue()
-
 st.write("Responda el siguiente cuestionario para determinar los seguros aplicables.")
 st.caption("""
 **Versión 1.0 – 2026** **Autores:** Diego Martín Morris, Ignacio Khoury.  
