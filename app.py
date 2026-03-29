@@ -167,7 +167,6 @@ Fernanda Lascano
 **Fecha:** 2026""")
 
 opciones = ["No", "Sí"]
-
     r1 = st.radio("¿Para realizar la actividad personal del proveedor ingresará a predios o instalaciones de la empresa?", opciones, index=0)
     r2 = st.radio("¿La actividad consiste exclusivamente en tareas administrativas o profesionales de oficina, sin intervención técnica ni operativa?", opciones, index=0)
     r3 = st.radio("¿La actividad requiere uso o ingreso de vehículos del proveedor a predios o instalaciones de la empresa?", opciones, index=0)
