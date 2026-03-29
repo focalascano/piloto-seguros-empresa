@@ -21,7 +21,8 @@ if logo_exists:
 
 # --- 3. CONFIGURACIÓN DE PÁGINA ---
 st.set_page_config(
-    page_title="Generador de Anexos de Seguros",
+    page_title="""Determinador de seguros a proveedores 
+    Generador automático de anexo contractual""",
     page_icon="🛡️", 
     layout="centered"
 )
@@ -30,7 +31,7 @@ col1, col2 = st.columns([1, 4])
 
 with col1:
     if logo_exists and logo_image:
-        st.image(logo_image, width=100)
+        st.image(logo_image, width=140)
     else:
         st.title("🛡️")
 
