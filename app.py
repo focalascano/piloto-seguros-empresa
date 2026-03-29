@@ -199,4 +199,4 @@ if st.button("Generar Documento Final"):
             if p3: seguros_para_word.append({'clausula': TEXTOS_LEGALES["AUTO"]})
 
             docx_data = generar_anexo_completo(seguros_para_word, nivel)
-            st.download_button("📥 Descargar Anexo Word", docx_data, f"Anexo_Seguros_{nivel}.docx")}.docx")
+            st.download_button("📥 Descargar Anexo Word", docx_data, f"Anexo_Seguros_{nivel}.docx")
