@@ -172,19 +172,23 @@ def generar_anexo_completo(seguros_activos, nivel):
     font.size = Pt(11)
 
     def agregar_parrafo_formateado(texto, negrita=False, es_titulo=False):
-        # Corrección: Generar salto de línea luego de cada oración (.) para mejorar justificado
         texto_procesado = texto.replace(". ", ".\n")
         
         p = doc.add_paragraph()
         p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-        
-        # Configuración del salto de línea (espacio después del párrafo)
         p.paragraph_format.space_after = Pt(12) 
-        
-        run = p.add_run(texto_procesado)
-        run.bold = negrita
-        if es_titulo:
-            run.font.size = Pt(14)
+
+        partes = texto_procesado.split("**")
+        for i, fragmento in enumerate(partes):
+            run = p.add_run(fragmento)
+            if i % 2 != 0:
+                run.bold = True
+            else:
+                run.bold = negrita 
+                
+            if es_titulo:
+                run.font.size = Pt(14)
+                run.bold = True
         return p
 
     # Título principal
@@ -253,8 +257,8 @@ r7 = st.radio("""
 ¿La actividad requiere uso de equipos, maquinaria o de herramientas complejas en la empresa?  
 Ejemplos:  
 •  herramientas de corte 
-•  herramienta de calor  
-•  herramienta a explosión  
+•  herramientas de calor  
+•  herramientas a explosión  
 •  equipos técnicos  
 •  maquinarias  
 """, opciones, index=0)
@@ -314,40 +318,41 @@ if st.button("Generar Documento Final"):
         else: 
             nivel = "Bajo"
 
-        seguros_para_word = []
-
-        if p1:
-            # Bloque base para p1
-            seguros_para_word.append({
-                'clausula': f"{TEXTOS_LEGALES['ART']}\n\n{TEXTOS_LEGALES['VO']}\n\n{TEXTOS_LEGALES['AP']}", 
-            })
-            
-            # Condicionales dependientes de p1
-            if p5 or p7 or r8 == "Sí" or p9:
-                suma_rc = "USD 100.000 (o eq. local)" if nivel == "Alto" else "USD 50.000 (o eq. local)"
-                seguros_para_word.append({'clausula': TEXTOS_LEGALES["RC"], 'suma': suma_rc})
-
-        # Bloques independientes
-        if p4:
-            seguros_para_word.append({'clausula': TEXTOS_LEGALES["CAUCION"]})
-
-        if p9:
-            seguros_para_word.append({'clausula': TEXTOS_LEGALES["TRCYM"]})
-
-        if p3:
-            seguros_para_word.append({'clausula': TEXTOS_LEGALES["AUTO"]})
-
         # --- Lógica de Colores para el Cartel ---
         mensaje_nivel = f"Nivel de Riesgo Determinado: {nivel}"
         
         if nivel == "Nulo":
-            st.info(mensaje_nivel)  # Azul gris
-        elif nivel == "Bajo":
-            st.success(mensaje_nivel)     # Verde
-        elif nivel == "Medio":
-            st.warning(mensaje_nivel)  # Naranja/Amarillo
-        elif nivel == "Alto":
-            st.error(mensaje_nivel)    # Rojo
+            st.info(f"{mensaje_nivel}. No se han determinado seguros específicos adicionales bajo el nivel de Riesgo Nulo. No se requiere la generación de un anexo.")
+        else:
+            if nivel == "Bajo":
+                st.success(mensaje_nivel)     # Verde
+            elif nivel == "Medio":
+                st.warning(mensaje_nivel)  # Naranja/Amarillo
+            elif nivel == "Alto":
+                st.error(mensaje_nivel)    # Rojo
 
-        docx_data = generar_anexo_completo(seguros_para_word, nivel)
-        st.download_button("📥 Descargar Anexo Word", docx_data, f"Anexo_Seguros_{nivel}.docx")
+            seguros_para_word = []
+
+            if p1:
+                # Bloque base para p1
+                seguros_para_word.append({
+                    'clausula': f"{TEXTOS_LEGALES['ART']}\n\n{TEXTOS_LEGALES['VO']}\n\n{TEXTOS_LEGALES['AP']}", 
+                })
+                
+                # Condicionales dependientes de p1
+                if p5 or p7 or r8 == "Sí" or p9:
+                    suma_rc = "USD 100.000 (o eq. local)" if nivel == "Alto" else "USD 50.000 (o eq. local)"
+                    seguros_para_word.append({'clausula': TEXTOS_LEGALES["RC"], 'suma': suma_rc})
+
+            # Bloques independientes
+            if p4:
+                seguros_para_word.append({'clausula': TEXTOS_LEGALES["CAUCION"]})
+
+            if p9:
+                seguros_para_word.append({'clausula': TEXTOS_LEGALES["TRCYM"]})
+
+            if p3:
+                seguros_para_word.append({'clausula': TEXTOS_LEGALES["AUTO"]})
+
+            docx_data = generar_anexo_completo(seguros_para_word, nivel)
+            st.download_button("📥 Descargar Anexo Word", docx_data, f"Anexo_Seguros_{nivel}.docx")
