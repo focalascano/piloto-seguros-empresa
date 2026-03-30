@@ -139,7 +139,7 @@ def generar_anexo_completo(seguros_activos, nivel):
     font.name = 'Calibri'
     font.size = Pt(11)
 
-    def agregar_parrafo_formateado(texto, negrita=False, es_titulo=False, con_salto=True):
+    def agregar_parrafo_formateado(texto, negrita=False, es_titulo=False, con_salto=False):
         p = doc.add_paragraph()
         p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
         
@@ -166,12 +166,12 @@ def generar_anexo_completo(seguros_activos, nivel):
 
     # General
     
-    agregar_parrafo_formateado('ANEXO DE SEGUROS', negrita=True, es_titulo=True, con_salto=True)
-    agregar_parrafo_formateado(TEXTOS_LEGALES["GENERAL"]["encabezado"], con_salto=True)
+    agregar_parrafo_formateado('ANEXO DE SEGUROS', negrita=True, es_titulo=True, con_salto=False)
+    agregar_parrafo_formateado(TEXTOS_LEGALES["GENERAL"]["encabezado"], con_salto=False)
 
     # Seguros
     if not seguros_activos:
-        agregar_parrafo_formateado("No se han determinado seguros específicos adicionales bajo el nivel de Riesgo Nulo.", con_salto=True)
+        agregar_parrafo_formateado("No se han determinado seguros específicos adicionales bajo el nivel de Riesgo Nulo.", con_salto=False)
     else:
         for i, s in enumerate(seguros_activos):
             # Si hay suma, la concatenamos al texto para que todo sea un solo bloque antes del salto
@@ -183,8 +183,8 @@ def generar_anexo_completo(seguros_activos, nivel):
             agregar_parrafo_formateado(texto_clausula, con_salto=True)
 
     # 3. Secciones Finales (Cada una en su propia página)
-    agregar_parrafo_formateado(TEXTOS_LEGALES["GENERAL"]["requisitos"], con_salto=True)
-    agregar_parrafo_formateado(TEXTOS_LEGALES["GENERAL"]["vigencia"], con_salto=True)
+    agregar_parrafo_formateado(TEXTOS_LEGALES["GENERAL"]["requisitos"], con_salto=False)
+    agregar_parrafo_formateado(TEXTOS_LEGALES["GENERAL"]["vigencia"], con_salto=False)
     
     # El último párrafo lleva con_salto=False para no dejar una hoja vacía al final
     agregar_parrafo_formateado(TEXTOS_LEGALES["GENERAL"]["responsabilidad"], con_salto=False)
