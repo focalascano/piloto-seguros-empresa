@@ -164,11 +164,12 @@ def generar_anexo_completo(seguros_activos, nivel):
 
     # --- Generación de Secciones ---
 
-    # 1. Título y Encabezado (Podés decidir si querés salto entre ellos)
-    agregar_parrafo_formateado('ANEXO DE SEGUROS', negrita=True, es_titulo=True, con_salto=False)
+    # General
+    
+    agregar_parrafo_formateado('ANEXO DE SEGUROS', negrita=True, es_titulo=True, con_salto=True)
     agregar_parrafo_formateado(TEXTOS_LEGALES["GENERAL"]["encabezado"], con_salto=True)
 
-    # 2. Seguros Específicos
+    # Seguros
     if not seguros_activos:
         agregar_parrafo_formateado("No se han determinado seguros específicos adicionales bajo el nivel de Riesgo Nulo.", con_salto=True)
     else:
@@ -178,7 +179,7 @@ def generar_anexo_completo(seguros_activos, nivel):
             if 'suma' in s:
                 texto_clausula += f"\n\nSUMA ASEGURADA MÍNIMA REQUERIDA: {s['suma']}"
             
-            # Agregamos salto después de cada cláusula de seguro
+
             agregar_parrafo_formateado(texto_clausula, con_salto=True)
 
     # 3. Secciones Finales (Cada una en su propia página)
@@ -241,7 +242,7 @@ No incluye:
 •  refacciones menores  
 •  tareas de servicio""", opciones, index=0)
 
-# Mapeo a booleanos para lógica interna
+# Mapeo a booleanos
 p1 = (r1 == "Sí")
 p2 = (r2 == "Sí")
 p3 = (r3 == "Sí")
@@ -255,9 +256,11 @@ p9 = (r9 == "Sí")
 
 errores = []
 if not p1 and (p3 or p4 or p5 or p6 or p7 or p8 or p9):
-    errores.append("⚠️ Bloqueo: Toda condición operativa requiere el ingreso de personal.")
+    errores.append("⚠️ Bloqueo: Toda condición operativa requiere el ingreso de personal (P1 = SÍ).")
 if p2 and (p4 or p5 or p6 or p7 or p8 or p9):
     errores.append("⚠️ Bloqueo: Tareas administrativas incompatibles con riesgos operativos.")
+if p6 and (p4 or p5 or p7 or p8 or p9):
+    errores.append("⚠️ Bloqueo: Trabajo menor incompatible con riesgos altos o maquinaria compleja.")
 
 if st.button("GENERAR ANEXO DE SEGUROS"):
     if errores:
