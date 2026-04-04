@@ -31,6 +31,20 @@ st.markdown("""
         margin: 0;
         opacity: 0.9;
     }
+
+    /* Estilo para el Botón de Anexo (Azul Oscuro) */
+    div.stDownloadButton:nth-of-type(1) button {
+        background-color: #002366 !important;
+        color: white !important;
+        border: none;
+    }
+
+    /* Estilo para el Botón de Checklist (Gris Claro) */
+    div.stDownloadButton:nth-of-type(2) button {
+        background-color: #e0e0e0 !important;
+        color: black !important;
+        border: 1px solid #cccccc;
+    }
     </style>
     """, unsafe_allow_html=True)
 
