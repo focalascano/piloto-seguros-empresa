@@ -6,14 +6,20 @@ import os
 # --- CONFIGURACIÓN DE PÁGINA ---
 st.set_page_config(page_title="Determinador de Seguros", layout="centered")
 
-# --- CLASE PDF ---
+# --- CLASE PDF CORREGIDA ---
 class PDF(FPDF):
+    def __init__(self):
+        # Inicialización con márgenes estándar de 10mm
+        super().__init__(orientation='P', unit='mm', format='A4')
+        self.set_margins(15, 15, 15)
+        self.set_auto_page_break(auto=True, margin=15)
+
     def header(self):
         if os.path.exists("logotrenes.png"):
             try: self.image("logotrenes.png", 10, 8, 33)
             except: pass
         self.set_font('Helvetica', 'B', 15)
-        self.ln(20)
+        self.ln(10)
 
     def footer(self):
         self.set_y(-15)
@@ -22,17 +28,18 @@ class PDF(FPDF):
 
     def chapter_title(self, title):
         self.set_font('Helvetica', 'B', 12)
-        safe_title = title.upper().encode('latin-1', 'replace').decode('latin-1')
-        self.multi_cell(0, 10, safe_title)
+        # Usamos w=0 para que ocupe todo el ancho disponible automáticamente
+        self.multi_cell(0, 10, txt=title.upper().encode('latin-1', 'replace').decode('latin-1'))
         self.ln(2)
 
     def chapter_body(self, body):
         self.set_font('Helvetica', '', 10)
-        safe_text = body.encode('latin-1', 'replace').decode('latin-1')
-        self.multi_cell(0, 6, safe_text, align='J')
-        self.ln()
+        # Limpieza de saltos de línea y codificación segura
+        safe_text = str(body).encode('latin-1', 'replace').decode('latin-1')
+        self.multi_cell(0, 6, txt=safe_text, align='J')
+        self.ln(4)
 
-# --- TEXTOS LEGALES (ORIGINALES SIN MODIFICACIONES) ---
+# --- TEXTOS LEGALES ---
 TEXTOS_LEGALES = {
     "GENERAL_ENCABEZADO": "La Contratista deberá acreditar ante La SOFSA, con una antelación mínima de CINCO (5) días corridos al inicio de los trabajos y/o servicios, la contratación y vigencia de los seguros que resulten aplicables en función de la naturaleza y riesgos de la prestación, debiendo exigir el cumplimiento de esta obligación a los Subcontratistas que eventualmente participen en la ejecución de sus obligaciones contractuales, cuando la contratación así lo permita:  ",
     "RC": """Seguros a presentar por la Contratista cuando, por la naturaleza de la actividad a desarrollar, exista riesgo de ocasionar daños a personas y/o a bienes de terceros: Seguro de Responsabilidad Civil Comprensiva: La Contratista deberá contratar y mantener vigente, por su exclusiva cuenta y cargo, un seguro de Responsabilidad Civil Comprensiva que deberá cubrir los daños a personas y/o bienes de terceros derivados directa o indirectamente de la ejecución de los trabajos y/o servicios contratados. En caso de insuficiencia o falta de cobertura, los daños deberán ser asumidos íntegramente por la Contratista. Ante el pago de un siniestro, la suma asegurada deberá ser repuesta dentro de los DIEZ (10) días de producido el mismo. Coberturas adicionales (condicionales): La póliza deberá incluir, cuando el riesgo asociado a la actividad lo requiera, los adicionales correspondientes a uso de grúas, izaje, andamios, trabajos de soldadura u oxicorte, carga y descarga, maquinaria, transporte de bienes, contaminación súbita y accidental, suministro de alimentos, uso de armas de fuego, uso de vehículos propios o no propios en exceso de su póliza específica y personas físicas bajo contrato. Previo al inicio de las tareas, la Contratista deberá presentar certificado de cobertura y libre deuda emitido por la aseguradora. Clausulas obligatorias: Asegurado Adicional: Serán considerados asegurados y/o asegurados adicionales el titular de la póliza y/o la empresa CUIT 30-71068177-1 y/o ADMINISTRACION DE INFRAESTRUCTURAS FERROVIARIAS SOCIEDAD ANONIMA (ADIFSA) CUIT 30- 71069599-3, y/o FERROCARRILES ARGENTINOS SOCIEDAD DEL ESTADO (FASE) - en proceso de transformación a Sociedad Anónima Unipersonal (SAU) - CUIT 30-71525570-3, y/o a SECRETARIA DE TRANSPORTE DE LA NACIÓN CUIT 30-71512720-9, y/o MINISTERIO DE ECONOMÍA CUIT 30-54667611-7, y/o al ESTADO NACIONAL, quienes serán coasegurados y/o asegurados adicionales a los efectos de la cobertura de la póliza, así como sus accionistas, directores, empleados y funcionarios. Responsabilidad Civil Cruzada: Todos los sujetos mencionados precedentemente serán considerados terceros entre sí. Cláusula de No Repetición: La Aseguradora renunciará expresamente a todo derecho de subrogación o repetición contra los sujetos mencionados precedentemente, manteniendo indemne a la empresa frente a reclamos de terceros cubiertos por la póliza. Notificación previa: La póliza no será anulada sin previo aviso por escrito a la OPERADORA FERROVIARIA SOCIEDAD ANONIMA, con domicilio en la Avda. Ramos Mejía Nº 1302, piso 4to. de la Ciudad Autónoma de Buenos Aires, con un plazo mínimo de 15 días corridos de anticipación.""",
@@ -94,50 +101,60 @@ if not p1 and (p3 or p4 or p5 or p6 or p7 or p8 or p9):
     st.error("Bloqueo detectado: Requiere P1 = Sí para las tareas seleccionadas.")
     bloqueo = True
 if p2 and (p4 or p5 or p6 or p7 or p8 or p9):
-    st.error("Bloqueo detectado: Las tareas seleccionadas no son compatibles con una actividad puramente administrativa (P2).")
+    st.error("Bloqueo detectado: Las tareas seleccionadas no son compatibles con una actividad administrativa (P2).")
     bloqueo = True
 
 if st.button("GENERAR PDF") and not bloqueo:
-    # Nivel de Riesgo
-    if p9 or p8 or p5: nivel = "Alto"
-    elif p1 and (p7 or p4): nivel = "Medio"
-    elif p1: nivel = "Bajo"
-    else: nivel = "Nulo"
+    try:
+        # Nivel de Riesgo
+        if p9 or p8 or p5: nivel = "Alto"
+        elif p1 and (p7 or p4): nivel = "Medio"
+        elif p1: nivel = "Bajo"
+        else: nivel = "Nulo"
 
-    # PDF Anexo
-    pdf = PDF()
-    pdf.add_page()
-    pdf.chapter_title("ANEXO DE SEGUROS")
-    pdf.chapter_body(TEXTOS_LEGALES["GENERAL_ENCABEZADO"])
-    
-    if nivel != "Nulo":
-        pdf.chapter_body(TEXTOS_LEGALES["ART"])
-        pdf.chapter_body(TEXTOS_LEGALES["VO"])
-        pdf.chapter_body(TEXTOS_LEGALES["AP"])
-        if p5 or p7 or p8 or p9:
-            suma_rc = "USD 100.000" if nivel == "Alto" else "USD 50.000"
-            pdf.chapter_body(TEXTOS_LEGALES["RC"] + f"\n\nSUMA ASEGURADA MINIMA: {suma_rc}")
-        if p4: pdf.chapter_body(TEXTOS_LEGALES["CAUCION"])
-        if p9: pdf.chapter_body(TEXTOS_LEGALES["TRCYM"])
-        if p3: pdf.chapter_body(TEXTOS_LEGALES["AUTO"])
-    
-    pdf.add_page()
-    pdf.chapter_title("REQUISITOS GENERALES")
-    pdf.chapter_body(TEXTOS_LEGALES["REQUISITOS_FINALES"])
-    
-    # PDF Checklist
-    chk = PDF()
-    chk.add_page()
-    chk.chapter_title("CHECKLIST DE CONTROL")
-    chk.chapter_body(f"Nivel determinado: {nivel}\nFecha: {datetime.datetime.now().strftime('%d/%m/%Y')}")
-    chk.chapter_body("Seguros a verificar:")
-    if nivel != "Nulo":
-        chk.chapter_body("[ ] ART / Vida Obligatorio / Accidentes Personales")
-        if p5 or p7 or p8 or p9: chk.chapter_body("[ ] Responsabilidad Civil")
-        if p4: chk.chapter_body("[ ] Caucion")
-        if p9: chk.chapter_body("[ ] Todo Riesgo Construccion y Montaje")
-        if p3: chk.chapter_body("[ ] Seguro Automotor")
+        # Generar Anexo
+        pdf = PDF()
+        pdf.add_page()
+        pdf.chapter_title("ANEXO DE SEGUROS")
+        pdf.chapter_body(TEXTOS_LEGALES["GENERAL_ENCABEZADO"])
+        
+        if nivel != "Nulo":
+            pdf.chapter_body(TEXTOS_LEGALES["ART"])
+            pdf.chapter_body(TEXTOS_LEGALES["VO"])
+            pdf.chapter_body(TEXTOS_LEGALES["AP"])
+            if p5 or p7 or p8 or p9:
+                suma_rc = "USD 100.000" if nivel == "Alto" else "USD 50.000"
+                pdf.chapter_body(TEXTOS_LEGALES["RC"] + f"\n\nSUMA ASEGURADA MINIMA REQUERIDA: {suma_rc}")
+            if p4: pdf.chapter_body(TEXTOS_LEGALES["CAUCION"])
+            if p9: pdf.chapter_body(TEXTOS_LEGALES["TRCYM"])
+            if p3: pdf.chapter_body(TEXTOS_LEGALES["AUTO"])
+        
+        pdf.add_page()
+        pdf.chapter_title("REQUISITOS GENERALES")
+        pdf.chapter_body(TEXTOS_LEGALES["REQUISITOS_FINALES"])
+        
+        # Generar Checklist
+        chk = PDF()
+        chk.add_page()
+        chk.chapter_title("CHECKLIST DE CONTROL DOCUMENTAL")
+        chk.chapter_body(f"Nivel de Riesgo Determinado: {nivel}")
+        chk.chapter_body(f"Fecha de proceso: {datetime.datetime.now().strftime('%d/%m/%Y')}")
+        chk.chapter_body("---")
+        chk.chapter_body("Seguros requeridos para verificar:")
+        if nivel != "Nulo":
+            chk.chapter_body("[ ] ART / Vida Obligatorio / Accidentes Personales")
+            if p5 or p7 or p8 or p9: chk.chapter_body("[ ] Responsabilidad Civil Comprensiva")
+            if p4: chk.chapter_body("[ ] Seguro de Caucion (Tenencia)")
+            if p9: chk.chapter_body("[ ] Todo Riesgo Construccion y Montaje")
+            if p3: chk.chapter_body("[ ] Seguro Automotor")
 
-    st.success(f"Archivos generados - Riesgo {nivel}")
-    st.download_button("Descargar Anexo PDF", pdf.output(), f"Anexo_{nivel}.pdf", "application/pdf")
-    st.download_button("Descargar Checklist PDF", chk.output(), f"Checklist_{nivel}.pdf", "application/pdf")
+        # Conversión a bytes para descarga
+        anexo_bytes = pdf.output()
+        check_bytes = chk.output()
+
+        st.success(f"Determinación finalizada: Riesgo {nivel}")
+        st.download_button("Descargar Anexo PDF", anexo_bytes, f"Anexo_{nivel}.pdf", "application/pdf")
+        st.download_button("Descargar Checklist PDF", check_bytes, f"Checklist_{nivel}.pdf", "application/pdf")
+        
+    except Exception as e:
+        st.error(f"Error al generar los archivos: {str(e)}")
