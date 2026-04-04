@@ -6,7 +6,7 @@ import os
 # --- CONFIGURACIÓN DE PÁGINA ---
 st.set_page_config(page_title="Determinador de Seguros", layout="centered")
 
-# --- CLASE PDF CORREGIDA ---
+# --- CLASE PDF ---
 class PDF(FPDF):
     def __init__(self):
         super().__init__(orientation='P', unit='mm', format='A4')
@@ -27,19 +27,17 @@ class PDF(FPDF):
 
     def chapter_title(self, title):
         self.set_font('Helvetica', 'B', 12)
-        # Limpieza de caracteres para evitar errores de codificación
         txt_safe = title.upper().encode('latin-1', 'replace').decode('latin-1')
         self.multi_cell(0, 10, txt=txt_safe)
         self.ln(2)
 
     def chapter_body(self, body):
         self.set_font('Helvetica', '', 10)
-        # Limpieza de caracteres para evitar errores de codificación
         txt_safe = str(body).encode('latin-1', 'replace').decode('latin-1')
         self.multi_cell(0, 6, txt=txt_safe, align='J')
         self.ln(4)
 
-# --- TEXTOS LEGALES (MANTENIENDO TU ORIGINAL) ---
+# --- TEXTOS LEGALES ---
 TEXTOS_LEGALES = {
     "GENERAL_ENCABEZADO": "La Contratista deberá acreditar ante La SOFSA, con una antelación mínima de CINCO (5) días corridos al inicio de los trabajos y/o servicios, la contratación y vigencia de los seguros que resulten aplicables en función de la naturaleza y riesgos de la prestación, debiendo exigir el cumplimiento de esta obligación a los Subcontratistas que eventualmente participen en la ejecución de sus obligaciones contractuales, cuando la contratación así lo permita:  ",
     "RC": """Seguros a presentar por la Contratista cuando, por la naturaleza de la actividad a desarrollar, exista riesgo de ocasionar daños a personas y/o a bienes de terceros: Seguro de Responsabilidad Civil Comprensiva: La Contratista deberá contratar y mantener vigente, por su exclusiva cuenta y cargo, un seguro de Responsabilidad Civil Comprensiva que deberá cubrir los daños a personas y/o bienes de terceros derivados directa o indirectamente de la ejecución de los trabajos y/o servicios contratados. En caso de insuficiencia o falta de cobertura, los daños deberán ser asumidos íntegramente por la Contratista. Ante el pago de un siniestro, la suma asegurada deberá ser repuesta dentro de los DIEZ (10) días de producido el mismo. Coberturas adicionales (condicionales): La póliza deberá incluir, cuando el riesgo asociado a la actividad lo requiera, los adicionales correspondientes a uso de grúas, izaje, andamios, trabajos de soldadura u oxicorte, carga y descarga, maquinaria, transporte de bienes, contaminación súbita y accidental, suministro de alimentos, uso de armas de fuego, uso de vehículos propios o no propios en exceso de su póliza específica y personas físicas bajo contrato. Previo al inicio de las tareas, la Contratista deberá presentar certificado de cobertura y libre deuda emitido por la aseguradora. Clausulas obligatorias: Asegurado Adicional: Serán considerados asegurados y/o asegurados adicionales el titular de la póliza y/o la empresa CUIT 30-71068177-1 y/o ADMINISTRACION DE INFRAESTRUCTURAS FERROVIARIAS SOCIEDAD ANONIMA (ADIFSA) CUIT 30- 71069599-3, y/o FERROCARRILES ARGENTINOS SOCIEDAD DEL ESTADO (FASE) - en proceso de transformación a Sociedad Anónima Unipersonal (SAU) - CUIT 30-71525570-3, y/o a SECRETARIA DE TRANSPORTE DE LA NACIÓN CUIT 30-71512720-9, y/o MINISTERIO DE ECONOMÍA CUIT 30-54667611-7, y/o al ESTADO NACIONAL, quienes serán coasegurados y/o asegurados adicionales a los efectos de la cobertura de la póliza, así como sus accionistas, directores, empleados y funcionarios. Responsabilidad Civil Cruzada: Todos los sujetos mencionados precedentemente serán considerados terceros entre sí. Cláusula de No Repetición: La Aseguradora renunciará expresamente a todo derecho de subrogación o repetición contra los sujetos mencionados precedentemente, manteniendo indemne a la empresa frente a reclamos de terceros cubiertos por la póliza. Notificación previa: La póliza no será anulada sin previo aviso por escrito a la OPERADORA FERROVIARIA SOCIEDAD ANONIMA, con domicilio en la Avda. Ramos Mejía Nº 1302, piso 4to. de la Ciudad Autónoma de Buenos Aires, con un plazo mínimo de 15 días corridos de anticipación.""",
@@ -52,8 +50,14 @@ TEXTOS_LEGALES = {
     "REQUISITOS_FINALES": """Otros Seguros: SOFSA se reserva el derecho de exigir otros seguros que, en virtud de la contratación pudiesen ser requeridos. Requisitos de los Seguros: Las aseguradoras contratadas deberán cumplir con las siguientes condiciones: • Ser una aseguradora habilitada por la Superintendencia de Seguros de la Nación. • Estar calificada por alguna de las Calificadoras de Riesgo autorizadas por la Comisión Nacional de Valores (CNV). Se tomará como válida la calificación del año en que se adjudique la contratación y/o la calificación del año inmediato anterior a la adjudicación. La Contratista deberá presentar a la Licitante la calificación de riesgos de la Aseguradora. La Contratista deberá mantener y pagar el premio correspondiente a las pólizas. Los comprobantes de pago de las mismas deberán ser presentados a la Licitante de manera mensual y consecutiva. Vigencia de los Seguros: Los seguros deberán mantenerse vigentes desde el inicio de cualquier actividad vinculada a la contratación, incluyendo tareas previas, y hasta la extinción total de las obligaciones contractuales de la Contratista, comprendiendo la recepción provisoria, el período de garantía y toda intervención posterior vinculada al contrato. Incumplimientos en la Presentación de los Seguros: Si la Contratista no presentase los seguros que correspondan de acuerdo con la naturaleza de la actividad, los trabajos y/o los servicios a ejecutar, o no cumpliera con alguno de los requisitos establecidos en el presente Anexo, no podrá iniciar ni continuar las tareas hasta tanto regularice dicha situación, siendo de su exclusiva responsabilidad las consecuencias que ello genere, sin que ello otorgue derecho a reclamo alguno contra la SOFSA. Criterio de interpretación y aplicación: Ante cualquier duda razonable respecto de la aplicabilidad, alcance o suficiencia de los seguros exigidos en el presente Anexo, SOFSA tendrá la facultad de definir el seguro que resulte exigible, en función de la naturaleza de la prestación y de los riesgos involucrados. Responsabilidad: La contratación de seguros por parte de la Contratista no limita ni reduce en modo alguno su responsabilidad contractual ni legal, siendo ésta responsable directa por todos los daños y obligaciones derivados de la ejecución del contrato. En consecuencia, la Contratista asumirá a su exclusivo cargo las franquicias, descubiertos, diferencias de suma asegurada y todo daño o reclamo que no resulte cubierto por las pólizas contratadas. La Contratista mantendrá indemne a SOFSA, ADIFSA, FASE - en proceso de transformación a Sociedad Anónima Unipersonal (SAU)-, Secretaria de Transporte de la Nación, y/o al Estado Nacional, así como a sus accionistas, directores, empleados y funcionarios, frente a cualquier reclamo, suma, daño o gasto que deban afrontar con motivo de la ejecución contractual y/o del incumplimiento del régimen de seguros."""
 }
 
-# --- CUESTIONARIO LITERAL ---
-st.title("Determinador de Seguros")
+# --- CABECERA DE LA INTERFAZ ---
+st.title("MODELO DE DETERMINACIÓN DE SEGUROS A PROVEEDORES")
+st.subheader("Piloto institucional – Uso interno | Versión 1.0")
+st.info("""Herramienta de apoyo para la determinación estandarizada de seguros exigibles a proveedores y contratistas, basada en un modelo de evaluación de riesgo y reglas de decisión. 
+
+Complete el siguiente cuestionario para describir el servicio o contratación. En caso de duda, responder **“Sí”**.""")
+
+# --- CUESTIONARIO ---
 opciones = ["No", "Sí"]
 
 r1 = st.radio("P1: ¿Para realizar la actividad personal del proveedor ingresará a predios o instalaciones de SOFSA?", opciones, index=0)
@@ -95,66 +99,86 @@ No incluye:
 # Lógica
 p1, p2, p3, p4, p5, p6, p7, p8, p9 = [(r == "Sí") for r in [r1, r2, r3, r4, r5, r6, r7, r8, r9]]
 
-# Validaciones de bloqueo
+# Validaciones
 bloqueo = False
 if not p1 and (p3 or p4 or p5 or p6 or p7 or p8 or p9):
-    st.error("Bloqueo: Requiere P1 = Sí para las tareas operativas seleccionadas.")
+    st.error("Bloqueo detectado: Requiere P1 = Sí para las tareas seleccionadas.")
     bloqueo = True
 if p2 and (p4 or p5 or p6 or p7 or p8 or p9):
-    st.error("Bloqueo: Tareas seleccionadas incompatibles con actividad administrativa (P2).")
+    st.error("Bloqueo detectado: Tareas seleccionadas incompatibles con actividad administrativa (P2).")
     bloqueo = True
 
-if st.button("GENERAR DOCUMENTACIÓN") and not bloqueo:
-    try:
-        # Nivel de Riesgo
-        if p9 or p8 or p5: nivel = "Alto"
-        elif p1 and (p7 or p4): nivel = "Medio"
-        elif p1: nivel = "Bajo"
-        else: nivel = "Nulo"
+# --- PIE DE PÁGINA INTERFAZ ---
+st.markdown("---")
+st.caption("""**Uso sugerido del resultado:**
+• Incorporar el Anexo de Seguros como referencia en el pliego  
+• Utilizar el checklist de verificación documental previo al inicio de actividades  
+Si el servicio o contratación no se puede describir mediante el cuestionario, contactar a la Subgerencia de Administración de Riesgos (SAR).""")
 
-        # 1. Generar Anexo
-        pdf = PDF()
-        pdf.add_page()
-        pdf.chapter_title("ANEXO DE SEGUROS")
-        pdf.chapter_body(TEXTOS_LEGALES["GENERAL_ENCABEZADO"])
+# --- GENERACIÓN DE DOCUMENTOS ---
+if not bloqueo:
+    # Nivel de Riesgo
+    if p9 or p8 or p5: nivel = "Alto"
+    elif p1 and (p7 or p4): nivel = "Medio"
+    elif p1: nivel = "Bajo"
+    else: nivel = "Nulo"
+
+    st.write(f"### Resultado de la evaluación: **Riesgo {nivel}**")
+    
+    col_btn1, col_btn2 = st.columns(2)
+
+    # BOTÓN 1: ANEXO
+    with col_btn1:
+        pdf_anexo = PDF()
+        pdf_anexo.add_page()
+        pdf_anexo.chapter_title("ANEXO DE SEGUROS")
+        pdf_anexo.chapter_body(TEXTOS_LEGALES["GENERAL_ENCABEZADO"])
         
         if nivel != "Nulo":
-            pdf.chapter_body(TEXTOS_LEGALES["ART"])
-            pdf.chapter_body(TEXTOS_LEGALES["VO"])
-            pdf.chapter_body(TEXTOS_LEGALES["AP"])
+            pdf_anexo.chapter_body(TEXTOS_LEGALES["ART"])
+            pdf_anexo.chapter_body(TEXTOS_LEGALES["VO"])
+            pdf_anexo.chapter_body(TEXTOS_LEGALES["AP"])
             if p5 or p7 or p8 or p9:
                 suma_rc = "USD 100.000" if nivel == "Alto" else "USD 50.000"
-                pdf.chapter_body(TEXTOS_LEGALES["RC"] + f"\n\nSUMA ASEGURADA MINIMA REQUERIDA: {suma_rc}")
-            if p4: pdf.chapter_body(TEXTOS_LEGALES["CAUCION"])
-            if p9: pdf.chapter_body(TEXTOS_LEGALES["TRCYM"])
-            if p3: pdf.chapter_body(TEXTOS_LEGALES["AUTO"])
+                pdf_anexo.chapter_body(TEXTOS_LEGALES["RC"] + f"\n\nSUMA ASEGURADA MINIMA REQUERIDA: {suma_rc}")
+            if p4: pdf_anexo.chapter_body(TEXTOS_LEGALES["CAUCION"])
+            if p9: pdf_anexo.chapter_body(TEXTOS_LEGALES["TRCYM"])
+            if p3: pdf_anexo.chapter_body(TEXTOS_LEGALES["AUTO"])
         
-        pdf.add_page()
-        pdf.chapter_title("REQUISITOS GENERALES")
-        pdf.chapter_body(TEXTOS_LEGALES["REQUISITOS_FINALES"])
+        pdf_anexo.add_page()
+        pdf_anexo.chapter_title("REQUISITOS GENERALES")
+        pdf_anexo.chapter_body(TEXTOS_LEGALES["REQUISITOS_FINALES"])
         
-        # 2. Generar Checklist
+        st.download_button(
+            label="Generar Anexo de Seguros",
+            data=bytes(pdf_anexo.output()),
+            file_name=f"Anexo_Seguros_{nivel}.pdf",
+            mime="application/pdf"
+        )
+
+    # BOTÓN 2: CHECKLIST
+    with col_btn2:
         chk = PDF()
         chk.add_page()
         chk.chapter_title("CHECKLIST DE CONTROL DOCUMENTAL")
-        chk.chapter_body(f"Nivel de Riesgo: {nivel}")
-        chk.chapter_body(f"Fecha de emision: {datetime.datetime.now().strftime('%d/%m/%Y')}")
+        chk.chapter_body(f"Nivel de Riesgo Determinado: {nivel}")
+        chk.chapter_body(f"Fecha de proceso: {datetime.datetime.now().strftime('%d/%m/%Y')}")
         chk.chapter_body("---")
-        chk.chapter_body("Seguros a verificar:")
+        chk.chapter_body("Seguros requeridos para verificar:")
         if nivel != "Nulo":
-            chk.chapter_body("[ ] ART / Vida Obligatorio / Accidentes Personales")
-            if p5 or p7 or p8 or p9: chk.chapter_body("[ ] Responsabilidad Civil")
-            if p4: chk.chapter_body("[ ] Seguro de Caucion")
-            if p9: chk.chapter_body("[ ] Todo Riesgo Construccion y Montaje")
+            chk.chapter_body("[ ] Seguro de Riesgos del Trabajo (ART)")
+            chk.chapter_body("[ ] Seguro de Vida Obligatorio")
+            chk.chapter_body("[ ] Seguro de Accidentes Personales (si corresponde)")
+            if p5 or p7 or p8 or p9: chk.chapter_body("[ ] Seguro de Responsabilidad Civil Comprensiva")
+            if p4: chk.chapter_body("[ ] Seguro de Caución por Tenencia de Bienes")
+            if p9: chk.chapter_body("[ ] Seguro Todo Riesgo Construcción y Montaje")
             if p3: chk.chapter_body("[ ] Seguro Automotor")
+        else:
+            chk.chapter_body("No se requieren seguros específicos adicionales para este nivel de riesgo.")
 
-        # CONVERSIÓN CRÍTICA: Convertir bytearray de output() a bytes()
-        anexo_bytes = bytes(pdf.output())
-        check_bytes = bytes(chk.output())
-
-        st.success(f"Archivos listos - Nivel {nivel}")
-        st.download_button("Descargar Anexo PDF", anexo_bytes, f"Anexo_{nivel}.pdf", "application/pdf")
-        st.download_button("Descargar Checklist PDF", check_bytes, f"Checklist_{nivel}.pdf", "application/pdf")
-        
-    except Exception as e:
-        st.error(f"Error técnico: {str(e)}")
+        st.download_button(
+            label="Generar Checklist de control",
+            data=bytes(chk.output()),
+            file_name=f"Checklist_Control_{nivel}.pdf",
+            mime="application/pdf"
+        )
