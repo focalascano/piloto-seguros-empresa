@@ -7,7 +7,10 @@ import datetime
 
 # --- CONFIGURACIÓN DE PÁGINA ---
 st.set_page_config(
-    page_title="Determinador de seguros a proveedores: Generador de PDF",
+    page_title="""MODELO DE DETERMINACIÓN DE SEGUROS A PROVEEDORES  
+    Piloto institucional – Uso interno  
+    Versión 1.0  
+""",
     page_icon="🛡️", 
     layout="centered"
 )
@@ -26,12 +29,14 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# --- CLASE PARA GENERACIÓN DE PDF ---
+# --- CLASE PARA GENERACIÓN DE PDF CORREGIDA ---
 class PDF(FPDF):
     def header(self):
-        # Intenta cargar el logo si existe
         if os.path.exists("logotrenes.png"):
-            self.image("logotrenes.png", 10, 8, 33)
+            try:
+                self.image("logotrenes.png", 10, 8, 33)
+            except:
+                pass
         self.set_font('Helvetica', 'B', 15)
         self.ln(20)
 
@@ -42,20 +47,20 @@ class PDF(FPDF):
 
     def chapter_title(self, title):
         self.set_font('Helvetica', 'B', 12)
-        self.multi_cell(0, 10, title.upper())
+        self.multi_cell(0, 10, title.upper().encode('latin-1', 'replace').decode('latin-1'))
         self.ln(2)
 
     def chapter_body(self, body):
         self.set_font('Helvetica', '', 11)
-        # Limpiar asteriscos de negrita para el PDF plano
         clean_text = body.replace("**", "")
-        self.multi_cell(0, 7, clean_text, align='J')
+        safe_text = clean_text.encode('latin-1', 'replace').decode('latin-1')
+        self.multi_cell(0, 7, safe_text, align='J')
         self.ln()
 
 # --- BIBLIOTECA DE CLÁUSULAS ---
 TEXTOS_LEGALES = {
     "GENERAL": {
-        "encabezado": "La Contratista deberá acreditar ante SOFSA, con una antelación mínima de CINCO (5) días corridos al inicio de los trabajos y/o servicios, la contratación y vigencia de los seguros que resulten aplicables en función de la naturaleza y riesgos de la prestación, debiendo exigir el cumplimiento de esta obligación a los Subcontratistas que eventualmente participen en la ejecución de sus obligaciones contractuales, cuando la contratación así lo permita:  ",
+        "encabezado": "La Contratista deberá acreditar ante La SOFSA, con una antelación mínima de CINCO (5) días corridos al inicio de los trabajos y/o servicios, la contratación y vigencia de los seguros que resulten aplicables en función de la naturaleza y riesgos de la prestación, debiendo exigir el cumplimiento de esta obligación a los Subcontratistas que eventualmente participen en la ejecución de sus obligaciones contractuales, cuando la contratación así lo permita:  ",
         "requisitos": """Otros Seguros: SOFSA se reserva el derecho de exigir otros seguros que, en virtud de la contratación pudiesen ser requeridos. Requisitos de los Seguros: Las aseguradoras contratadas deberán cumplir con las siguientes condiciones: • Ser una aseguradora habilitada por la Superintendencia de Seguros de la Nación. • Estar calificada por alguna de las Calificadoras de Riesgo autorizadas por la Comisión Nacional de Valores (CNV). Se tomará como válida la calificación del año en que se adjudique la contratación y/o la calificación del año inmediato anterior a la adjudicación. La Contratista deberá presentar a la Licitante la calificación de riesgos de la Aseguradora. La Contratista deberá mantener y pagar el premio correspondiente a las pólizas. Los comprobantes de pago de las mismas deberán ser presentados a la Licitante de manera mensual y consecutiva.""",
         "vigencia": """Vigencia de los Seguros: Los seguros deberán mantenerse vigentes desde el inicio de cualquier actividad vinculada a la contratación, incluyendo tareas previas, y hasta la extinción total de las obligaciones contractuales de la Contratista, comprendiendo la recepción provisoria, el período de garantía y toda intervención posterior vinculada al contrato.""",
         "responsabilidad": """Incumplimientos en la Presentación de los Seguros: Si la Contratista no presentase los seguros que correspondan de acuerdo con la naturaleza de la actividad, los trabajos y/o los servicios a ejecutar, o no cumpliera con alguno de los requisitos establecidos en el presente Anexo, no podrá iniciar ni continuar las tareas hasta tanto regularice dicha situación, siendo de su exclusiva responsabilidad las consecuencias que ello genere, sin que ello otorgue derecho a reclamo alguno contra la SOFSA. Criterio de interpretación y aplicación: Ante cualquier duda razonable respecto de la aplicabilidad, alcance o suficiencia de los seguros exigidos en el presente Anexo, SOFSA tendrá la facultad de definir el seguro que resulte exigible, en función de la naturaleza de la prestación y de los riesgos involucrados. Responsabilidad: La contratación de seguros por parte de la Contratista no limita ni reduce en modo alguno su responsabilidad contractual ni legal, siendo ésta responsable directa por todos los daños y obligaciones derivados de la ejecución del contrato. En consecuencia, la Contratista asumirá a su exclusivo cargo las franquicias, descubiertos, diferencias de suma asegurada y todo daño o reclamo que no resulte cubierto por las pólizas contratadas. La Contratista mantendrá indemne a SOFSA, ADIFSA, FASE - en proceso de transformación a Sociedad Anónima Unipersonal (SAU)-, Secretaria de Transporte de la Nación, y/o al Estado Nacional, así como a sus accionistas, directores, empleados y funcionarios, frente a cualquier reclamo, suma, daño o gasto que deban afrontar con motivo de la ejecución contractual y/o del incumplimiento del régimen de seguros."""
@@ -71,6 +76,7 @@ TEXTOS_LEGALES = {
 
 def generar_anexo_pdf(seguros_activos, nivel):
     pdf = PDF()
+    pdf.set_auto_page_break(auto=True, margin=15)
     pdf.add_page()
     
     pdf.chapter_title('ANEXO DE SEGUROS')
@@ -84,14 +90,14 @@ def generar_anexo_pdf(seguros_activos, nivel):
             if 'suma' in s:
                 texto += f"\n\nSUMA ASEGURADA MÍNIMA REQUERIDA: {s['suma']}"
             pdf.chapter_body(texto)
-            pdf.add_page() # Un seguro por página según instructivo
 
-    pdf.chapter_title('REQUISITOS GENERALES')
+    pdf.add_page()
+    pdf.chapter_title('REQUISITOS GENERALES Y RESPONSABILIDAD')
     pdf.chapter_body(TEXTOS_LEGALES["GENERAL"]["requisitos"])
     pdf.chapter_body(TEXTOS_LEGALES["GENERAL"]["vigencia"])
     pdf.chapter_body(TEXTOS_LEGALES["GENERAL"]["responsabilidad"])
 
-    return pdf.output(dest='S').encode('latin-1')
+    return pdf.output()
 
 def generar_checklist_pdf(seguros_activos, nivel, respuestas):
     pdf = PDF()
@@ -102,7 +108,9 @@ def generar_checklist_pdf(seguros_activos, nivel, respuestas):
     pdf.ln(5)
 
     pdf.set_font('Helvetica', 'I', 10)
-    pdf.cell(0, 10, f"Fecha: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M')}", 0, 1)
+    fecha_str = datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
+    pdf.cell(0, 10, f"Fecha: {fecha_str}".encode('latin-1', 'replace').decode('latin-1'), 0, 1)
+    
     pdf.set_font('Helvetica', 'B', 12)
     pdf.cell(0, 10, f"Nivel de Riesgo: {nivel}", 0, 1)
     pdf.ln(5)
@@ -110,7 +118,8 @@ def generar_checklist_pdf(seguros_activos, nivel, respuestas):
     pdf.chapter_title("1. Respuestas del Cuestionario")
     pdf.set_font('Helvetica', '', 10)
     for preg, resp in respuestas.items():
-        pdf.multi_cell(0, 6, f"* {preg}: {resp}")
+        linea = f"* {preg}: {resp}"
+        pdf.multi_cell(0, 6, linea.encode('latin-1', 'replace').decode('latin-1'))
     
     pdf.ln(5)
     pdf.chapter_title("2. Seguros a Controlar")
@@ -119,32 +128,65 @@ def generar_checklist_pdf(seguros_activos, nivel, respuestas):
     else:
         for s in seguros_activos:
             pdf.set_font('Helvetica', 'B', 11)
-            pdf.cell(0, 7, f"-> {s.get('nombre', 'Seguro')}", 0, 1)
+            nombre = s.get('nombre', 'Seguro').encode('latin-1', 'replace').decode('latin-1')
+            pdf.cell(0, 7, f"-> {nombre}", 0, 1)
             if 'suma' in s:
                 pdf.set_font('Helvetica', 'I', 10)
                 pdf.cell(0, 7, f"   Suma requerida: {s['suma']}", 0, 1)
             pdf.set_font('Helvetica', '', 10)
-            pdf.multi_cell(0, 6, "   - Verificar Cláusula de No Repetición.\n   - Verificar Vigencia y Pago.")
+            pdf.multi_cell(0, 6, "   - Verificar Clausula de No Repeticion.\n   - Verificar Vigencia y Pago.")
 
-    return pdf.output(dest='S').encode('latin-1')
+    return pdf.output()
 
 # --- INTERFAZ STREAMLIT ---
 col1, col2 = st.columns([1, 4])
 with col2:
     st.title("Determinador de Seguros")
 
-st.write("Responda el cuestionario para generar los archivos PDF.")
+st.write("""Herramienta de apoyo para la determinación estandarizada de seguros exigibles a proveedores y contratistas, basada en un modelo de evaluación de riesgo y reglas de decisión.  
+Complete el siguiente cuestionario para describir el servicio o contratación.  
+En caso de duda, responder “Sí”.  
+""")
 
 opciones = ["No", "Sí"]
-r1 = st.radio("P1: ¿Ingresará a predios?", opciones, index=0)
-r2 = st.radio("P2: ¿Es solo administrativo?", opciones, index=0)
-r3 = st.radio("P3: ¿Ingreso de vehículos?", opciones, index=0)
-r4 = st.radio("P4: ¿Transporte de bienes de la empresa?", opciones, index=0)
-r5 = st.radio("P5: ¿Trabajo en zona ferroviaria/andenes?", opciones, index=0)
-r6 = st.radio("P6: ¿Trabajo menor simple?", opciones, index=0)
-r7 = st.radio("P7: ¿Maquinaria compleja?", opciones, index=0)
-r8 = st.radio("P8: ¿Tareas críticas (altura, soldadura, izaje)?", opciones, index=0)
-r9 = st.radio("P9: ¿Obra o montaje?", opciones, index=0)
+r1 = st.radio("P1: ¿Para realizar la actividad personal del proveedor ingresará a predios o instalaciones de SOFSA?", opciones, index=0)
+r2 = st.radio("""P2: ¿La actividad consiste exclusivamente en tareas administrativas o profesionales de oficina, realizadas sin ingreso a áreas operativas ni intervención técnica?  
+Ejemplos: consultoría, auditoría, capacitaciones teóricas, asesoramiento profesional""", opciones, index=0)
+r3 = st.radio("P3: ¿La actividad requiere el ingreso de vehículos del proveedor a predios o instalaciones de SOFSA?", opciones, index=0)
+r4 = st.radio("P4: ¿El proveedor tendrá bajo su guarda, custodia o control bienes de SOFSA, sin supervisión directa, cuyo valor individual o total supere los USD 5.000?", opciones, index=0)
+r5 = st.radio("P5: ¿El trabajo se realizará en andenes, vías, talleres ferroviarios o sectores con circulación de trenes?", opciones, index=0)
+r6 = st.radio("""P6: ¿La actividad corresponde a un trabajo menor de mantenimiento simple en SOFSA? Para ser considerado trabajo menor, debe cumplir todas estas condiciones: 
+• duración corta (menor a 1 mes de trabajo)  
+• uso herramientas manuales simples  
+• sin trabajo en altura, ni andamios  
+• sin maquinaria pesada o equipos  
+• sin intervención en infraestructura  
+• sin afectar circulación ferroviaria o de pasajeros  
+Ejemplos: (pintura interior de oficina, reparación menor de mobiliario, cerrajería, etc)
+""", opciones, index=0)
+r7 = st.radio("""P7: ¿La actividad requiere uso de equipos, maquinaria o de herramientas complejas en la empresa?  
+Ejemplos: herramientas de corte y/o de calor y/o a explosión, equipos técnicos, maquinarias pesada""", opciones, index=0)
+r8 = st.radio("""P8: ¿La actividad incluye alguna de las siguientes tareas?  
+• trabajos en altura  
+• soldadura u oxicorte  
+• izaje de cargas  
+• intervención eléctrica  
+• uso de maquinaria pesada  
+• uso de armas de fuego  
+• suministro de alimentos  
+""", opciones, index=0)
+r9 = st.radio("""P9: ¿La actividad implica la ejecución de una obra o el montaje/instalación de un sistema o equipo nuevo, cuyo valor total supere los USD 30.000?   
+Incluye:  
+• obras civiles  
+• refacciones estructurales  
+• instalación de equipos (montaje o desmontaje)  
+• montaje de sistema eléctrico o mecánico  
+
+No incluye:  
+• mantenimiento simple  
+• refacciones menores  
+• tareas de servicio  
+""", opciones, index=0)
 
 p1, p2, p3, p4, p5, p6, p7, p8, p9 = [(r == "Sí") for r in [r1, r2, r3, r4, r5, r6, r7, r8, r9]]
 
@@ -168,16 +210,20 @@ if st.button("GENERAR PDF"):
         
         seguros = []
         if nivel != "Nulo":
-            seguros.append({'nombre': 'Personas', 'clausula': f"{TEXTOS_LEGALES['ART']}\n\n{TEXTOS_LEGALES['VO']}\n\n{TEXTOS_LEGALES['AP']}"})
+            seguros.append({'nombre': 'Seguro de Personas', 'clausula': f"{TEXTOS_LEGALES['ART']}\n\n{TEXTOS_LEGALES['VO']}\n\n{TEXTOS_LEGALES['AP']}"})
             if p5 or p7 or p8 or p9:
                 s_rc = "USD 100.000" if nivel == "Alto" else "USD 50.000"
                 seguros.append({'nombre': 'Responsabilidad Civil', 'clausula': TEXTOS_LEGALES["RC"], 'suma': s_rc})
-            if p4: seguros.append({'nombre': 'Caución', 'clausula': TEXTOS_LEGALES["CAUCION"]})
+            if p4: seguros.append({'nombre': 'Caucion', 'clausula': TEXTOS_LEGALES["CAUCION"]})
             if p9: seguros.append({'nombre': 'TRCyM', 'clausula': TEXTOS_LEGALES["TRCYM"]})
             if p3: seguros.append({'nombre': 'Automotor', 'clausula': TEXTOS_LEGALES["AUTO"]})
 
-            pdf_anexo = generar_anexo_pdf(seguros, nivel)
-            pdf_check = generar_checklist_pdf(seguros, nivel, respuestas_dict)
+            try:
+                pdf_anexo = generar_anexo_pdf(seguros, nivel)
+                pdf_check = generar_checklist_pdf(seguros, nivel, respuestas_dict)
 
-            st.download_button("📥 Descargar Anexo PDF", pdf_anexo, f"Anexo_{nivel}.pdf", "application/pdf")
-            st.download_button("📥 Descargar Checklist PDF", pdf_check, f"Checklist_{nivel}.pdf", "application/pdf")
+                st.success(f"Anexo generado correctamente (Nivel {nivel})")
+                st.download_button("📥 Descargar Anexo PDF", pdf_anexo, f"Anexo_{nivel}.pdf", "application/pdf")
+                st.download_button("📥 Descargar Checklist PDF", pdf_check, f"Checklist_{nivel}.pdf", "application/pdf")
+            except Exception as e:
+                st.error(f"Error al generar los archivos: {str(e)}")
