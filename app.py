@@ -100,7 +100,7 @@ p1, p2, p3, p4, p5, p6, p7, p8, p9 = [(r == "Sí") for r in [r1, r2, r3, r4, r5,
 # --- VALIDACIONES DE BLOQUEO ---
 bloqueo = False
 if not p1 and (p3 or p4 or p5 or p6 or p7 or p8 or p9):
-    st.error("Bloqueo detectado: La pregunta 1 debe  responderse "Sí" para las tareas seleccionadas.")
+    st.error("""Bloqueo detectado: La pregunta 1 debe  responderse "Sí" para las tareas seleccionadas.""")
     bloqueo = True
 if p2 and (p4 or p5 or p6 or p7 or p8 or p9):
     st.error("Bloqueo detectado: Tareas seleccionadas incompatibles con actividad administrativa (Pregunta 2).")
