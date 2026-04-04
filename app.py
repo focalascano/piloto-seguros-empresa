@@ -32,18 +32,24 @@ st.markdown("""
         opacity: 0.9;
     }
 
-    /* Estilo para el Botón de Anexo (Azul Oscuro) */
-    div.stDownloadButton:nth-of-type(1) button {
+    /* Estilo para el Botón de Anexo (Azul Oscuro) - Columna 1 */
+    [data-testid="column"]:nth-of-type(1) button {
         background-color: #002366 !important;
         color: white !important;
-        border: none;
+        border: none !important;
     }
 
-    /* Estilo para el Botón de Checklist (Gris Claro) */
-    div.stDownloadButton:nth-of-type(2) button {
+    /* Estilo para el Botón de Checklist (Gris Claro) - Columna 2 */
+    [data-testid="column"]:nth-of-type(2) button {
         background-color: #e0e0e0 !important;
         color: black !important;
-        border: 1px solid #cccccc;
+        border: 1px solid #cccccc !important;
+    }
+    
+    /* Efecto hover para que se note la interacción */
+    [data-testid="column"]:nth-of-type(2) button:hover {
+        background-color: #d0d0d0 !important;
+        border-color: #999999 !important;
     }
     </style>
     """, unsafe_allow_html=True)
