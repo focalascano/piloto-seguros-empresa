@@ -59,13 +59,13 @@ Complete el siguiente cuestionario para describir el servicio o contratación. E
 
 opciones = ["No", "Sí"]
 
-r1 = st.radio("P1: ¿Para realizar la actividad personal del proveedor ingresará a predios o instalaciones de SOFSA?", opciones, index=0)
-r2 = st.radio("""P2: ¿La actividad consiste exclusivamente en tareas administrativas o profesionales de oficina, realizadas sin ingreso a áreas operativas ni intervención técnica?  
+r1 = st.radio("Pregunta 1: ¿Para realizar la actividad personal del proveedor ingresará a predios o instalaciones de SOFSA?", opciones, index=0)
+r2 = st.radio("""Pregunta 2: ¿La actividad consiste exclusivamente en tareas administrativas o profesionales de oficina, realizadas sin ingreso a áreas operativas ni intervención técnica?  
 Ejemplos: consultoría, auditoría, capacitaciones teóricas, asesoramiento profesional""", opciones, index=0)
-r3 = st.radio("P3: ¿La actividad requiere el ingreso de vehículos del proveedor a predios o instalaciones de SOFSA?", opciones, index=0)
-r4 = st.radio("P4: ¿El proveedor tendrá bajo su guarda, custodia o control bienes de SOFSA, sin supervisión directa, cuyo valor individual o total supere los USD 5.000?", opciones, index=0)
-r5 = st.radio("P5: ¿El trabajo se realizará en andenes, vías, talleres ferroviarios o sectores con circulación de trenes?", opciones, index=0)
-r6 = st.radio("""P6: ¿La actividad corresponde a un trabajo menor de mantenimiento simple en SOFSA? Para ser considerado trabajo menor, debe cumplir todas estas condiciones: 
+r3 = st.radio("Pregunta 3: ¿La actividad requiere el ingreso de vehículos del proveedor a predios o instalaciones de SOFSA?", opciones, index=0)
+r4 = st.radio("Pregunta 4: ¿El proveedor tendrá bajo su guarda, custodia o control bienes de SOFSA, sin supervisión directa, cuyo valor individual o total supere los USD 5.000?", opciones, index=0)
+r5 = st.radio("Pregunta 5: ¿El trabajo se realizará en andenes, vías, talleres ferroviarios o sectores con circulación de trenes?", opciones, index=0)
+r6 = st.radio("""Pregunta 6: ¿La actividad corresponde a un trabajo menor de mantenimiento simple en SOFSA? Para ser considerado trabajo menor, debe cumplir todas estas condiciones: 
 • duración corta (menor a 1 mes de trabajo)  
 • uso herramientas manuales simples  
 • sin trabajo en altura, ni andamios  
@@ -73,9 +73,9 @@ r6 = st.radio("""P6: ¿La actividad corresponde a un trabajo menor de mantenimie
 • sin intervención en infraestructura  
 • sin afectar circulación ferroviaria o de pasajeros  
 Ejemplos: (pintura interior de oficina, reparación menor de mobiliario, cerrajería, etc)""", opciones, index=0)
-r7 = st.radio("""P7: ¿La actividad requiere uso de equipos, maquinaria o de herramientas complejas en la empresa?  
+r7 = st.radio("""Pregunta 7: ¿La actividad requiere uso de equipos, maquinaria o de herramientas complejas en la empresa?  
 Ejemplos: herramientas de corte y/o de calor y/o a explosión, equipos técnicos, maquinarias pesada""", opciones, index=0)
-r8 = st.radio("""P8: ¿La actividad incluye alguna de las siguientes tareas?  
+r8 = st.radio("""Pregunta 8: ¿La actividad incluye alguna de las siguientes tareas?  
 • trabajos en altura  
 • soldadura u oxicorte  
 • izaje de cargas  
@@ -83,7 +83,7 @@ r8 = st.radio("""P8: ¿La actividad incluye alguna de las siguientes tareas?
 • uso de maquinaria pesada  
 • uso de armas de fuego  
 • suministro de alimentos""", opciones, index=0)
-r9 = st.radio("""P9: ¿La actividad implica la ejecución de una obra o el montaje/instalación de un sistema o equipo nuevo, cuyo valor total supere los USD 30.000?  
+r9 = st.radio("""Pregunta 9: ¿La actividad implica la ejecución de una obra o el montaje/instalación de un sistema o equipo nuevo, cuyo valor total supere los USD 30.000?  
 Incluye:  
 • obras civiles  
 • refacciones estructurales  
@@ -100,17 +100,18 @@ p1, p2, p3, p4, p5, p6, p7, p8, p9 = [(r == "Sí") for r in [r1, r2, r3, r4, r5,
 # --- VALIDACIONES DE BLOQUEO ---
 bloqueo = False
 if not p1 and (p3 or p4 or p5 or p6 or p7 or p8 or p9):
-    st.error("Bloqueo detectado: Requiere P1 = Sí para las tareas seleccionadas.")
+    st.error("Bloqueo detectado: La pregunta 1 debe  responderse "Sí" para las tareas seleccionadas.")
     bloqueo = True
 if p2 and (p4 or p5 or p6 or p7 or p8 or p9):
-    st.error("Bloqueo detectado: Tareas seleccionadas incompatibles con actividad administrativa (P2).")
+    st.error("Bloqueo detectado: Tareas seleccionadas incompatibles con actividad administrativa (Pregunta 2).")
     bloqueo = True
 
 st.markdown("---")
-st.caption("""**Uso sugerido del resultado:**
+st.caption("""**Uso sugerido del resultado:**  
 • Incorporar el Anexo de Seguros como referencia en el pliego  
 • Utilizar el checklist de verificación documental previo al inicio de actividades  
-Si el servicio o contratación no se puede describir mediante el cuestionario, contactar a la Subgerencia de Administración de Riesgos (SAR).""")
+Si el servicio o contratación no se puede describir mediante el cuestionario, contactar a la Subgerencia de Administración de Riesgos (SAR).  
+""")
 
 # --- LÓGICA DE RIESGO ---
 if p9 or p8 or p5: nivel = "Alto"
