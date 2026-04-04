@@ -6,7 +6,7 @@ import os
 # --- CONFIGURACIÓN DE PÁGINA ---
 st.set_page_config(page_title="Determinador de Seguros", layout="centered")
 
-# --- ESTILOS CSS ---
+# --- ESTILOS CSS PARA FORMATO ESTÉTICO ---
 st.markdown("""
     <style>
     /* Fondo de la página en gris clarito */
@@ -30,6 +30,20 @@ st.markdown("""
     .main-header p {
         margin: 0;
         opacity: 0.9;
+    }
+
+    /* Estilo para el Botón de Anexo (Azul Oscuro) */
+    div.stDownloadButton:nth-of-type(1) button {
+        background-color: #002366 !important;
+        color: white !important;
+        border: none;
+    }
+
+    /* Estilo para el Botón de Checklist (Gris Claro) */
+    div.stDownloadButton:nth-of-type(2) button {
+        background-color: #f0f2f6 !important;
+        color: black !important;
+        border: 1px solid #cccccc;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -140,7 +154,8 @@ if p2 and (p4 or p5 or p6 or p7 or p8 or p9):
     bloqueo = True
 
 st.markdown("---")
-st.caption("""**Uso sugerido del resultado:** • Incorporar el Anexo de Seguros como referencia en el pliego  
+st.caption("""**Uso sugerido del resultado:**  
+• Incorporar el Anexo de Seguros como referencia en el pliego  
 • Utilizar el checklist de verificación documental previo al inicio de actividades  
 Si el servicio o contratación no se puede describir mediante el cuestionario, contactar a la Subgerencia de Administración de Riesgos (SAR).  
 """)
