@@ -85,7 +85,7 @@ TEXTOS_LEGALES = {
     "RC": """Seguros a presentar por la Contratista cuando, por la naturaleza de la actividad a desarrollar, exista riesgo de ocasionar daños a personas y/o a bienes de terceros: Seguro de Responsabilidad Civil Comprensiva: La Contratista deberá contratar y mantener vigente, por su exclusiva cuenta y cargo, un seguro de Responsabilidad Civil Comprensiva que deberá cubrir los daños a personas y/o bienes de terceros derivados directa o indirectamente de la ejecución de los trabajos y/o servicios contratados. En caso de insuficiencia o falta de cobertura, los daños deberán ser asumidos íntegramente por la Contratista. Ante el pago de un siniestro, la suma asegurada deberá ser repuesta dentro de los DIEZ (10) días de producido el mismo. Coberturas adicionales (condicionales): La póliza deberá incluir, cuando el riesgo asociado a la actividad lo requiera, los adicionales correspondientes a uso de grúas, izaje, andamios, trabajos de soldadura u oxicorte, carga y descarga, maquinaria, transporte de bienes, contaminación súbita y accidental, suministro de alimentos, uso de armas de fuego, uso de vehículos propios o no propios en exceso de su póliza específica y personas físicas bajo contrato. Previo al inicio de las tareas, la Contratista deberá presentar certificado de cobertura y libre deuda emitido por la aseguradora. Clausulas obligatorias: Asegurado Adicional: Serán considerados asegurados y/o asegurados adicionales el titular de la póliza y/o la empresa CUIT 30-71068177-1 y/o ADMINISTRACION DE INFRAESTRUCTURAS FERROVIARIAS SOCIEDAD ANONIMA (ADIFSA) CUIT 30- 71069599-3, y/o FERROCARRILES ARGENTINOS SOCIEDAD DEL ESTADO (FASE) - en proceso de transformación a Sociedad Anónima Unipersonal (SAU) - CUIT 30-71525570-3, y/o a SECRETARIA DE TRANSPORTE DE LA NACIÓN CUIT 30-71512720-9, y/o MINISTERIO DE ECONOMÍA CUIT 30-54667611-7, y/o al ESTADO NACIONAL, quienes serán coasegurados y/o asegurados adicionales a los efectos de la cobertura de la póliza, así como sus accionistas, directores, empleados y funcionarios. Responsabilidad Civil Cruzada: Todos los sujetos mencionados precedentemente serán considerados terceros entre sí. Cláusula de No Repetición: La Aseguradora renunciará expresamente a todo derecho de subrogación o repetición contra los sujetos mencionados precedentemente, manteniendo indemne a la empresa frente a reclamos de terceros cubiertos por la póliza. Notificación previa: La póliza no será anulada sin previo aviso por escrito a la OPERADORA FERROVIARIA SOCIEDAD ANONIMA, con domicilio en la Avda. Ramos Mejía Nº 1302, piso 4to. de la Ciudad Autónoma de Buenos Aires, con un plazo mínimo de 15 días corridos de anticipación.""",
     "ART": """Seguros a presentar por la Contratista para el personal que se encuentre en relación de dependencia, y que deba ingresar a predio de SOFSA en virtud de la presente contratación: Seguro de Riesgos del Trabajo: La Contratista deberá contratar y mantener vigente, por su exclusiva cuenta y cargo, un seguro que cubra los riesgos del trabajo de acuerdo con la Ley Nº 24.557 de Riesgos del Trabajo, sus reformas y decretos reglamentarios. Previo al inicio de las tareas, la Contratista deberá presentar certificado de cobertura emitido por la ART, incluyendo la nómina del personal afectado. La póliza deberá incluir la siguiente cláusula: Cláusula de No Repetición: La Aseguradora de Riesgos del Trabajo debe renunciar en forma expresa a sus derechos de subrogación y/o a reclamar o iniciar toda acción de repetición o de regreso contra SOFSA, y/o FASE - en proceso de transformación a Sociedad Anónima Unipersonal (SAU) - y/o ADIFSA y/o SECRETARIA DE TRANSPORTE DE LA NACIÓN, y/o MINISTERIO DE ECONOMÍA, y/o ESTADO NACIONAL así como sus accionistas, directors, empleados y funcionarios, con motivo de las prestaciones a las que se vea obligada a otorgar o abonar al personal dependiente o ex dependiente de la Contratista, amparados por la cobertura del contrato de afiliación, por accidente de trabajo o enfermedades profesionales ocurridos o contraídos por el hecho o en ocasión del trabajo o en el trayecto entre el domicilio del trabajador y el lugar de trabajo.""",
     "VO": """Seguro Colectivo de Vida Obligatorio: La Contratista deberá contratar y mantener vigente, por su exclusiva cuenta y cargo, un seguro colectivo de vida obligatorio para cubrir la totalidad del personal afectado al trabajo y/o servicio contratado, según lo previsto en el Decreto Nº 1567/74. Previo al inicio de las tareas, deberá presentarse certificado de cobertura emitido por la aseguradora, con indicación de la nómina del personal cubierto.""",
-    "AP": """Seguros a presentar por la Contratista para el personal contratado que NO se encuentre en relación de dependencia, y que deba ingresar a predio de SOFSA en virtud de la presente contratación: Seguro de Accidentes Personales: La contratista deberá contratar y mantener vigente, por su exclusiva cuenta y cargo, un seguro que cubra los accidentes que pudiera sufrir el personal de la Contratista, afectado a los trabajos y/o servicios y que no se encuentre en relación de dependencia con ésta, cuando la modalidad contractual así lo permita. La cobertura mínima por persona deberá contemplar: Muerte e incapacidad permanente (total o parcial): USD 20.000 o su equivalente en moneda local. Gastos médicos asistenciales: USD 2.000 o su equivalente en moneda local. La póliza deberá designar a SOFSA como beneficiaria en primer término, exclusivamente a los efectos de garantizar su indemnidad frente a eventuales obligaciones legales derivadas del siniestro. Previo al inicio de las tareas, la Contratista deberá presentar certificado de cobertura y libre deuda emitido por la aseguradora. La póliza deberá incluir las siguientes cláusulas: Notificación previa: La póliza no será anulada sin previo aviso por escrito a la OPERADORA FERROVIARIA SOCIEDAD ANONIMA, con un plazo mínimo de 15 días corridos de anticipación.""",
+    "AP": """Seguros a presentar por la Contratista para el personal contratado que NO se encuentre en relación de dependencia, and que deba ingresar a predio de SOFSA en virtud de la presente contratación: Seguro de Accidentes Personales: La contratista deberá contratar y mantener vigente, por su exclusiva cuenta y cargo, un seguro que cubra los accidentes que pudiera sufrir el personal de la Contratista, afectado a los trabajos y/o servicios y que no se encuentre en relación de dependencia con ésta, cuando la modalidad contractual así lo permita. La cobertura mínima por persona deberá contemplar: Muerte e incapacidad permanente (total o parcial): USD 20.000 o su equivalente en moneda local. Gastos médicos asistenciales: USD 2.000 o su equivalente en moneda local. La póliza deberá designar a SOFSA como beneficiaria en primer término, exclusivamente a los efectos de garantizar su indemnidad frente a eventuales obligaciones legales derivadas del siniestro. Previo al inicio de las tareas, la Contratista deberá presentar certificado de cobertura y libre deuda emitido por la aseguradora. La póliza deberá incluir las siguientes cláusulas: Notificación previa: La póliza no será anulada sin previo aviso por escrito a la OPERADORA FERROVIARIA SOCIEDAD ANONIMA, con un plazo mínimo de 15 días corridos de anticipación.""",
     "CAUCION": """Caución de Tenencia de Bienes: La Contratista deberá contratar una Póliza de Caución de Tenencia de Bienes, destinada a garantizar el retiro, transporte, traslado, tenencia, guarda, custodia, correcta conservación y posterior devolución de los Bienes y/o Equipos propiedad de SOFSA y/o bajo su responsabilidad. La cobertura deberá mantenerse vigente desde el momento del retiro de los bienes de las instalaciones de SOFSA o del lugar que ésta determine, durante todo el período de traslado, permanencia, manipulación, intervención técnica y custodia en instalaciones de la Contratista o de terceros, hasta su efectiva devolución y recepción conforme por parte de SOFSA. La suma asegurada deberá ser equivalente a la suma establecida en el Pliego de Especificaciones Técnicas. La póliza deberá incluir la siguiente cláusula: Los actos, declaraciones, acciones u omisiones de la Contratista (Tomador), incluida la falta de pago del premio, no afectarán de modo alguno los derechos de SOFSA (Asegurada) frente al Asegurador, quien mantendrá íntegramente su obligación de responder en los términos de la póliza.""",
     "TRCYM": """Seguro a presentar por la Contratista para aquellos trabajos y/o servicios que requieran la realización de una obra y/o montaje: Seguros Todo riesgo Construcción y/o Montaje: Cuando la contratación implique la ejecución de obras y/o trabajos de montaje, la Contratista deberá contratar y mantener vigente, por su exclusiva cuenta y cargo, un Seguro Todo Riesgo Construcción y/o Montaje que ampare la totalidad de la obra y/o montaje, incluyendo trabajos temporarios, materiales, equipos, instalaciones, obradores, maquinarias y bienes existentes y/o adyacentes afectados a la prestación. La cobertura deberá mantenerse vigente durante todo el período de ejecución, incluyendo los períodos de almacenaje, construcción y/o montaje, pruebas y mantenimiento, y hasta la recepción definitiva de la obra, debiendo actualizarse progresivamente la suma asegurada de modo tal que refleje en todo momento el valor total certificado. La póliza deberá ser contratada a nombre conjunto de la Contratista y de SOFSA, y extenderse, cuando corresponda, a subcontratistas y/o proveedores que intervengan en la ejecución. La Contratista deberá presentar a SOFSA certificado de cobertura y libre deuda emitido por la aseguradora. Clausulas obligatorias: Asegurado Adicional: Serán considerados asegurados y/o asegurados adicionales el titular de la póliza y/o la La OPERADORA FERROVIARIA SOCIEDAD ANONIMA (SOFSA) CUIT 30-71068177-1 y/o ADMINISTRACION DE INFRAESTRUCTURAS FERROVIARIAS SOCIEDAD ANONIMA (ADIFSA) CUIT 30- 71069599-3, y/o FERROCARRILES ARGENTINOS SOCIEDAD DEL ESTADO (FASE) - en proceso de transformación a Sociedad Anónima Unipersonal (SAU) - CUIT 30-71525570-3, y/o a SECRETARIA DE TRANSPORTE DE LA NACIÓN CUIT 30-71512720-9, y/o MINISTERIO DE ECONOMÍA CUIT 30-54667611-7, y/o al ESTADO NACIONAL, quienes serán coasegurados y/o asegurados adicionales a los efectos de la cobertura de la póliza, así como sus accionistas, directores, empleados y funcionarios. Responsabilidad Civil Cruzada: Todos los sujetos mencionados precedentemente serán considerados terceros entre sí. Cláusula de No Repetición: La Aseguradora renunciará expresamente a todo derecho de subrogación o repetición contra los sujetos mencionados precedentemente, manteniendo indemne a SOFSA frente a reclamos de terceros cubiertos por la póliza. Notificación previa: La póliza no será anulada sin previo aviso por escrito a la OPERADORA FERROVIARIA SOCIEDAD ANONIMA, con un plazo mínimo de 15 días corridos de anticipación.""",
     "AUTO": """Seguro Automotor Obligatorio: La Contratista deberá contratar y mantener vigente, por su exclusiva cuenta y cargo, un seguro Automotor para los vehículos a ser utilizados en virtud de la presente contratación, los cuales deberán contar, como mínimo, con la cobertura de Responsabilidad Civil - Seguro Voluntario, por la suma establecida por la Superintendencia de Seguros de la Nación. La Contratista deberá presentar a SOFSA un certificado de cobertura y libre deuda emitido por la Aseguradora. La póliza deberá incluir las siguientes cláusulas: Cláusula de No Repetición: La Aseguradora renunciará expresamente a todo derecho de subrogación o repetición contra SOFSA, y/o FASE - en proceso de transformación a Sociedad Anónima Unipersonal (SAU) - y/o ADIFSA y/o SECRETARIA DE TRANSPORTE DE LA NACIÓN, y/o MINISTERIO DE ECONOMÍA, y/o ESTADO NACIONAL, así como sus accionistas, directores, empleados y funcionarios, con motivo de las sumas que se vea obligada a abonar por los riesgos amparados en la cobertura de la póliza. Notificación previa: La póliza no será anulada sin previo aviso por escrito a la OPERADORA FERROVIARIA SOCIEDAD ANONIMA, con domicilio en la Avda. Ramos Mejía Nº 1302, piso 4to. de la Ciudad Autónoma de Buenos Aires, con un plazo mínimo de 15 días corridos de anticipación.""",
@@ -170,7 +170,7 @@ if not bloqueo and nivel != "Nulo":
     st.write("---")
     col_btn1, col_btn2 = st.columns(2)
 
-    # Lógica de seguros requeridos para nombres y filtros
+    # Lógica de seguros requeridos
     req_pers = p1
     req_rc = (p5 or p7 or p8 or p9) and not p9
     req_trcym = p9
@@ -207,64 +207,59 @@ if not bloqueo and nivel != "Nulo":
     # BOTÓN 2: CHECKLIST DE CONTROL (Basado en instructivo Word)
     with col_btn2:
         seguros_list = []
-        if req_pers: seguros_list.append("Seguro de Personas (ART / VO / AP)") [cite: 77]
-        if req_rc: seguros_list.append("Responsabilidad Civil Comprensiva") [cite: 78]
-        if req_trcym: seguros_list.append("Todo Riesgo Construcción y Montaje") [cite: 79]
-        if req_caucion: seguros_list.append("Caución por Tenencia de Bienes") [cite: 80]
-        if req_auto: seguros_list.append("Responsabilidad Civil Automotor") [cite: 81]
+        if req_pers: seguros_list.append("Seguro de Personas (ART / VO / AP)")
+        if req_rc: seguros_list.append("Responsabilidad Civil Comprensiva")
+        if req_trcym: seguros_list.append("Todo Riesgo Construcción y Montaje")
+        if req_caucion: seguros_list.append("Caución por Tenencia de Bienes")
+        if req_auto: seguros_list.append("Responsabilidad Civil Automotor")
 
         chk = PDF()
         chk.add_page()
-        # Orden solicitado [cite: 4, 5, 6, 7]
-        chk.chapter_title("CHECKLIST DE CONTROL DE PÓLIZAS", 14) [cite: 6]
-        chk.chapter_body("Seguros requeridos según Anexo generado por el Modelo de Determinación de Seguros a Proveedores", 11, 'B') [cite: 7]
+        chk.chapter_title("CHECKLIST DE CONTROL DE PÓLIZAS", 14)
+        chk.chapter_body("Seguros requeridos según Anexo generado por el Modelo de Determinación de Seguros a Proveedores", 11, 'B')
         
-        # Resultado [cite: 8, 9, 10]
         chk.ln(4)
-        chk.chapter_body("Resultado del modelo", 10, 'B') [cite: 8]
-        chk.chapter_body(f"Nivel de riesgo determinado: {nivel}") [cite: 9, 75]
-        chk.chapter_body(f"Seguros requeridos: {', '.join(seguros_list)}") [cite: 10, 76]
+        chk.chapter_body("Resultado del modelo", 10, 'B')
+        chk.chapter_body(f"Nivel de riesgo determinado: {nivel}")
+        chk.chapter_body(f"Seguros requeridos: {', '.join(seguros_list)}")
         
-        # Regla operativa [cite: 11, 12]
         chk.ln(4)
-        chk.chapter_body("Regla operativa", 10, 'B') [cite: 11, 82]
-        chk.chapter_body("Ante duda razonable sobre la aplicabilidad del seguro, SOFSA determinará su exigencia en función del riesgo identificado.") [cite: 12, 83]
+        chk.chapter_body("Regla operativa", 10, 'B')
+        chk.chapter_body("Ante duda razonable sobre la aplicabilidad del seguro, SOFSA determinará su exigencia en función del riesgo identificado.")
         
-        # Control general [cite: 13, 14, 15, 16, 17, 18, 19, 20]
         chk.ln(4)
-        chk.chapter_body("Control documental general (aplica a todos los seguros)", 10, 'B') [cite: 13, 84]
-        chk.chapter_body("[] Aseguradora habilitada SSN  [] Calificación de la aseguradora  [] Vigencia durante toda la actividad  [] Actividad asegurada compatible  [] Certificado de cobertura vigente  [] Libre deuda (si aplica)") [cite: 15, 16, 17, 18, 19, 20, 86]
+        chk.chapter_body("Control documental general (aplica a todos los seguros)", 10, 'B')
+        chk.chapter_body("[] Aseguradora habilitada SSN  [] Calificación de la aseguradora  [] Vigencia durante toda la actividad  [] Actividad asegurada compatible  [] Certificado de cobertura vigente  [] Libre deuda (si aplica)")
 
-        # Bloques específicos [cite: 21]
-        if req_pers: [cite: 22]
+        if req_pers:
             chk.ln(4)
-            chk.chapter_body("1. Seguro de Personas", 10, 'B') [cite: 87]
-            chk.chapter_body("ART: [] Nómina de personal afectado [] Cláusula de no repetición a favor de SOFSA") [cite: 23, 24, 25, 88]
-            chk.chapter_body("Seguro Colectivo de Vida Obligatorio: [] Nómina de personal afectado") [cite: 26, 27, 89]
-            chk.chapter_body("Seguro de Accidentes Personales: [] Nómina de personal afectado [] Cláusula de no repetición a favor de SOFSA [] Cláusula SOFSA beneficiaria en primer término [] Cláusula de notificación previa") [cite: 28, 29, 30, 31, 32, 90, 91]
+            chk.chapter_body("1. Seguro de Personas", 10, 'B')
+            chk.chapter_body("ART: [] Nómina de personal afectado [] Cláusula de no repetición a favor de SOFSA")
+            chk.chapter_body("Seguro Colectivo de Vida Obligatorio: [] Nómina de personal afectado")
+            chk.chapter_body("Seguro de Accidentes Personales: [] Nómina de personal afectado [] Cláusula de no repetición a favor de SOFSA [] Cláusula SOFSA beneficiaria en primer término [] Cláusula de notificación previa")
 
-        if req_rc: [cite: 33]
+        if req_rc:
             chk.ln(4)
-            chk.chapter_body("2. Responsabilidad Civil Comprensiva", 10, 'B') [cite: 92]
-            chk.chapter_body("[] Suma asegurada correcta [] Cláusula de no repetición [] Asegurados adicionales [] Cláusula RC cruzada [] Cláusula de notificación previa") [cite: 34, 35, 36, 37, 38, 92]
-            chk.chapter_body("Adicionales según actividad: [] Trabajos en altura [] Soldadura / oxicorte [] Izaje de carga [] Intervención eléctrica [] Maquinaria pesada [] Uso de armas [] Suministro de alimentos") [cite: 39, 40, 41, 42, 43, 44, 45, 46, 94]
+            chk.chapter_body("2. Responsabilidad Civil Comprensiva", 10, 'B')
+            chk.chapter_body("[] Suma asegurada correcta [] Cláusula de no repetición [] Asegurados adicionales [] Cláusula RC cruzada [] Cláusula de notificación previa")
+            chk.chapter_body("Adicionales según actividad: [] Trabajos en altura [] Soldadura / oxicorte [] Izaje de carga [] Intervención eléctrica [] Maquinaria pesada [] Uso de armas [] Suministro de alimentos")
 
-        if req_trcym: [cite: 47, 59]
+        if req_trcym:
             chk.ln(4)
-            chk.chapter_body("3. Todo Riesgo Construcción y Montaje", 10, 'B') [cite: 95]
-            chk.chapter_body("[] Suma asegurada correcta [] Vigencia total de obra [] Incluye daños materiales [] Cláusula de no repetición [] Asegurados adicionales [] Cláusula RC cruzada [] Cláusula de notificación previa") [cite: 48, 49, 50, 51, 52, 53, 54, 95]
-            chk.chapter_body("Cobertura de Responsabilidad Civil dentro de Todo Riesgo Construcción", 10, 'B') [cite: 55, 96]
-            chk.chapter_body("[] Responsabilidad Civil incluida dentro de la póliza TRCyM [] Suma asegurada de RC acorde al nivel de riesgo [] Incluye adicionales según actividad (si corresponden)") [cite: 56, 57, 58, 97]
+            chk.chapter_body("3. Todo Riesgo Construcción y Montaje", 10, 'B')
+            chk.chapter_body("[] Suma asegurada correcta [] Vigencia total de obra [] Incluye daños materiales [] Cláusula de no repetición [] Asegurados adicionales [] Cláusula RC cruzada [] Cláusula de notificación previa")
+            chk.chapter_body("Cobertura de Responsabilidad Civil dentro de Todo Riesgo Construcción", 10, 'B')
+            chk.chapter_body("[] Responsabilidad Civil incluida dentro de la póliza TRCyM [] Suma asegurada de RC acorde al nivel de riesgo [] Incluye adicionales según actividad (si corresponden)")
 
-        if req_caucion: [cite: 60]
+        if req_caucion:
             chk.ln(4)
-            chk.chapter_body("4. Caución por Tenencia de Bienes", 10, 'B') [cite: 98]
-            chk.chapter_body("[] Monto acorde al valor indicado en el pliego [] Vigencia total del contrato") [cite: 61, 62, 98]
+            chk.chapter_body("4. Caución por Tenencia de Bienes", 10, 'B')
+            chk.chapter_body("[] Monto acorde al valor indicado en el pliego [] Vigencia total del contrato")
 
-        if req_auto: [cite: 63]
+        if req_auto:
             chk.ln(4)
-            chk.chapter_body("5. Responsabilidad Civil Automotor", 10, 'B') [cite: 99]
-            chk.chapter_body("[] Vehículos declarados [] Cláusula de notificación previa [] Cláusula de no repetición") [cite: 64, 65, 66, 99]
+            chk.chapter_body("5. Responsabilidad Civil Automotor", 10, 'B')
+            chk.chapter_body("[] Vehículos declarados [] Cláusula de notificación previa [] Cláusula de no repetición")
 
         st.download_button(
             label="Generar Checklist de control",
