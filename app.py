@@ -119,10 +119,6 @@ if not p1 and (p3 or p4 or p5 or p6 or p7 or p8 or p9):
 if p2 and (p4 or p5 or p6 or p7 or p8 or p9):
     st.error("Bloqueo detectado: Tareas seleccionadas incompatibles con actividad administrativa (Pregunta 2).")
     bloqueo = True
-# NUEVA CONDICIÓN SOLICITADA:
-if p6 and (p2 or p4 or p5 or p7 or p8 or p9):
-    st.error('La pregunta 6 no puede ser "si" si respondio afirmativamente las preguntas 2,4,5,7,8,o 9')
-    bloqueo = True
 
 # Lógica de Riesgo
 if p9 or p8 or p5: nivel = "Alto"
