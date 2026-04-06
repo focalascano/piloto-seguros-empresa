@@ -81,9 +81,9 @@ r1 = st.radio("Pregunta 1: ¿Para realizar la actividad personal del proveedor i
 r2 = st.radio("""Pregunta 2: ¿La actividad consiste exclusivamente en tareas administrativas o profesionales de oficina, realizadas sin ingreso a áreas operativas ni intervención técnica?  
 Ejemplos: consultoría, auditoría, capacitaciones teóricas, asesoramiento profesional""", opciones, index=0)
 r3 = st.radio("Pregunta 3: ¿La actividad requiere el ingreso de vehículos del proveedor a predios o instalaciones de SOFSA?", opciones, index=0)
-r4 = st.radio("Pregunta 4: ¿El proveedor tendrá bajo su guarda, custodia o control bienes de SOFSA, sin supervisión directa, cuyo valor individual o total supere los USD 5.000?", opciones, index=0)
+r4 = st.radio("Pregunta 4: ¿El proveedor tendrá bajo su guarda, custodia o control bienes de SOFSA, cuyo valor individual o total supere los USD 5.000?", opciones, index=0)
 r5 = st.radio("Pregunta 5: ¿El trabajo se realizará en andenes, vías, talleres ferroviarios o sectores con circulación de trenes?", opciones, index=0)
-r6 = st.radio("""Pregunta 6: ¿La actividad corresponde a un trabajo menor de mantenimiento simple en SOFSA? Para ser considerado trabajo menor, debe cumplir todas estas condiciones: 
+r6 = st.radio("""Pregunta 6: ¿La actividad corresponde a un trabajo menor de mantenimiento simple en SOFSA? Para ser considerado trabajo menor, debe cumplir todas estas condiciones:  
 • duración corta (menor a 1 mes de trabajo)  
 • uso herramientas manuales simples  
 • sin trabajo en altura, ni andamios  
