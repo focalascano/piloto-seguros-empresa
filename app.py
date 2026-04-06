@@ -125,7 +125,7 @@ if p6 and (p2 or p4 or p5 or p7 or p8 or p9):
 
 # --- PIE DE PÁGINA INTERFAZ ---
 st.markdown("---")
-st.caption("""**Uso sugerido del resultado:**
+st.caption("""**Uso sugerido del resultado:**  
 • Incorporar el Anexo de Seguros como referencia en el pliego  
 • Utilizar el checklist de verificación documental previo al inicio de actividades  
 Si el servicio o contratación no se puede describir mediante el cuestionario, contactar a la Subgerencia de Administración de Riesgos (SAR).""")
