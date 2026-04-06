@@ -108,7 +108,21 @@ Incluye:
 • instalación de equipos (montaje o desmontaje)  
 • montaje de sistema eléctrico o mecánico""", opciones, index=0)
 
-p1, p3, p4, p5, p7, p8, p9 = [r == "Sí" for r in [r1, r3, r4, r5, r7, r8, r9]]
+# Conversión a booleanos
+p1, p2, p3, p4, p5, p6, p7, p8, p9 = [r == "Sí" for r in [r1, r2, r3, r4, r5, r6, r7, r8, r9]]
+
+# --- VALIDACIONES DE BLOQUEO ---
+bloqueo = False
+if not p1 and (p3 or p4 or p5 or p6 or p7 or p8 or p9):
+    st.error('Bloqueo detectado: La pregunta 1 debe responderse "Sí" para las tareas seleccionadas.')
+    bloqueo = True
+if p2 and (p4 or p5 or p6 or p7 or p8 or p9):
+    st.error("Bloqueo detectado: Tareas seleccionadas incompatibles con actividad administrativa (Pregunta 2).")
+    bloqueo = True
+# NUEVA CONDICIÓN SOLICITADA:
+if p6 and (p2 or p4 or p5 or p7 or p8 or p9):
+    st.error('La pregunta 6 no puede ser "si" si respondio afirmativamente las preguntas 2,4,5,7,8,o 9')
+    bloqueo = True
 
 # Lógica de Riesgo
 if p9 or p8 or p5: nivel = "Alto"
@@ -116,11 +130,11 @@ elif p1 and (p7 or p4): nivel = "Medio"
 elif p1: nivel = "Bajo"
 else: nivel = "Nulo"
 
-if nivel != "Nulo":
+if not bloqueo and nivel != "Nulo":
     st.write("---")
     col_btn1, col_btn2 = st.columns(2)
 
-    # --- BOTÓN 1: ANEXO DE SEGUROS (TEXTOS COMPLETOS E INDEPENDIENTES) ---
+    # --- BOTÓN 1: ANEXO DE SEGUROS ---
     with col_btn1:
         pdf_anexo = PDF()
         pdf_anexo.add_page()
@@ -131,7 +145,6 @@ if nivel != "Nulo":
             pdf_anexo.chapter_body(TEXTOS_LEGALES["VO"])
             pdf_anexo.chapter_body(TEXTOS_LEGALES["AP"])
         
-        # En el Anexo, RC aparece siempre que la actividad lo requiera, incluso si hay obra.
         if (p5 or p7 or p8 or p9):
             suma_rc = "USD 100.000" if nivel == "Alto" else "USD 50.000"
             pdf_anexo.chapter_body(TEXTOS_LEGALES["RC"] + f"\n\nSUMA ASEGURADA MINIMA REQUERIDA: {suma_rc}")
@@ -151,7 +164,7 @@ if nivel != "Nulo":
             mime="application/pdf"
         )
 
-    # --- BOTÓN 2: CHECKLIST DE CONTROL (LÓGICA UNIFICADA) ---
+    # --- BOTÓN 2: CHECKLIST DE CONTROL ---
     with col_btn2:
         req_rc_separado = (p5 or p7 or p8 or p9) and not p9
         
@@ -218,6 +231,7 @@ if nivel != "Nulo":
         )
 
 # Carteles de Nivel de Riesgo
-if nivel == "Alto": st.error(f"**NIVEL DE RIESGO: {nivel}**")
-elif nivel == "Medio": st.warning(f"**NIVEL DE RIESGO: {nivel}**")
-elif nivel == "Bajo": st.info(f"**NIVEL DE RIESGO: {nivel}**")
+if not bloqueo:
+    if nivel == "Alto": st.error(f"**NIVEL DE RIESGO: {nivel}**")
+    elif nivel == "Medio": st.warning(f"**NIVEL DE RIESGO: {nivel}**")
+    elif nivel == "Bajo": st.info(f"**NIVEL DE RIESGO: {nivel}**")
