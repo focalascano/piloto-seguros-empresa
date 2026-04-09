@@ -260,15 +260,14 @@ if not bloqueo and nivel != "Nulo":
             chk.ln(4)
             chk.chapter_body("1. Seguro de Personas", 10, 'B')
             chk.chapter_body("""
-            
             ART:  
             [] Nómina de personal afectado  
             [] Cláusula de no repetición a favor de SOFSA""")
             chk.chapter_body("""
-            
             Seguro Colectivo de Vida Obligatorio:  
             [] Nómina de personal afectado""")
-            chk.chapter_body("""Seguro de Accidentes Personales: 
+            chk.chapter_body("""
+            Seguro de Accidentes Personales: 
             [] Nómina de personal afectado  
             [] Cláusula de no repetición a favor de SOFSA  
             [] Cláusula SOFSA beneficiaria en primer término  
