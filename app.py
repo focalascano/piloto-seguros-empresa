@@ -212,7 +212,6 @@ if not bloqueo and nivel != "Nulo":
         if p3: pdf_anexo.chapter_body(TEXTOS_LEGALES["AUTO"])
         
         pdf_anexo.add_page()
-        pdf_anexo.chapter_title("REQUISITOS GENERALES")
         pdf_anexo.chapter_body(TEXTOS_LEGALES["REQUISITOS_FINALES"])
         
         st.download_button(
@@ -249,37 +248,80 @@ if not bloqueo and nivel != "Nulo":
         
         chk.ln(4)
         chk.chapter_body("Control documental general (aplica a todos los seguros)", 10, 'B')
-        chk.chapter_body("[] Aseguradora habilitada SSN  [] Calificación de la aseguradora  [] Vigencia durante toda la actividad  [] Actividad asegurada compatible  [] Certificado de cobertura vigente  [] Libre deuda (si aplica)")
+        chk.chapter_body("""
+        [] Aseguradora habilitada SSN  
+        [] Calificación de la aseguradora  
+        [] Vigencia durante toda la actividad  
+        [] Actividad asegurada compatible  
+        [] Certificado de cobertura vigente  
+        [] Libre deuda (si aplica)""")
 
         if p1:
             chk.ln(4)
             chk.chapter_body("1. Seguro de Personas", 10, 'B')
-            chk.chapter_body("ART: [] Nómina de personal afectado [] Cláusula de no repetición a favor de SOFSA")
-            chk.chapter_body("Seguro Colectivo de Vida Obligatorio: [] Nómina de personal afectado")
-            chk.chapter_body("Seguro de Accidentes Personales: [] Nómina de personal afectado [] Cláusula de no repetición a favor de SOFSA [] Cláusula SOFSA beneficiaria en primer término [] Cláusula de notificación previa")
+            chk.chapter_body("""
+            ART:  
+            [] Nómina de personal afectado  
+            [] Cláusula de no repetición a favor de SOFSA""")
+            chk.chapter_body("""
+            Seguro Colectivo de Vida Obligatorio:  
+            [] Nómina de personal afectado""")
+            chk.chapter_body("""Seguro de Accidentes Personales: 
+            [] Nómina de personal afectado  
+            [] Cláusula de no repetición a favor de SOFSA  
+            [] Cláusula SOFSA beneficiaria en primer término  
+            [] Cláusula de notificación previa""")
 
         if req_rc_separado:
             chk.ln(4)
             chk.chapter_body("2. Responsabilidad Civil Comprensiva", 10, 'B')
-            chk.chapter_body("[] Suma asegurada correcta [] Cláusula de no repetición [] Asegurados adicionales [] Cláusula RC cruzada [] Cláusula de notificación previa")
-            chk.chapter_body("Adicionales según actividad: [] Trabajos en altura [] Soldadura / oxicorte [] Izaje de carga [] Intervención eléctrica [] Maquinaria pesada [] Uso de armas [] Suministro de alimentos")
+            chk.chapter_body("""
+            [] Suma asegurada correcta  
+            [] Cláusula de no repetición  
+            [] Asegurados adicionales  
+            [] Cláusula RC cruzada  
+            [] Cláusula de notificación previa""")
+            chk.chapter_body("""
+            Adicionales según actividad:  
+            [] Trabajos en altura  
+            [] Soldadura / oxicorte  
+            [] Izaje de carga  
+            [] Intervención eléctrica  
+            [] Maquinaria pesada  
+            [] Uso de armas  
+            [] Suministro de alimentos""")
 
         if p9:
             chk.ln(4)
             chk.chapter_body("3. Todo Riesgo Construcción y Montaje", 10, 'B')
-            chk.chapter_body("[] Suma asegurada correcta [] Vigencia total de obra [] Incluye daños materiales [] Cláusula de no repetición [] Asegurados adicionales [] Cláusula RC cruzada [] Cláusula de notificación previa")
-            chk.chapter_body("Cobertura de Responsabilidad Civil dentro de Todo Riesgo Construcción", 10, 'B')
-            chk.chapter_body("[] Responsabilidad Civil incluida dentro de la póliza TRCyM [] Suma asegurada de RC acorde al nivel de riesgo [] Incluye adicionales según actividad (si corresponden)")
+            chk.chapter_body("""
+            [] Suma asegurada correcta  
+            [] Vigencia total de obra  
+            [] Incluye daños materiales  
+            [] Cláusula de no repetición  
+            [] Asegurados adicionales  
+            [] Cláusula RC cruzada  
+            [] Cláusula de notificación previa""")
+            chk.chapter_body("""Cobertura de Responsabilidad Civil dentro de Todo Riesgo Construcción""", 10, 'B')
+            chk.chapter_body("""
+            [] Responsabilidad Civil incluida dentro de la póliza TRCyM  
+            [] Suma asegurada de RC acorde al nivel de riesgo  
+            [] Incluye adicionales según actividad (si corresponden)""")
 
         if p4:
             chk.ln(4)
             chk.chapter_body("4. Caución por Tenencia de Bienes", 10, 'B')
-            chk.chapter_body("[] Monto acorde al valor indicado en el pliego [] Vigencia total del contrato")
+            chk.chapter_body("""
+            [] Monto acorde al valor indicado en el pliego   
+            [] Vigencia total del contrato""")
 
         if p3:
             chk.ln(4)
             chk.chapter_body("5. Responsabilidad Civil Automotor", 10, 'B')
-            chk.chapter_body("[] Vehículos declarados [] Cláusula de notificación previa [] Cláusula de no repetición")
+            chk.chapter_body("""
+            [] Vehículos declarados  
+            [] Cláusula de notificación previa  
+            [] Cláusula de no repetición""")
 
         st.download_button(
             label="Generar Checklist de control",
