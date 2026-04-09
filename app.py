@@ -260,10 +260,12 @@ if not bloqueo and nivel != "Nulo":
             chk.ln(4)
             chk.chapter_body("1. Seguro de Personas", 10, 'B')
             chk.chapter_body("""
+            
             ART:  
             [] Nómina de personal afectado  
             [] Cláusula de no repetición a favor de SOFSA""")
             chk.chapter_body("""
+            
             Seguro Colectivo de Vida Obligatorio:  
             [] Nómina de personal afectado""")
             chk.chapter_body("""Seguro de Accidentes Personales: 
@@ -289,7 +291,8 @@ if not bloqueo and nivel != "Nulo":
             [] Intervención eléctrica  
             [] Maquinaria pesada  
             [] Uso de armas  
-            [] Suministro de alimentos""")
+            [] Suministro de alimentos
+            """)
 
         if p9:
             chk.ln(4)
@@ -301,12 +304,14 @@ if not bloqueo and nivel != "Nulo":
             [] Cláusula de no repetición  
             [] Asegurados adicionales  
             [] Cláusula RC cruzada  
-            [] Cláusula de notificación previa""")
+            [] Cláusula de notificación previa
+            """)
             chk.chapter_body("""Cobertura de Responsabilidad Civil dentro de Todo Riesgo Construcción""", 10, 'B')
             chk.chapter_body("""
             [] Responsabilidad Civil incluida dentro de la póliza TRCyM  
             [] Suma asegurada de RC acorde al nivel de riesgo  
-            [] Incluye adicionales según actividad (si corresponden)""")
+            [] Incluye adicionales según actividad (si corresponden)
+            """)
 
         if p4:
             chk.ln(4)
@@ -321,7 +326,8 @@ if not bloqueo and nivel != "Nulo":
             chk.chapter_body("""
             [] Vehículos declarados  
             [] Cláusula de notificación previa  
-            [] Cláusula de no repetición""")
+            [] Cláusula de no repetición
+            """)
 
         st.download_button(
             label="Generar Checklist de control",
