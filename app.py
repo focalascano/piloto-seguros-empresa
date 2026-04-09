@@ -248,7 +248,8 @@ if not bloqueo and nivel != "Nulo":
         
         chk.ln(4)
         chk.chapter_body("Control documental general (aplica a todos los seguros)", 10, 'B')
-        chk.chapter_body("""[] Aseguradora habilitada SSN  
+        chk.chapter_body("""
+        [] Aseguradora habilitada SSN  
         [] Calificación de la aseguradora  
         [] Vigencia durante toda la actividad  
         [] Actividad asegurada compatible  
@@ -258,7 +259,8 @@ if not bloqueo and nivel != "Nulo":
         if p1:
             chk.ln(4)
             chk.chapter_body("1. Seguro de Personas", 10, 'B')
-            chk.chapter_body("""ART:  
+            chk.chapter_body("""
+            ART:  
             [] Nómina de personal afectado  
             [] Cláusula de no repetición a favor de SOFSA""")
             chk.chapter_body("""
@@ -304,7 +306,8 @@ if not bloqueo and nivel != "Nulo":
             [] Cláusula de notificación previa
             """)
             chk.chapter_body("""Cobertura de Responsabilidad Civil dentro de Todo Riesgo Construcción""", 10, 'B')
-            chk.chapter_body("""[] Responsabilidad Civil incluida dentro de la póliza TRCyM  
+            chk.chapter_body("""
+            [] Responsabilidad Civil incluida dentro de la póliza TRCyM  
             [] Suma asegurada de RC acorde al nivel de riesgo  
             [] Incluye adicionales según actividad (si corresponden)
             """)
@@ -312,13 +315,15 @@ if not bloqueo and nivel != "Nulo":
         if p4:
             chk.ln(4)
             chk.chapter_body("4. Caución por Tenencia de Bienes", 10, 'B')
-            chk.chapter_body("""[] Monto acorde al valor indicado en el pliego   
+            chk.chapter_body("""
+            [] Monto acorde al valor indicado en el pliego   
             [] Vigencia total del contrato""")
 
         if p3:
             chk.ln(4)
             chk.chapter_body("5. Responsabilidad Civil Automotor", 10, 'B')
-            chk.chapter_body("""[] Vehículos declarados  
+            chk.chapter_body("""
+            [] Vehículos declarados  
             [] Cláusula de notificación previa  
             [] Cláusula de no repetición
             """)
