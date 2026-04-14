@@ -52,7 +52,7 @@ class PDF(FPDF):
     def chapter_body(self, body, size=10, style=''):
         self.set_font('Helvetica', style, size)
         txt_safe = str(body).encode('latin-1', 'replace').decode('latin-1')
-        self.multi_cell(0, 6, txt=txt_safe, align='J')
+        self.multi_cell(0, 6, txt=txt_safe, align='L')
         self.ln(2)
 
 # --- TEXTOS LEGALES INTEGRALES ---
