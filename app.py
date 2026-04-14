@@ -267,11 +267,12 @@ if not bloqueo and nivel != "Nulo":
             [] Nómina de personal afectado""")
             chk.chapter_body("""
             Seguro de Accidentes Personales: 
-            [] Suma asegurada
+            [] Suma asegurada.
             [] Nómina de personal afectado 
             [] Cláusula de no repetición a favor de SOFSA  
             [] Cláusula SOFSA beneficiaria en primer término  
-            [] Cláusula de notificación previa""")
+            [] Cláusula de notificación previa
+            """)
 
         if req_rc_separado:
             chk.ln(4)
