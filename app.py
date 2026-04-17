@@ -340,6 +340,11 @@ if not bloqueo and nivel != "Nulo":
 
 # Carteles de Nivel de Riesgo
 if not bloqueo:
-    if nivel == "Alto": st.error(f"**NIVEL DE RIESGO: {nivel}**")
-    elif nivel == "Medio": st.warning(f"**NIVEL DE RIESGO: {nivel}**")
-    elif nivel == "Bajo": st.info(f"**NIVEL DE RIESGO: {nivel}**")
+    if nivel == "Alto":
+        st.error(f"**NIVEL DE RIESGO: {nivel}**")
+    elif nivel == "Medio":
+        st.warning(f"**NIVEL DE RIESGO: {nivel}**")
+    elif nivel == "Bajo":
+        st.info(f"**NIVEL DE RIESGO: {nivel}**")
+    elif nivel == "Nulo":
+        st.success("**NIVEL DE RIESGO: Nulo. No hay requerimiento de Seguros**")
