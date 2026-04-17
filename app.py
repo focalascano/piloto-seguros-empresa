@@ -174,9 +174,6 @@ if not bloqueo and nivel != "Nulo":
     st.write("---")
     col_btn1, col_btn2, col_btn3 = st.columns(3)
 
-    # (ACÁ VA TODO TU CÓDIGO ORIGINAL SIN CAMBIOS...)
-    # 👇 SOLO SE AGREGA ESTE TERCER BOTÓN:
-
     with col_btn3:
         resumen = PDF()
         resumen.add_page()
