@@ -216,17 +216,28 @@ if not bloqueo and nivel != "Nulo":
         pdf_anexo.chapter_title("ANEXO DE SEGUROS")
         pdf_anexo.chapter_body(TEXTOS_LEGALES["GENERAL_ENCABEZADO"])
         if p1:
-            pdf_anexo.chapter_body(TEXTOS_LEGALES["ART"])
-            pdf_anexo.chapter_body(TEXTOS_LEGALES["VO"])
-            pdf_anexo.chapter_body(TEXTOS_LEGALES["AP"])
+        pdf_anexo.chapter_title("Seguro de Riesgos del Trabajo (ART)")
+        pdf_anexo.chapter_body(TEXTOS_LEGALES["ART"])
+
+        pdf_anexo.chapter_title("Seguro Colectivo de Vida Obligatorio")
+        pdf_anexo.chapter_body(TEXTOS_LEGALES["VO"])
+
+        pdf_anexo.chapter_title("Seguro de Accidentes Personales")
+        pdf_anexo.chapter_body(TEXTOS_LEGALES["AP"])
        
         if (p5 or p7 or p8 or p9):
-            suma_rc = "USD 100.000" if nivel == "Alto" else "USD 50.000"
-            pdf_anexo.chapter_body(TEXTOS_LEGALES["RC"] + f"\n\nSUMA ASEGURADA MINIMA REQUERIDA: {suma_rc}")
+            pdf_anexo.chapter_title("Responsabilidad Civil Comprensiva")
+        pdf_anexo.chapter_body(TEXTOS_LEGALES["RC"] + f"\n\nSUMA ASEGURADA MINIMA REQUERIDA: {suma_rc}")
        
-        if p4: pdf_anexo.chapter_body(TEXTOS_LEGALES["CAUCION"])
-        if p9: pdf_anexo.chapter_body(TEXTOS_LEGALES["TRCYM"])
-        if p3: pdf_anexo.chapter_body(TEXTOS_LEGALES["AUTO"])
+       if p4:
+    pdf_anexo.chapter_title("Caución por Tenencia de Bienes")
+    pdf_anexo.chapter_body(TEXTOS_LEGALES["CAUCION"])
+       if p9:
+    pdf_anexo.chapter_title("Todo Riesgo Construcción y Montaje")
+    pdf_anexo.chapter_body(TEXTOS_LEGALES["TRCYM"])
+        if p3:
+    pdf_anexo.chapter_title("Responsabilidad Civil Automotor")
+    pdf_anexo.chapter_body(TEXTOS_LEGALES["AUTO"])
        
         pdf_anexo.add_page()
         pdf_anexo.chapter_body(TEXTOS_LEGALES["REQUISITOS_FINALES"])
