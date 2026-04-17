@@ -355,7 +355,7 @@ if not bloqueo and nivel != "Nulo":
             mime="application/pdf"
         )
 
-# Carteles de Nivel de Riesgo
+# Carteles de Nivel de Riesgo + trazabilidad
 if not bloqueo:
     if nivel == "Alto":
         st.error(f"**NIVEL DE RIESGO: {nivel}**")
@@ -365,3 +365,5 @@ if not bloqueo:
         st.info(f"**NIVEL DE RIESGO: {nivel}**")
     elif nivel == "Nulo":
         st.success("**NIVEL DE RIESGO: Nulo. No hay requerimiento de Seguros**")
+
+    st.caption(f"**Trazabilidad:** {fundamento}")
