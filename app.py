@@ -182,11 +182,28 @@ st.caption("""**Uso sugerido del resultado:**
 • Utilizar el checklist de verificación documental previo al inicio de actividades  
 Si el servicio o contratación no se puede describir mediante el cuestionario, contactar a la Subgerencia de Administración de Riesgos (SAR).""")
 
-# Lógica de Riesgo
-if p9 or p8 or p5: nivel = "Alto"
-elif p1 and (p7 or p4): nivel = "Medio"
-elif p1: nivel = "Bajo"
-else: nivel = "Nulo"
+# Lógica de Riesgo + trazabilidad
+if p9:
+    nivel = "Alto"
+    fundamento = "Riesgo Alto por obra / instalación / montaje (P9 = Sí)"
+elif p8:
+    nivel = "Alto"
+    fundamento = "Riesgo Alto por tareas riesgosas (P8 = Sí)"
+elif p5:
+    nivel = "Alto"
+    fundamento = "Riesgo Alto por trabajo en zona ferroviaria u operativa (P5 = Sí)"
+elif p1 and p7:
+    nivel = "Medio"
+    fundamento = "Riesgo Medio por presencia de personal y uso de equipos / maquinaria (P1 = Sí, P7 = Sí)"
+elif p1 and p4:
+    nivel = "Medio"
+    fundamento = "Riesgo Medio por presencia de personal y custodia / control de bienes (P1 = Sí, P4 = Sí)"
+elif p1:
+    nivel = "Bajo"
+    fundamento = "Riesgo Bajo por presencia de personal sin condiciones de riesgo medio o alto (P1 = Sí)"
+else:
+    nivel = "Nulo"
+    fundamento = "Riesgo Nulo por ausencia de personal y de condiciones operativas (P1 = No y P3 a P9 = No)"
 
 if not bloqueo and nivel != "Nulo":
     st.write("---")
