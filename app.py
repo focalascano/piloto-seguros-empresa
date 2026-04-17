@@ -268,7 +268,8 @@ if not bloqueo and nivel != "Nulo":
            
             Seguro Colectivo de Vida Obligatorio:  
             [] Nómina de personal afectado""")
-            chk.chapter_body("""Seguro de Accidentes Personales:
+            chk.chapter_body("""
+            Seguro de Accidentes Personales:
             [] Suma asegurada correcta  
             [] Nómina de personal afectado  
             [] Cláusula de no repetición a favor de SOFSA  
