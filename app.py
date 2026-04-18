@@ -280,7 +280,7 @@ if not bloqueo and nivel != "Nulo":
            
             ART:  
             [] Nómina de personal afectado  
-            [] Cláusula de no repetición a favor de SOFSA""")
+            [] Cláusula de no repetición""")
             chk.chapter_body("""
            
             Seguro Colectivo de Vida Obligatorio:  
@@ -289,7 +289,7 @@ if not bloqueo and nivel != "Nulo":
             Seguro de Accidentes Personales:
             [] Suma asegurada correcta  
             [] Nómina de personal afectado  
-            [] Cláusula de no repetición a favor de SOFSA  
+            [] Cláusula de no repetición  
             [] Cláusula SOFSA beneficiaria en primer término  
             [] Cláusula de notificación previa""")
 
