@@ -211,10 +211,10 @@ if not bloqueo and nivel != "Nulo":
 
     # --- BOTÓN 1: ANEXO DE SEGUROS ---
     with col_btn1:
-    pdf_anexo = PDF()
-    pdf_anexo.add_page()
-    pdf_anexo.chapter_title("ANEXO DE SEGUROS")
-    pdf_anexo.chapter_body(TEXTOS_LEGALES["GENERAL_ENCABEZADO"])
+        pdf_anexo = PDF()
+        pdf_anexo.add_page()
+        pdf_anexo.chapter_title("ANEXO DE SEGUROS")
+        pdf_anexo.chapter_body(TEXTOS_LEGALES["GENERAL_ENCABEZADO"])
 
     if p1:
         pdf_anexo.chapter_title("Seguro de Riesgos del Trabajo (ART)")
