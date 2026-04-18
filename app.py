@@ -371,9 +371,6 @@ if not bloqueo and nivel != "Nulo":
             chk.chapter_body("""
             [] Responsabilidad Civil expresamente incluida dentro de la póliza TRCyM  
             [] Suma asegurada de RC acorde al nivel de riesgo  
-            [] Cláusula de no repetición aplicable a la cobertura de RC  
-            [] Asegurados adicionales aplicables a la cobertura de RC  
-            [] Cláusula RC cruzada aplicable a la cobertura de RC  
             [] Incluye adicionales según actividad (si corresponden)
             """)
 
