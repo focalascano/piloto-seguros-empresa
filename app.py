@@ -58,8 +58,7 @@ class PDF(FPDF):
 # --- TEXTOS LEGALES INTEGRALES ---
 TEXTOS_LEGALES = {
     "GENERAL_ENCABEZADO": "La Contratista deberá acreditar ante La SOFSA, con una antelación mínima de CINCO (5) días corridos al inicio de los trabajos y/o servicios, la contratación y vigencia de los seguros que resulten aplicables en función de la naturaleza y riesgos de la prestación, debiendo exigir el cumplimiento de esta obligación a los Subcontratistas que eventualmente participen en la ejecución de sus obligaciones contractuales, cuando la contratación así lo permita:  ",
-    "RC": """Seguros a presentar por la Contratista cuando, por la naturaleza de la actividad a desarrollar, exista riesgo de ocasionar daños a personas y/o a bienes de terceros:  
-Seguro de Responsabilidad Civil Comprensiva: La Contratista deberá contratar y mantener vigente, por su exclusiva cuenta y cargo, un seguro de Responsabilidad Civil Comprensiva que deberá cubrir los daños a personas y/o bienes de terceros derivados directa o indirectamente de la ejecución de los trabajos y/o servicios contratados. En caso de insuficiencia o falta de cobertura, los daños deberán ser asumidos íntegramente por la Contratista. Ante el pago de un siniestro, la suma asegurada deberá ser repuesta dentro de los DIEZ (10) días de producido el mismo.  
+    "RC": """La Contratista deberá contratar y mantener vigente, por su exclusiva cuenta y cargo, un seguro de Responsabilidad Civil Comprensiva que deberá cubrir los daños a personas y/o bienes de terceros derivados directa o indirectamente de la ejecución de los trabajos y/o servicios contratados. En caso de insuficiencia o falta de cobertura, los daños deberán ser asumidos íntegramente por la Contratista. Ante el pago de un siniestro, la suma asegurada deberá ser repuesta dentro de los DIEZ (10) días de producido el mismo.  
 Coberturas adicionales (condicionales):  
 La póliza deberá incluir, cuando el riesgo asociado a la actividad lo requiera, los adicionales correspondientes a uso de grúas, izaje, trabajo e altura, trabajos de soldadura u oxicorte, carga y descarga, uso maquinaria, transporte de bienes, contaminación súbita y accidental, suministro de alimentos, uso de armas de fuego, uso de vehículos propios o no propios en exceso de su póliza específica y personas físicas bajo contrato.  
 Previo al inicio de las tareas, la Contratista deberá presentar certificado de cobertura y libre deuda emitido por la aseguradora.  
@@ -68,15 +67,13 @@ Asegurado Adicional: Serán considerados asegurados y/o asegurados adicionales e
 Responsabilidad Civil Cruzada: Todos los sujetos mencionados precedentemente serán considerados terceros entre sí.  
 Cláusula de No Repetición: La Aseguradora renunciará expresamente a todo derecho de subrogación o repetición contra los sujetos mencionados precedentemente, manteniendo indemne a SOFSA frente a reclamos de terceros cubiertos por la póliza.  
 Notificación previa: La póliza no será anulada sin previo aviso por escrito a la OPERADORA FERROVIARIA SOCIEDAD ANONIMA, con domicilio en la Avda. Ramos Mejía Nº 1302, piso 4to. de la Ciudad Autónoma de Buenos Aires, con un plazo mínimo de 15 días corridos de anticipación.""",
-    "ART": """Seguros a presentar por la Contratista para el personal que se encuentre en relación de dependencia, y que deba ingresar a predio de SOFSA en virtud de la presente contratación:  
-Seguro de Riesgos del Trabajo: La Contratista deberá contratar y mantener vigente, por su exclusiva cuenta y cargo, un seguro que cubra los riesgos del trabajo de acuerdo con la Ley Nº 24.557 de Riesgos del Trabajo, sus reformas y decretos reglamentarios.  
+    "ART": """Para el personal que se encuentre en relación de dependencia, y que deba ingresar a predio de SOFSA en virtud de la presente contratación, La Contratista deberá contratar y mantener vigente, por su exclusiva cuenta y cargo, un seguro que cubra los riesgos del trabajo de acuerdo con la Ley Nº 24.557 de Riesgos del Trabajo, sus reformas y decretos reglamentarios.  
 Previo al inicio de las tareas, la Contratista deberá presentar certificado de cobertura emitido por la ART, incluyendo la nómina del personal afectado.  
 La póliza deberá incluir la siguiente cláusula:  
 Cláusula de No Repetición: La Aseguradora de Riesgos del Trabajo debe renunciar en forma expresa a sus derechos de subrogación y/o a reclamar o iniciar toda acción de repetición o de regreso contra SOFSA, y/o FASE - en proceso de transformación a Sociedad Anónima Unipersonal (SAU) - y/o ADIFSA y/o SECRETARIA DE TRANSPORTE DE LA NACIÓN, y/o MINISTERIO DE ECONOMÍA, y/o ESTADO NACIONAL así como sus accionistas, directors, empleados y funcionarios, con motivo de las prestaciones a las que se vea obligada a otorgar o abonar al personal dependiente o ex dependiente de la Contratista, amparados por la cobertura del contrato de afiliación, por accidente de trabajo o enfermedades profesionales ocurridos o contraídos por el hecho o en ocasión del trabajo o en el trayecto entre el domicilio del trabajador y el lugar de trabajo.""",
-    "VO": """Seguro Colectivo de Vida Obligatorio: La Contratista deberá contratar y mantener vigente, por su exclusiva cuenta y cargo, un seguro colectivo de vida obligatorio para cubrir la totalidad del personal afectado al trabajo y/o servicio contratado, según lo previsto en el Decreto Nº 1567/74.  
+    "VO": """La Contratista deberá contratar y mantener vigente, por su exclusiva cuenta y cargo, un seguro colectivo de vida obligatorio para cubrir la totalidad del personal afectado al trabajo y/o servicio contratado, según lo previsto en el Decreto Nº 1567/74.  
 Previo al inicio de las tareas, deberá presentarse certificado de cobertura emitido por la aseguradora, con indicación de la nómina del personal cubierto.""",
-    "AP": """Seguros a presentar por la Contratista para el personal contratado que NO se encuentre en relación de dependencia, y que deba ingresar a predio de SOFSA en virtud de la presente contratación:  
-Seguro de Accidentes Personales: La contratista deberá contratar y mantener vigente, por su exclusiva cuenta y cargo, un seguro que cubra los accidentes que pudiera sufrir el personal de la Contratista, afectado a los trabajos y/o servicios y que no se encuentre en relación de dependencia con ésta, cuando la modalidad contractual así lo permita.  
+    "AP": """La contratista deberá contratar y mantener vigente, por su exclusiva cuenta y cargo, un seguro que cubra los accidentes que pudiera sufrir el personal de la Contratista, afectado a los trabajos y/o servicios y que no se encuentre en relación de dependencia con ésta, cuando la modalidad contractual así lo permita.  
 La cobertura mínima por persona deberá contemplar:  
 Muerte e incapacidad permanente (total o parcial): USD 20.000 o su equivalente en moneda local.  
 Gastos médicos asistenciales: USD 2.000 o su equivalente en moneda local.  
@@ -84,11 +81,10 @@ La póliza deberá designar a SOFSA como beneficiaria en primer término, exclus
 Previo al inicio de las tareas, la Contratista deberá presentar certificado de cobertura y libre deuda emitido por la aseguradora.  
 La póliza deberá incluir las siguientes cláusulas:  
 Notificación previa: La póliza no será anulada sin previo aviso por escrito a la OPERADORA FERROVIARIA SOCIEDAD ANONIMA, con un plazo mínimo de 15 días corridos de anticipación.""",
-    "CAUCION": """Caución de Tenencia de Bienes: La Contratista deberá contratar una Póliza de Caución de Tenencia de Bienes, destinada a garantizar el retiro, transporte, traslado, tenencia, guarda, custodia, correcta conservación y posterior devolución de los Bienes y/o Equipos propiedad de SOFSA y/o bajo su responsabilidad. La cobertura deberá mantenerse vigente desde el momento del retiro de los bienes de las instalaciones de SOFSA o del lugar que ésta determine, durante todo el período de traslado, permanencia, manipulación, intervención técnica y custodia en instalaciones de la Contratista o de terceros, hasta su efectiva devolución y recepción conforme por parte de SOFSA.  
+    "CAUCION": """La Contratista deberá contratar una Póliza de Caución de Tenencia de Bienes, destinada a garantizar el retiro, transporte, traslado, tenencia, guarda, custodia, correcta conservación y posterior devolución de los Bienes y/o Equipos propiedad de SOFSA y/o bajo su responsabilidad. La cobertura deberá mantenerse vigente desde el momento del retiro de los bienes de las instalaciones de SOFSA o del lugar que ésta determine, durante todo el período de traslado, permanencia, manipulación, intervención técnica y custodia en instalaciones de la Contratista o de terceros, hasta su efectiva devolución y recepción conforme por parte de SOFSA.  
 La suma asegurada deberá ser equivalente a la suma establecida en el Pliego de Especificaciones Técnicas.  
 La póliza deberá incluir la siguiente cláusula: Los actos, declaraciones, acciones u omisiones de la Contratista (Tomador), incluida la falta de pago del premio, no afectarán de modo alguno los derechos de SOFSA (Asegurada) frente al Asegurador, quien mantendrá íntegramente su obligación de responder en los términos de la póliza.""",
-    "TRCYM": """Seguro a presentar por la Contratista para aquellos trabajos y/o servicios que requieran la realización de una obra y/o montaje:  
-Seguros Todo riesgo Construcción y/o Montaje: Cuando la contratación implique la ejecución de obras y/o trabajos de montaje, la Contratista deberá contratar y mantener vigente, por su exclusiva cuenta y cargo, un Seguro Todo Riesgo Construcción y/o Montaje que ampare la totalidad de la obra y/o montaje, incluyendo trabajos temporarios, materiales, equipos, instalaciones, obradores, maquinarias y bienes existentes y/o adyacentes afectados a la prestación. La cobertura deberá mantenerse vigente durante todo el período de ejecución, incluyendo los períodos de almacenaje, construcción y/o montaje, pruebas y mantenimiento, y hasta la recepción definitiva de la obra, debiendo actualizarse progresivamente la suma asegurada de modo tal que refleje en todo momento el valor total certificado.  
+    "TRCYM": """Cuando la contratación implique la ejecución de obras y/o trabajos de montaje, la Contratista deberá contratar y mantener vigente, por su exclusiva cuenta y cargo, un Seguro Todo Riesgo Construcción y/o Montaje que ampare la totalidad de la obra y/o montaje, incluyendo trabajos temporarios, materiales, equipos, instalaciones, obradores, maquinarias y bienes existentes y/o adyacentes afectados a la prestación. La cobertura deberá mantenerse vigente durante todo el período de ejecución, incluyendo los períodos de almacenaje, construcción y/o montaje, pruebas y mantenimiento, y hasta la recepción definitiva de la obra, debiendo actualizarse progresivamente la suma asegurada de modo tal que refleje en todo momento el valor total certificado.  
 La póliza deberá ser contratada a nombre conjunto de la Contratista y de SOFSA, y extenderse, cuando corresponda, a subcontratistas y/o proveedores que intervengan en la ejecución.  
 La Contratista deberá presentar a SOFSA certificado de cobertura y libre deuda emitido por la aseguradora.  
 Clausulas obligatorias:  
@@ -96,7 +92,7 @@ Asegurado Adicional: Serán considerados asegurados y/o asegurados adicionales e
 Responsabilidad Civil Cruzada: Todos los sujetos mencionados precedentemente serán considerados terceros entre sí.  
 Cláusula de No Repetición: La Aseguradora renunciará expresamente a todo derecho de subrogación o repetición contra los sujetos mencionados precedentemente, manteniendo indemne a SOFSA frente a reclamos de terceros cubiertos por la póliza.  
 Notificación previa: La póliza no será anulada sin previo aviso por escrito a la OPERADORA FERROVIARIA SOCIEDAD ANONIMA, con un plazo mínimo de 15 días corridos de anticipación.""",
-    "AUTO": """Seguro Automotor Obligatorio: La Contratista deberá contratar y mantener vigente, por su exclusiva cuenta y cargo, un seguro Automotor para los vehículos a ser utilizados en virtud de la presente contratación, los cuales deberán contar, como mínimo, con la cobertura de Responsabilidad Civil - Seguro Voluntario, por la suma establecida por la Superintendencia de Seguros de la Nación.  
+    "AUTO": """La Contratista deberá contratar y mantener vigente, por su exclusiva cuenta y cargo, un seguro Automotor para los vehículos a ser utilizados en virtud de la presente contratación, los cuales deberán contar, como mínimo, con la cobertura de Responsabilidad Civil - Seguro Voluntario, por la suma establecida por la Superintendencia de Seguros de la Nación.  
 La Contratista deberá presentar a SOFSA un certificado de cobertura y libre deuda emitido por la Aseguradora.  
 La póliza deberá incluir las siguientes cláusulas:  
 Cláusula de No Repetición: La Aseguradora renunciará expresamente a todo derecho de subrogación o repetición contra SOFSA, y/o FASE - en proceso de transformación a Sociedad Anónima Unipersonal (SAU) - y/o ADIFSA y/o SECRETARIA DE TRANSPORTE DE LA NACIÓN, y/o MINISTERIO DE ECONOMÍA, y/o ESTADO NACIONAL, así como sus accionistas, directores, empleados y funcionarios, con motivo de las sumas que se vea obligada a abonar por los riesgos amparados en la cobertura de la póliza.  
@@ -210,27 +206,42 @@ if not bloqueo and nivel != "Nulo":
     col_btn1, col_btn2 = st.columns(2)
 
     # --- BOTÓN 1: ANEXO DE SEGUROS ---
-    with col_btn1:
+        with col_btn1:
         pdf_anexo = PDF()
         pdf_anexo.add_page()
         pdf_anexo.chapter_title("ANEXO DE SEGUROS")
         pdf_anexo.chapter_body(TEXTOS_LEGALES["GENERAL_ENCABEZADO"])
+
         if p1:
+            pdf_anexo.chapter_title("Seguro de Riesgos del Trabajo (ART)")
             pdf_anexo.chapter_body(TEXTOS_LEGALES["ART"])
+
+            pdf_anexo.chapter_title("Seguro Colectivo de Vida Obligatorio")
             pdf_anexo.chapter_body(TEXTOS_LEGALES["VO"])
+
+            pdf_anexo.chapter_title("Seguro de Accidentes Personales")
             pdf_anexo.chapter_body(TEXTOS_LEGALES["AP"])
-       
+
         if (p5 or p7 or p8 or p9):
             suma_rc = "USD 100.000" if nivel == "Alto" else "USD 50.000"
+            pdf_anexo.chapter_title("Responsabilidad Civil Comprensiva")
             pdf_anexo.chapter_body(TEXTOS_LEGALES["RC"] + f"\n\nSUMA ASEGURADA MINIMA REQUERIDA: {suma_rc}")
-       
-        if p4: pdf_anexo.chapter_body(TEXTOS_LEGALES["CAUCION"])
-        if p9: pdf_anexo.chapter_body(TEXTOS_LEGALES["TRCYM"])
-        if p3: pdf_anexo.chapter_body(TEXTOS_LEGALES["AUTO"])
-       
+
+        if p4:
+            pdf_anexo.chapter_title("Caución por Tenencia de Bienes")
+            pdf_anexo.chapter_body(TEXTOS_LEGALES["CAUCION"])
+
+        if p9:
+            pdf_anexo.chapter_title("Todo Riesgo Construcción y Montaje")
+            pdf_anexo.chapter_body(TEXTOS_LEGALES["TRCYM"])
+
+        if p3:
+            pdf_anexo.chapter_title("Responsabilidad Civil Automotor")
+            pdf_anexo.chapter_body(TEXTOS_LEGALES["AUTO"])
+
         pdf_anexo.add_page()
         pdf_anexo.chapter_body(TEXTOS_LEGALES["REQUISITOS_FINALES"])
-       
+
         st.download_button(
             label="Generar Anexo de Seguros",
             data=bytes(pdf_anexo.output()),
