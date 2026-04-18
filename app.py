@@ -33,8 +33,10 @@ class PDF(FPDF):
 
     def header(self):
         if os.path.exists("logotrenes.png"):
-            try: self.image("logotrenes.png", 10, 8, 33)
-            except: pass
+            try:
+                self.image("logotrenes.png", 10, 8, 33)
+            except:
+                pass
         self.set_font('Helvetica', 'B', 15)
         self.ln(10)
 
@@ -88,7 +90,7 @@ La póliza deberá incluir la siguiente cláusula: Los actos, declaraciones, acc
 La póliza deberá ser contratada a nombre conjunto de la Contratista y de SOFSA, y extenderse, cuando corresponda, a subcontratistas y/o proveedores que intervengan en la ejecución.  
 La Contratista deberá presentar a SOFSA certificado de cobertura y libre deuda emitido por la aseguradora.  
 Clausulas obligatorias:  
-Asegurado Adicional: Serán considerados asegurados y/o asegurados adicionales el titular de la póliza y/o La OPERADORA FERROVIARIA SOCIEDAD ANONIMA (SOFSA) CUIT 30-71068177-1 y/o ADMINISTRACION DE INFRAESTRUCTURAS FERROVIARIAS SOCIEDAD ANONIMA (ADIFSA) CUIT 30- 71069599-3, y/o FERROCARRILES ARGENTINOS SOCIEDAD DEL ESTADO (FASE) - en proceso de transformación a Sociedad Anónima Unipersonal (SAU) - CUIT 30-71525570-3, y/o a SECRETARIA DE TRANSPORTE DE LA NACIÓN CUIT 30-71512720-9, y/o MINISTERIO DE ECONOMÍA CUIT 30-54667611-7, y/o al ESTADO NACIONAL, quienes serán coasegurados y/o asegurados adicionales a los efectos de la cobertura de la póliza, así como sus accionistas, directores, empleados y funcionarios.  
+Asegurado Adicional: Serán considerados asegurados y/o asegurados adicionales el titular de la póliza y/o la OPERADORA FERROVIARIA SOCIEDAD ANONIMA (SOFSA) CUIT 30-71068177-1 y/o ADMINISTRACION DE INFRAESTRUCTURAS FERROVIARIAS SOCIEDAD ANONIMA (ADIFSA) CUIT 30-71069599-3, y/o FERROCARRILES ARGENTINOS SOCIEDAD DEL ESTADO (FASE) - en proceso de transformación a Sociedad Anónima Unipersonal (SAU) - CUIT 30-71525570-3, y/o a SECRETARIA DE TRANSPORTE DE LA NACIÓN CUIT 30-71512720-9, y/o MINISTERIO DE ECONOMÍA CUIT 30-54667611-7, y/o al ESTADO NACIONAL, quienes serán coasegurados y/o asegurados adicionales a los efectos de la cobertura de la póliza, así como sus accionistas, directores, empleados y funcionarios.  
 Responsabilidad Civil Cruzada: Todos los sujetos mencionados precedentemente serán considerados terceros entre sí.  
 Cláusula de No Repetición: La Aseguradora renunciará expresamente a todo derecho de subrogación o repetición contra los sujetos mencionados precedentemente, manteniendo indemne a SOFSA frente a reclamos de terceros cubiertos por la póliza.  
 Notificación previa: La póliza no será anulada sin previo aviso por escrito a la OPERADORA FERROVIARIA SOCIEDAD ANONIMA, con un plazo mínimo de 15 días corridos de anticipación.""",
@@ -161,14 +163,20 @@ p1, p2, p3, p4, p5, p6, p7, p8, p9 = [r == "Sí" for r in [r1, r2, r3, r4, r5, r
 
 # --- VALIDACIONES DE BLOQUEO ---
 bloqueo = False
+
 if not p1 and (p3 or p4 or p5 or p6 or p7 or p8 or p9):
-    st.error('Bloqueo detectado: La pregunta 1 debe responderse "Sí" para las tareas seleccionadas.')
+    st.error('Bloqueo detectado: no puede haber condiciones operativas seleccionadas si la respuesta a la Pregunta 1 es "No".')
+    st.caption("Fundamento: toda actividad operativa requiere ingreso de personal del proveedor a instalaciones o predios de SOFSA.")
     bloqueo = True
+
 if p2 and (p4 or p5 or p6 or p7 or p8 or p9):
-    st.error("Bloqueo detectado: Tareas seleccionadas incompatibles con actividad administrativa (Pregunta 2).")
+    st.error("Bloqueo detectado: la actividad no puede ser administrativa pura si al mismo tiempo incluye condiciones operativas.")
+    st.caption("Fundamento: la Pregunta 2 es incompatible con custodia de bienes, zona ferroviaria, trabajo menor, uso de equipos, tareas riesgosas u obra.")
     bloqueo = True
+
 if p6 and (p2 or p4 or p5 or p7 or p8 or p9):
-    st.error('La pregunta 6 no puede ser "si" si respondio afirmativamente las preguntas 2,4,5,7,8,o 9')
+    st.error('Bloqueo detectado: la actividad no puede clasificarse como trabajo menor si fue marcada simultáneamente con otras condiciones de mayor riesgo.')
+    st.caption("Fundamento: el trabajo menor excluye actividad administrativa pura, custodia de bienes, zona ferroviaria, uso de equipos, tareas riesgosas y obra.")
     bloqueo = True
 
 # --- PIE DE PÁGINA INTERFAZ ---
@@ -200,6 +208,24 @@ elif p1:
 else:
     nivel = "Nulo"
     fundamento = "Riesgo Nulo por ausencia de personal y de condiciones operativas (P1 = No y P3 a P9 = No)"
+
+# Seguros activados para trazabilidad
+seguros_activados = []
+
+if p1:
+    seguros_activados.append("Seguro de Personas (ART / VO / AP)")
+
+if (p5 or p7 or p8) and not p9:
+    seguros_activados.append("Responsabilidad Civil Comprensiva")
+
+if p9:
+    seguros_activados.append("Todo Riesgo Construcción y Montaje")
+
+if p4:
+    seguros_activados.append("Caución por Tenencia de Bienes")
+
+if p3:
+    seguros_activados.append("Responsabilidad Civil Automotor")
 
 if not bloqueo and nivel != "Nulo":
     st.write("---")
@@ -248,31 +274,37 @@ if not bloqueo and nivel != "Nulo":
             file_name=f"Anexo_Seguros_{nivel}.pdf",
             mime="application/pdf"
         )
+
     # --- BOTÓN 2: CHECKLIST DE CONTROL ---
     with col_btn2:
         req_rc_separado = (p5 or p7 or p8 or p9) and not p9
-       
+
         seguros_checklist = []
-        if p1: seguros_checklist.append("Seguro de Personas (ART / VO / AP)")
-        if req_rc_separado: seguros_checklist.append("Responsabilidad Civil Comprensiva")
-        if p9: seguros_checklist.append("Todo Riesgo Construcción y Montaje")
-        if p4: seguros_checklist.append("Caución por Tenencia de Bienes")
-        if p3: seguros_checklist.append("Responsabilidad Civil Automotor")
+        if p1:
+            seguros_checklist.append("Seguro de Personas (ART / VO / AP)")
+        if req_rc_separado:
+            seguros_checklist.append("Responsabilidad Civil Comprensiva")
+        if p9:
+            seguros_checklist.append("Todo Riesgo Construcción y Montaje")
+        if p4:
+            seguros_checklist.append("Caución por Tenencia de Bienes")
+        if p3:
+            seguros_checklist.append("Responsabilidad Civil Automotor")
 
         chk = PDF()
         chk.add_page()
         chk.chapter_title("CHECKLIST DE CONTROL DE PÓLIZAS", 14)
         chk.chapter_body("Seguros requeridos según Anexo generado por el Modelo de Determinación de Seguros a Proveedores", 11, 'B')
-       
+
         chk.ln(4)
         chk.chapter_body("Resultado del modelo", 10, 'B')
         chk.chapter_body(f"Nivel de riesgo determinado: {nivel}")
         chk.chapter_body(f"Seguros requeridos: {', '.join(seguros_checklist)}")
-       
+
         chk.ln(4)
         chk.chapter_body("Regla operativa", 10, 'B')
         chk.chapter_body("Ante duda razonable sobre la aplicabilidad del seguro, SOFSA determinará su exigencia en función del riesgo identificado.")
-       
+
         chk.ln(4)
         chk.chapter_body("Control documental general (aplica a todos los seguros)", 10, 'B')
         chk.chapter_body("""
@@ -337,8 +369,11 @@ if not bloqueo and nivel != "Nulo":
             """)
             chk.chapter_body("""Cobertura de Responsabilidad Civil dentro de Todo Riesgo Construcción""", 10, 'B')
             chk.chapter_body("""
-            [] Responsabilidad Civil incluida dentro de la póliza TRCyM  
+            [] Responsabilidad Civil expresamente incluida dentro de la póliza TRCyM  
             [] Suma asegurada de RC acorde al nivel de riesgo  
+            [] Cláusula de no repetición aplicable a la cobertura de RC  
+            [] Asegurados adicionales aplicables a la cobertura de RC  
+            [] Cláusula RC cruzada aplicable a la cobertura de RC  
             [] Incluye adicionales según actividad (si corresponden)
             """)
 
@@ -377,3 +412,6 @@ if not bloqueo:
         st.success("**NIVEL DE RIESGO: Nulo. No hay requerimiento de Seguros**")
 
     st.caption(f"**Trazabilidad:** {fundamento}")
+
+    if seguros_activados:
+        st.caption(f"**Seguros activados:** {', '.join(seguros_activados)}")
