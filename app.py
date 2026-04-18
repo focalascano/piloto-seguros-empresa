@@ -206,11 +206,11 @@ if not bloqueo and nivel != "Nulo":
     col_btn1, col_btn2 = st.columns(2)
 
     # --- BOTÓN 1: ANEXO DE SEGUROS ---
-        with col_btn1:
-            pdf_anexo = PDF()
-            pdf_anexo.add_page()
-            pdf_anexo.chapter_title("ANEXO DE SEGUROS")
-            pdf_anexo.chapter_body(TEXTOS_LEGALES["GENERAL_ENCABEZADO"])
+    with col_btn1:
+        pdf_anexo = PDF()
+        pdf_anexo.add_page()
+        pdf_anexo.chapter_title("ANEXO DE SEGUROS")
+        pdf_anexo.chapter_body(TEXTOS_LEGALES["GENERAL_ENCABEZADO"])
 
         if p1:
             pdf_anexo.chapter_title("Seguro de Riesgos del Trabajo (ART)")
@@ -248,7 +248,6 @@ if not bloqueo and nivel != "Nulo":
             file_name=f"Anexo_Seguros_{nivel}.pdf",
             mime="application/pdf"
         )
-
     # --- BOTÓN 2: CHECKLIST DE CONTROL ---
     with col_btn2:
         req_rc_separado = (p5 or p7 or p8 or p9) and not p9
